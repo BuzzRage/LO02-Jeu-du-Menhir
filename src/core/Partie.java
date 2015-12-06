@@ -223,18 +223,12 @@ public abstract class Partie{
     private void distribCartes() {
         for(Joueur j:listeJoueurs){
             for(int i=0;i<4;i++){
-                
-                
                 j.addCarteIng(this.listeCarteIng.pop());
-                
             }   
         }
-        
     }
     private void creerJoueur(int nbJH, int nbJIA){
     	Joueur.initNbrJoueurs();
-        
-    	
         for(int i = 0;i<nbJH+nbJIA;i++)
         {
             if(i<nbJH)
@@ -242,7 +236,6 @@ public abstract class Partie{
             else //if(i<=nbrJoueursH)
             listeJoueurs.add(new JoueurIA());
         }
-       
     }
         /**	Initialise la partie en param�trant le nb de joueurs humains et IA, et en cr�ant le tableau de joueurs. 
      *	Pour une partie rapide, on met le nb de graines � 2
@@ -280,8 +273,6 @@ public abstract class Partie{
         int[][] fee2Effet       = {{4, 0, 1, 1}, {1, 1, 3, 1}, {0, 0, 3, 3}};
         int[][] fee3Effet       = {{2, 0, 3, 1}, {0, 3, 0, 3}, {1, 2, 2, 1}};
         
-        
-              
         listeCarteIng.add(new CarteIngredient(lune1Effet));
         listeCarteIng.add(new CarteIngredient(lune2Effet));
         listeCarteIng.add(new CarteIngredient(lune3Effet));

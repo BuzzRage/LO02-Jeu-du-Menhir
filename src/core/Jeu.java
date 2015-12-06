@@ -50,15 +50,6 @@ public class Jeu {
 
         }
         continuer=false;
-        while(!continuer){
-            try{
-                nbJH = console.getNbJH(nbJoueurs);
-                continuer = true;
-            }
-            catch(WrongNumberException | InputMismatchException e){
-                System.out.println(e.getMessage());
-            }
-        }
         continuer=false;
         while(!continuer){
             try{

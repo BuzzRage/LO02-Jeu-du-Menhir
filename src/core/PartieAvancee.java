@@ -18,9 +18,7 @@ public class PartieAvancee extends Partie {
         
         
     }
-   /* public void lancerPartie(){
-        
-    }*/
+   
     
     @Override
     public void recupCartes() {
