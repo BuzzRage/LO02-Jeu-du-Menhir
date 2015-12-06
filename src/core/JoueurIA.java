@@ -30,21 +30,16 @@ public class JoueurIA extends Joueur {
     public JoueurIA(){
             super(false);
             double rand = 100*Math.random();
-            //if(rand<=50)
-            //{
-                //this.setStrat(new SafeStrat());
-            //}
-            //else
-            //{
+            if(rand<=50)
+            {
+                this.setStrat(new SafeStrat());
+            }
+            else
+            {
             	this.setStrat(new AggressiveStrat());
-            //}
+            }
     }
     public void jouerTour(Partie part){
         strat.decider(part, this);
         }
-    public void notifier(){
-        
     }
-	
-	
-}

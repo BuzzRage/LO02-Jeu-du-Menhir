@@ -1,29 +1,21 @@
 package core;
 
 import java.util.*;
-import java.util.Collections.*;
 import console.*;
 
 
-public abstract class Partie extends Observable{
+public abstract class Partie{
 
     protected int nbrManches;
     protected int nbrMancheActuelle;
     protected int nbrTourActuel;
     protected Console console;
-    
-    
-    
     protected Joueur joueurActif;
     protected TypeSaison saison;
-    
     protected ArrayList<Joueur> listeJoueurs;
     protected LinkedList<CarteIngredient> listeCarteIng;
-    
-    
     protected boolean running;
     protected boolean tourRunning;
-
     protected Iterator<Joueur> joueurIterator;
     
     public Partie(int nbJH,int nbJIA){
@@ -183,10 +175,6 @@ public abstract class Partie extends Observable{
             this.nbrTourActuel=1;
             nextManche();
         }
-        setChanged();
-        notifyObservers();
-        
-        
     }
     private void distribCartes() {
         for(Joueur j:listeJoueurs){
@@ -210,8 +198,6 @@ public abstract class Partie extends Observable{
             else //if(i<=nbrJoueursH)
             listeJoueurs.add(new JoueurIA());
         }
-        setChanged();
-        notifyObservers();
        
     }
         /**	Initialise la partie en param�trant le nb de joueurs humains et IA, et en cr�ant le tableau de joueurs. 
@@ -276,12 +262,7 @@ public abstract class Partie extends Observable{
         listeCarteIng.add(new CarteIngredient(fee1Effet));
         listeCarteIng.add(new CarteIngredient(fee2Effet));
         listeCarteIng.add(new CarteIngredient(fee3Effet));
-        
-        
-      
-        
     }
-    
 }    
     
     

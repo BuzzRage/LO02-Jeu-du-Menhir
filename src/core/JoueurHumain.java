@@ -43,9 +43,6 @@ public class JoueurHumain extends Joueur {
                 }
             }
         }
-        @Override
-        public void notifier(){
-            
-        }
+       
 	
 }

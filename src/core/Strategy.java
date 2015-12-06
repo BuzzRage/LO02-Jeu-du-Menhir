@@ -1,8 +1,4 @@
 package core;
-
-import java.util.ArrayList;
-
-
 public interface Strategy {
 	// On check le deck de carte � disposition ainsi que l'�tat du joueur.
 	public void decider(Partie p, Joueur j);

@@ -5,17 +5,14 @@
  */
 package console;
 import MenhirExceptions.*;
-import java.util.Scanner;
 import core.*;
-import core.Observer;
-
 import java.util.*;
 
 /**
  *
  * @author Apache
  */
-public class Console implements Observer{
+public class Console{
     private final Scanner sc;
     private boolean continuer;
     private static Console instance =null;
@@ -464,16 +461,5 @@ public class Console implements Observer{
         return bool;
         
         
-    }
-    
-    
-    
-    public void update(Observable obs, Object obj){
-        
-    }
-        
-        
-    public void notifier(){
-    	
     }
 }

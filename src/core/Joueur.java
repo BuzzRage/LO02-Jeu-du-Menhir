@@ -2,7 +2,7 @@ package core;
 import console.*;
 
 import java.util.LinkedList;
-public abstract class Joueur implements Observer{
+public abstract class Joueur{
 
     private int nbr;
     private int nbrPoints;
@@ -108,16 +108,10 @@ public abstract class Joueur implements Observer{
             this.nbrGraines=0;
     }
     public void addMenhirs(int nbMenhirs){
-        //int n = this.nbrMenhirs;
         this.nbrMenhirs+=nbMenhirs;
-        
         if (this.nbrMenhirs<0){
             this.nbrMenhirs=0;
-            //this.nbrPoints-=n;
         }
-        //else
-            //this.nbrPoints+=nbMenhirs;
-            
     }
     public void addPoints(int nbPoints){
         this.nbrPoints+=nbPoints;
