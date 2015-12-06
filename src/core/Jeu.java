@@ -50,7 +50,6 @@ public class Jeu {
 
         }
         continuer=false;
-        continuer=false;
         while(!continuer){
             try{
                 if(console.getTypePartie(nbJH, nbJoueurs))

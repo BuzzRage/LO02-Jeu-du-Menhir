@@ -10,16 +10,19 @@ public class JoueurIA extends Joueur {
     public void setStrat(Strategy s){
     	strat=s;
     }
+    @Override
     public void deciderReaction(Partie part){
         if(strat.deciderReaction(this,part.joueurActif,part.getSaison())){
             jouerCarteAl(part.getJoueurActif(),part.getSaison());
         }
             
     }
+    @Override
     public void jouerAllie(Partie part){
         if(carteAl instanceof CarteTaupe && strat.jouerAllie(part))
             jouerCarteAl(part.getJoueurMaxMenhir(),part.getSaison());
     }
+    @Override
     public boolean choixAllie(){
         if(strat.choixAllie())
             return true;

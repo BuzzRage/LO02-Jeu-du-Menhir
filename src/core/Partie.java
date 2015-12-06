@@ -36,7 +36,8 @@ public abstract class Partie{
         
         
     }
-    public void lancerPartie(){initPartie();
+    public void lancerPartie(){
+        initPartie();
         do{
             if(!tourRunning){
                 initManche();
@@ -53,7 +54,7 @@ public abstract class Partie{
                             else
                                 joueurActif.setNbrGraines(2);
                     }
-                    if(joueurActif.hasAllie()&&joueurActif.getCarteAl() instanceof CarteTaupe)
+                    else if(joueurActif.hasAllie()&&joueurActif.getCarteAl() instanceof CarteTaupe)
                         joueurActif.jouerAllie(this);
                 }
                 joueurActif.jouerTour(this);
@@ -80,6 +81,8 @@ public abstract class Partie{
     protected void initPartie(){
         for(Joueur j:listeJoueurs){
             j.setNbrPoints(0);
+            j.setNbrGraines(0);
+            j.setNbrMenhir(nbrManches);
         }
     }
     public void initManche(){
