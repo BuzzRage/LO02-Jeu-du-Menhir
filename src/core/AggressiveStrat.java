@@ -11,8 +11,9 @@ public class AggressiveStrat implements Strategy {
         }
         else if(jIA.getNbrGraines()==0) //Si on a pas de graines, on en prend (le plus possible)
         {		
-            jIA.getChoixJoueur().setCarte(jIA.getCarteMax(TypeAction.GEANT,p.getSaison()));
-            jIA.getChoixJoueur().setAction(TypeAction.GEANT);
+            jIA.getChoixJoueur().setAction(TypeAction.FARFADET);
+            jIA.getChoixJoueur().setCible(p.getJoueurMaxGraines());
+            jIA.getChoixJoueur().setCarte(jIA.getCarteMax(TypeAction.FARFADET,p.getSaison(),jIA.getChoixJoueur().getCible().getNbrGraines()));
         }
         else if(jIA.getNbrGraines()>1) //Si on a deux graines, on les fait pousser.
         {
@@ -22,12 +23,7 @@ public class AggressiveStrat implements Strategy {
         else if(p.getSaison()==TypeSaison.HIVER){
             
         	jIA.getChoixJoueur().setAction(TypeAction.ENGRAIS);
-        	jIA.getChoixJoueur().setCarte(jIA.getCarteMax(TypeAction.ENGRAIS, p.getSaison()));
-        }
-        else{
-            jIA.getChoixJoueur().setCarte(jIA.getCarteMax(TypeAction.FARFADET,p.getSaison()));
-            jIA.getChoixJoueur().setAction(TypeAction.FARFADET);
-            jIA.getChoixJoueur().setCible(p.getJoueurMaxGraines());
+        	jIA.getChoixJoueur().setCarte(jIA.getCarte(0));
         }
             
         

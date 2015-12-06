@@ -304,13 +304,13 @@ public class Console{
             if(choix<1||choix>listeJoueurs.size())
                 throw new WrongNumberException("Ce joueur n'existe pas. Choisis un joueur existant");
             else if(choix == joueurActif.getNbr())
-                throw new WrongNumberException("Tu ne pouvez pas te viser toi-même!");
+                throw new WrongNumberException("Tu ne peux pas te viser toi-même!");
             else
                 choixJoueur.setCible(listeJoueurs.get(choix-1));
         }
         catch(InputMismatchException e){
             sc.nextLine();
-            throw new InputMismatchException("Entrez un nonmbre comprit entre 1 et "+listeJoueurs.size());
+            throw new InputMismatchException("Entrez un nombre comprit entre 1 et "+listeJoueurs.size());
         }
     }
     

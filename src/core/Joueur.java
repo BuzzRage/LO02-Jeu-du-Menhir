@@ -129,6 +129,7 @@ public abstract class Joueur{
                         nbMax=c.getEffet(a,s);
                         carte=c;
                 }
+               
         }
         return carte;
     }
@@ -138,14 +139,13 @@ public abstract class Joueur{
         for(CarteIngredient c:deck)
         {
             if(!c.isPose())
+            	// TODO: rendre le if moins compact
                 if((c.getEffet(a,s)<=condition || (c.getEffet(a,s)>condition && Math.abs(c.getEffet(a,s)-condition) <= 1)) && c.getEffet(a,s)>nbMax)
                 {
                         nbMax=c.getEffet(a,s);
                         carte= c;
                 }
         }
-        if (carte == null)
-            carte=getCarteMax(a,s);
         return carte;
     }
     public void addCarteIng(CarteIngredient c){
