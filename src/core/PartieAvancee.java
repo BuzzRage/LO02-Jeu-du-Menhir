@@ -13,44 +13,14 @@ public class PartieAvancee extends Partie {
         super(nbJH,nbJIA);
         
         super.setNbrManches(nbJH+nbJIA);
+        partAvancee = true;
         
         
         
     }
-    public void lancerPartie(){
-        initPartie();
-        do{
-            if(!tourRunning){
-                initManche();
-                console.displayNbManche(this);
-            }
-            for(Joueur j:listeJoueurs){
-                joueurActif = j;
-                if(nbrTourActuel==1){
-                        if(joueurActif.choixAllie())
-                                distribCarteAl(j);
-                        else
-                            joueurActif.setNbrGraines(2);
-                }
-                if(joueurActif.hasAllie()&&joueurActif.getCarteAl() instanceof CarteTaupe)
-                    joueurActif.jouerAllie(this);
-                joueurActif.jouerTour(this);
-                if(joueurActif.getChoixJoueur().getAction()==TypeAction.FARFADET)
-                    if(joueurActif.getChoixJoueur().getCible().hasAllie())
-                        if(joueurActif.getChoixJoueur().getCible().getCarteAl() instanceof CarteChien)
-                            joueurActif.getChoixJoueur().getCible().deciderReaction(this);
-                console.displayAction(joueurActif,saison);
-                joueurActif.jouerCarte(saison);
-            }
-            nextTour();
-            if(!tourRunning){
-                this.recupCartes();
-                console.displayFinManche(listeJoueurs);
-            } 
-        }while(running);
-        listeJoueurs.add(listeJoueurs.remove(0));
-        console.displayGagnant(this.getPalmares());
-    }
+   /* public void lancerPartie(){
+        
+    }*/
     
     @Override
     public void recupCartes() {

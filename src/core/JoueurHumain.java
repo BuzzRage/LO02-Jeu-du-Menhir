@@ -23,10 +23,8 @@ public class JoueurHumain extends Joueur {
                 }
         }
         public boolean choixAllie(){
-            if(console.displayChoixAllie()){
-                console.displayTypeAllie(this);
+            if(console.displayChoixAllie())
                 return true;
-            }
             else
                 return false;
             

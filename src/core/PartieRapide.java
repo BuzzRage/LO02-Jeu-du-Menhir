@@ -7,6 +7,7 @@ public class PartieRapide extends Partie {
         
         super(nbJH,nbJIA);
         super.setNbrManches(1);
+        partAvancee = false;
         
     }
     @Override
@@ -17,7 +18,7 @@ public class PartieRapide extends Partie {
             j.setNbrGraines(2);
     	}
     }
-    public void lancerPartie(){
+    /*public void lancerPartie(){
         initPartie();
         do{
             if(!tourRunning)
@@ -35,6 +36,6 @@ public class PartieRapide extends Partie {
         }while(running);
         listeJoueurs.add(listeJoueurs.remove(0));
         console.displayGagnant(this.getPalmares());
-    }
+    }*/
     
 }

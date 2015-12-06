@@ -17,6 +17,7 @@ public abstract class Partie{
     protected boolean running;
     protected boolean tourRunning;
     protected Iterator<Joueur> joueurIterator;
+    protected boolean partAvancee;
     
     public Partie(int nbJH,int nbJIA){
         console = Console.getInstance();
@@ -35,7 +36,47 @@ public abstract class Partie{
         
         
     }
-    public abstract void lancerPartie();
+    public void lancerPartie(){initPartie();
+        do{
+            if(!tourRunning){
+                initManche();
+                console.displayNbManche(this);
+            }
+            for(Joueur j:listeJoueurs){
+                joueurActif = j;
+                if(partAvancee){
+                    if(nbrTourActuel==1){
+                            if(joueurActif.choixAllie()){
+                                    distribCarteAl(j);
+                                    console.displayTypeAllie(joueurActif);
+                            }
+                            else
+                                joueurActif.setNbrGraines(2);
+                    }
+                    if(joueurActif.hasAllie()&&joueurActif.getCarteAl() instanceof CarteTaupe)
+                        joueurActif.jouerAllie(this);
+                }
+                joueurActif.jouerTour(this);
+                if(partAvancee){
+                    if(joueurActif.getChoixJoueur().getAction()==TypeAction.FARFADET)
+                        if(joueurActif.getChoixJoueur().getCible().hasAllie())
+                            if(joueurActif.getChoixJoueur().getCible().getCarteAl() instanceof CarteChien)
+                                joueurActif.getChoixJoueur().getCible().deciderReaction(this);
+                }
+                console.displayAction(joueurActif,saison);
+                joueurActif.jouerCarte(saison);
+            }
+            nextTour();
+            if(!tourRunning){
+                this.recupCartes();
+                if(partAvancee)
+                    console.displayFinManche(listeJoueurs);
+            } 
+        }while(running);
+        listeJoueurs.add(listeJoueurs.remove(0));
+        console.displayGagnant(this.getPalmares());
+        
+    }
     protected void initPartie(){
         for(Joueur j:listeJoueurs){
             j.setNbrPoints(0);
@@ -52,6 +93,9 @@ public abstract class Partie{
             j.setNbrMenhir(0);
         }
         
+    }
+    public void distribCarteAl(Joueur j){
+        return;
     }
     
     /** Getters et Setters
