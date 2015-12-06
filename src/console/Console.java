@@ -94,10 +94,12 @@ public class Console{
         
     }
     public void displayTypeAllie(Joueur joueurActif){
-        if(joueurActif.getCarteAl() instanceof CarteChien)
-            System.out.println("Vous avez tiré une carte chien!");
-        else
-            System.out.println("Vous avez tiré une carte taupe!");
+        if(joueurActif.isHuman()){
+            if(joueurActif.getCarteAl() instanceof CarteChien)
+                System.out.println("Vous avez tiré une carte chien!");
+            else
+                System.out.println("Vous avez tiré une carte taupe!");
+        }
     }
     public boolean getChoixAllie() throws WrongNumberException,InputMismatchException{
         int choix;
