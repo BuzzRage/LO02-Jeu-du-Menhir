@@ -11,7 +11,7 @@ public class PartieAvancee extends Partie {
     public PartieAvancee(int nbJH,int nbJIA){
         
         super(nbJH,nbJIA);
-        listeCarteAl  = new LinkedList<>();
+        
         super.setNbrManches(nbJH+nbJIA);
         
         
@@ -71,6 +71,7 @@ public class PartieAvancee extends Partie {
     @Override
     public void creerCartes(){
         super.creerCartes();
+        listeCarteAl  = new LinkedList<>();
         int[] taupe1Effet       = {1, 1, 1, 1};
         int[] taupe2Effet       = {0, 2, 2, 0};
         int[] taupe3Effet       = {0, 1, 2, 1};

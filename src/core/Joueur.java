@@ -58,7 +58,9 @@ public abstract class Joueur{
     public boolean isHuman(){
     	return humain;
     }
-    
+    public void setChoixJoueur(ChoixJoueur choix){
+        choixJoueur = choix;
+    }
     public LinkedList<CarteIngredient> getCartes(){
         LinkedList<CarteIngredient> liste=new LinkedList<>();
         for(CarteIngredient c:this.deck){

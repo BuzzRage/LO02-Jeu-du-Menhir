@@ -6,8 +6,12 @@ import java.util.LinkedList;
 public class AggressiveStrat implements Strategy {
     public void decider(Partie p,Joueur jIA){
         
+        jIA.setChoixJoueur(new ChoixJoueur());
+        
+        
         if(p.getSaison()==TypeSaison.PRINTEMPS)
         {
+            
             jIA.getChoixJoueur().setCarte(jIA.getCarteMax(TypeAction.GEANT,p.getSaison()));
             jIA.getChoixJoueur().setAction(TypeAction.GEANT);
             

@@ -30,13 +30,13 @@ public abstract class Partie{
         nbrTourActuel = 1;
         saison = TypeSaison.PRINTEMPS;
         creerJoueur(nbJH,nbJIA);
+        creerCartes();
         
         
         
     }
     public abstract void lancerPartie();
     protected void initPartie(){
-        creerCartes();
         for(Joueur j:listeJoueurs){
             j.setNbrPoints(0);
         }
