@@ -214,7 +214,7 @@ public abstract class Partie{
     public void nextTour(){
         this.nbrTourActuel++;
         this.saison=this.saison.next();
-        
+        joueurActif.setChoixJoueur(new ChoixJoueur());
         if(this.nbrTourActuel>4){
             this.nbrTourActuel=1;
             nextManche();

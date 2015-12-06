@@ -1,14 +1,7 @@
 package core;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-
 public class AggressiveStrat implements Strategy {
     public void decider(Partie p,Joueur jIA){
-        
-        jIA.setChoixJoueur(new ChoixJoueur());
-        
-        
         if(p.getSaison()==TypeSaison.PRINTEMPS)
         {
             
@@ -26,8 +19,6 @@ public class AggressiveStrat implements Strategy {
             jIA.getChoixJoueur().setAction(TypeAction.ENGRAIS);
             jIA.getChoixJoueur().setCarte(jIA.getCarteMax(TypeAction.ENGRAIS,p.getSaison(),jIA.getNbrGraines()));            
         }
-        
-        
         else if(p.getSaison()==TypeSaison.HIVER){
             
         	jIA.getChoixJoueur().setAction(TypeAction.ENGRAIS);
@@ -42,6 +33,7 @@ public class AggressiveStrat implements Strategy {
         
         
     }
+    @Override
     public boolean deciderReaction(Joueur jIA,Joueur attaquant,TypeSaison s){
     	if(jIA.getCarteAl() instanceof CarteChien){
             if(attaquant.getChoixJoueur().getCarte().getEffet(TypeAction.FARFADET,s)>0&&jIA.getCarteAl().getEffet(s)>0)
@@ -52,6 +44,7 @@ public class AggressiveStrat implements Strategy {
         else 
             return false;
     }
+    @Override
     public boolean jouerAllie(Partie part){
         if(part.getSaison()==TypeSaison.PRINTEMPS)
             return false;
@@ -78,6 +71,7 @@ public class AggressiveStrat implements Strategy {
         return sMax;
     }
     
+    @Override
     public boolean choixAllie(){
     	return true;
     }

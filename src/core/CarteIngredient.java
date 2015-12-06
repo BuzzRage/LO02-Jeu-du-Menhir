@@ -1,5 +1,4 @@
 package core;
-import MenhirExceptions.*;
 
 public class CarteIngredient extends Carte{
 
@@ -25,6 +24,7 @@ public class CarteIngredient extends Carte{
         
     }
     
+    @Override
     public void jouer(Joueur lanceur, Joueur cible, TypeAction a, TypeSaison s ){
         if(cible==null)
             jouer(lanceur,a,s);
@@ -45,8 +45,9 @@ public class CarteIngredient extends Carte{
         this.setPose(true);
     }
     
+    @Override
     public String toString(){
-        String str=new String("");
+        String str="";
         String action="";
         str = "   p   e   a   h\n";
         for(int i =0;i<this.effet.length;i++){
