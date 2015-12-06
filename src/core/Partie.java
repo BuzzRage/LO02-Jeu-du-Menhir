@@ -188,35 +188,35 @@ public abstract class Partie{
         return cible;
     }
     public boolean isRunning(){
-        return this.running;
+        return running;
     }
     public boolean isTourRunning(){
-        return this.tourRunning;
+        return tourRunning;
     }
     public void setNbrManches(int n){
-        this.nbrManches=n;
+        nbrManches=n;
     }
    
     
     
     public void nextManche(){
-        this.nbrMancheActuelle++;
+        nbrMancheActuelle++;
         listeJoueurs.add(listeJoueurs.remove(0));
-        this.tourRunning=false;
-        if(nbrMancheActuelle>this.nbrManches){
-            this.running = false;
-            this.nbrMancheActuelle = 1;
+        tourRunning=false;
+        if(nbrMancheActuelle>nbrManches){
+            running = false;
+            nbrMancheActuelle = 1;
                 
         }
         
     }
  
     public void nextTour(){
-        this.nbrTourActuel++;
-        this.saison=this.saison.next();
+        nbrTourActuel++;
+        saison=saison.next();
         joueurActif.setChoixJoueur(new ChoixJoueur());
-        if(this.nbrTourActuel>4){
-            this.nbrTourActuel=1;
+        if(nbrTourActuel>4){
+            nbrTourActuel=1;
             nextManche();
         }
     }

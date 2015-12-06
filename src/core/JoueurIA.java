@@ -4,11 +4,11 @@ public class JoueurIA extends Joueur {
     private Strategy strat;
     
     public Strategy getStrat(){
-    	return this.strat;
+    	return strat;
     }
     
     public void setStrat(Strategy s){
-    	this.strat=s;
+    	strat=s;
     }
     public void deciderReaction(Partie part){
         if(strat.deciderReaction(this,part.joueurActif,part.getSaison())){
@@ -32,11 +32,11 @@ public class JoueurIA extends Joueur {
             double rand = 100*Math.random();
             if(rand<=50)
             {
-                this.setStrat(new SafeStrat());
+                setStrat(new SafeStrat());
             }
             else
             {
-            	this.setStrat(new AggressiveStrat());
+            	setStrat(new AggressiveStrat());
             }
     }
     public void jouerTour(Partie part){
