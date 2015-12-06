@@ -19,7 +19,7 @@ public abstract class Joueur{
     protected Console console;
     
     public Joueur(boolean humain) {
-    	nbrPoints=1;
+    	nbrPoints=0;
     	nbrGraines=0;
     	nbrMenhirs=0;
         protecChien = 0;
