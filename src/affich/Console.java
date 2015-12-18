@@ -269,12 +269,15 @@ public class Console extends Affichage{
         
     }
     
-    public void displayChoixCarte(Joueur j){
+    
     /**
-     * 
+     * Paramètre la Carte du ChoixJoueur du joueur j.
      * @param j
-     * @param choixJoueur
+     * 		Le joueur dont on veut modifier la Carte de son ChoixJoueur.
+     * 
+     * @see ChoixJoueur
      */
+    public void displayChoixCarte(Joueur j){
     
         int i=1;
         System.out.println("Quelle carte veux-tu jouer?");
