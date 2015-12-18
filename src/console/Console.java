@@ -180,7 +180,7 @@ public class Console{
         }
         catch (InputMismatchException e){
             sc.nextLine();
-            throw new InputMismatchException("Entrez en chiffre comprit entre 1 et 2");
+            throw new InputMismatchException("Entre en chiffre comprit entre 1 et 2");
         }
         return bool;
     }
@@ -309,7 +309,7 @@ public class Console{
         }
         catch(InputMismatchException e){
             sc.nextLine();
-            throw new InputMismatchException("Entrez un nombre comprit entre 1 et "+(i-1));
+            throw new InputMismatchException("Entre un nombre comprit entre 1 et "+(i-1));
         }
     }
     
@@ -422,7 +422,7 @@ public class Console{
         }
         catch(InputMismatchException e){
             sc.nextLine();
-            throw new InputMismatchException("Entrez un nombre comprit entre 1 et "+listeJoueurs.size());
+            throw new InputMismatchException("Entre un nombre comprit entre 1 et "+listeJoueurs.size());
         }
     }
     
@@ -609,7 +609,7 @@ public class Console{
         }
         catch(InputMismatchException e){
             sc.nextLine();
-            throw new InputMismatchException("Entrez un nombre entre 1 et 2");
+            throw new InputMismatchException("Entre un nombre entre 1 et 2");
         }
         return bool;
         

@@ -43,20 +43,25 @@ public abstract class Partie{
                 initManche();
                 console.displayNbManche(this);
             }
+            if(partAvancee){
+                if(saison==TypeSaison.PRINTEMPS)
+                    for(Joueur j:listeJoueurs){
+                        joueurActif = j;
+                        if(joueurActif.choixAllie()){
+                                        distribCarteAl(j);
+                                        console.displayTypeAllie(joueurActif);
+                                }
+                        else
+                            joueurActif.setNbrGraines(2);
+                    }
+                
+                else if(joueurActif.hasAllie()&&joueurActif.getCarteAl() instanceof CarteTaupe)
+                        joueurActif.jouerAllie(this);
+            }
+            
+                    
             for(Joueur j:listeJoueurs){
                 joueurActif = j;
-                if(partAvancee){
-                    if(nbrTourActuel==1){
-                            if(joueurActif.choixAllie()){
-                                    distribCarteAl(j);
-                                    console.displayTypeAllie(joueurActif);
-                            }
-                            else
-                                joueurActif.setNbrGraines(2);
-                    }
-                    else if(joueurActif.hasAllie()&&joueurActif.getCarteAl() instanceof CarteTaupe)
-                        joueurActif.jouerAllie(this);
-                }
                 joueurActif.jouerTour(this);
                 if(partAvancee){
                     if(joueurActif.getChoixJoueur().getAction()==TypeAction.FARFADET)
