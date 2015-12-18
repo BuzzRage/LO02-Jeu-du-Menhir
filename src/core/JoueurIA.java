@@ -19,7 +19,7 @@ public class JoueurIA extends Joueur {
     }
     @Override
     public void jouerAllie(Partie part){
-        if(carteAl instanceof CarteTaupe && strat.jouerAllie(part))
+        if(carteAl instanceof CarteTaupe && strat.jouerTaupe(part))
             jouerCarteAl(part.getJoueurMaxMenhir(),part.getSaison());
     }
     @Override

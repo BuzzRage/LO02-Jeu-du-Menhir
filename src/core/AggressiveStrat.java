@@ -1,6 +1,9 @@
 package core;
 
 public class AggressiveStrat implements Strategy {
+    /**
+     * @see core.Strategy#decider(core.Partie, core.Joueur)
+     */
     public void decider(Partie p,Joueur jIA){
         if(p.getSaison()==TypeSaison.PRINTEMPS)
         {
@@ -29,7 +32,10 @@ public class AggressiveStrat implements Strategy {
         
         
     }
-    @Override
+    
+    /**
+     * @see core.Strategy#deciderReaction(core.Joueur, core.Joueur, core.TypeSaison)
+     */
     public boolean deciderReaction(Joueur jIA,Joueur attaquant,TypeSaison s){
     	if(jIA.getCarteAl() instanceof CarteChien){
             if(attaquant.getChoixJoueur().getCarte().getEffet(TypeAction.FARFADET,s)>0&&jIA.getCarteAl().getEffet(s)>0)
@@ -40,8 +46,11 @@ public class AggressiveStrat implements Strategy {
         else 
             return false;
     }
-    @Override
-    public boolean jouerAllie(Partie part){
+    
+    /**
+     * @see core.Strategy#jouerTaupe(core.Partie)
+     */
+    public boolean jouerTaupe(Partie part){
         if(part.getSaison()==TypeSaison.PRINTEMPS)
             return false;
         else if(part.getJoueurMaxMenhir()!=null && part.getSaison()==saisonMax(part.getJoueurActif().carteAl,TypeAction.ENGRAIS))
@@ -50,6 +59,14 @@ public class AggressiveStrat implements Strategy {
             return false;
     }
     
+    /**
+     * Renvoie la saison pour laquelle l'effet de la carte est maximum pour une action donnée.
+     * @param c
+     * 		La carte à analyser.
+     * @param a
+     * 		L'action choisie à analyser.
+     * @return La saison optimum
+     */
     public TypeSaison saisonMax(Carte c, TypeAction a){ 
         int nbMax=0;
         boolean continuer=true;
@@ -67,7 +84,9 @@ public class AggressiveStrat implements Strategy {
         return sMax;
     }
     
-    @Override
+    /**
+     * @see core.Strategy#choixAllie()
+     */
     public boolean choixAllie(){
     	return true;
     }
