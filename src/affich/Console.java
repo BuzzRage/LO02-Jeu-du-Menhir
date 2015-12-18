@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package console;
+package affich;
 import MenhirExceptions.*;
 import core.*;
 import java.util.*;
@@ -12,7 +12,7 @@ import java.util.*;
  *
  * @author Apache
  */
-public class Console{
+public class Console extends Affichage{
     private final Scanner sc;
     private boolean continuer;
     private static Console instance =null;
@@ -184,7 +184,7 @@ public class Console{
         
     }
     
-    public void displayChoixCarte(Joueur j,ChoixJoueur choixJoueur){
+    public void displayChoixCarte(Joueur j){
         int i=1;
         System.out.println("Quelle carte veux-tu jouer?");
         LinkedList<CarteIngredient> liste = j.getCartes();
@@ -196,7 +196,7 @@ public class Console{
         }
         while(!continuer){
             try{
-                getChoixCarte(i,j, choixJoueur);
+                getChoixCarte(i,j);
                 continuer = true;
             }
             catch(WrongNumberException | InputMismatchException e){
@@ -206,14 +206,14 @@ public class Console{
         }
         continuer = false;
     }
-     private void getChoixCarte(int i,Joueur joueurActif,ChoixJoueur choixJoueur) throws WrongNumberException, InputMismatchException{
+     private void getChoixCarte(int i,Joueur joueurActif) throws WrongNumberException, InputMismatchException{
         int choix;
         try{
             choix = sc.nextInt();
             if(choix<1||choix>i-1)
                 throw new WrongNumberException("Le nombre doit être comprit entre 1 et "+(i-1)+"!");
             else{
-                choixJoueur.setCarte(joueurActif.getCarte(choix-1));
+                joueurActif.getChoixJoueur().setCarte(joueurActif.getCarte(choix-1));
             }
         }
         catch(InputMismatchException e){

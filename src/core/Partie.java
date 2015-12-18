@@ -1,10 +1,10 @@
 package core;
 
+import affich.Console;
 import java.util.*;
-import console.*;
 
 
-public abstract class Partie{
+public abstract class Partie extends Observable{
 
     protected int nbrManches;
     protected int nbrMancheActuelle;
@@ -32,9 +32,6 @@ public abstract class Partie{
         saison = TypeSaison.PRINTEMPS;
         creerJoueur(nbJH,nbJIA);
         creerCartes();
-        
-        
-        
     }
     public void lancerPartie(){
         initPartie();
@@ -48,9 +45,9 @@ public abstract class Partie{
                     for(Joueur j:listeJoueurs){
                         joueurActif = j;
                         if(joueurActif.choixAllie()){
-                                        distribCarteAl(j);
-                                        console.displayTypeAllie(joueurActif);
-                                }
+                            distribCarteAl(j);
+                            console.displayTypeAllie(joueurActif);
+                        }
                         else
                             joueurActif.setNbrGraines(2);
                     }
@@ -63,14 +60,16 @@ public abstract class Partie{
             for(Joueur j:listeJoueurs){
                 joueurActif = j;
                 joueurActif.jouerTour(this);
-                if(partAvancee){
+                if(partAvancee)
                     if(joueurActif.getChoixJoueur().getAction()==TypeAction.FARFADET)
                         if(joueurActif.getChoixJoueur().getCible().hasAllie())
                             if(joueurActif.getChoixJoueur().getCible().getCarteAl() instanceof CarteChien)
                                 joueurActif.getChoixJoueur().getCible().deciderReaction(this);
-                }
+                
                 console.displayAction(joueurActif,saison);
                 joueurActif.jouerCarte(saison);
+                joueurActif.setChoixJoueur(new ChoixJoueur());
+
             }
             nextTour();
             if(!tourRunning){
@@ -222,7 +221,6 @@ public abstract class Partie{
     public void nextTour(){
         nbrTourActuel++;
         saison=saison.next();
-        joueurActif.setChoixJoueur(new ChoixJoueur());
         if(nbrTourActuel>4){
             nbrTourActuel=1;
             nextManche();

@@ -1,7 +1,6 @@
 package core;
 
 import java.util.*;
-import console.*;
 
 
 public class PartieAvancee extends Partie {
