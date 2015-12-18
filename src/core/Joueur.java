@@ -1,10 +1,11 @@
 package core;
-import console.*;
+import affich.Console;
 
-import java.util.LinkedList;
-public abstract class Joueur{
+//import java.util.LinkedList;
+import java.util.*;
+public abstract class Joueur implements Observer{
 
-    private int nbr;
+    private final int nbr;
     private int nbrPoints;
     private int protecChien;
     private int nbrGraines;
@@ -140,7 +141,7 @@ public abstract class Joueur{
         return carte;
     }
     public CarteIngredient getCarteMax(TypeAction a, TypeSaison s, int condition){
-        int nbMax=0;
+        int nbMax=-1;
         CarteIngredient carte=null;
         for(CarteIngredient c:deck)
         {
@@ -152,6 +153,8 @@ public abstract class Joueur{
                         carte= c;
                 }
         }
+        //if(carte == null)
+            //carte = getCarteMax(a,s);
         return carte;
     }
     public void addCarteIng(CarteIngredient c){
@@ -194,6 +197,9 @@ public abstract class Joueur{
         str+="Menhirs : " +this.nbrMenhirs+"\n";
         
         return str;
+    }
+    public void update(Observable o, Object arg){
+        
     }
 
 }

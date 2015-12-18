@@ -7,7 +7,7 @@ public class JoueurIA extends Joueur {
     	return strat;
     }
     
-    public void setStrat(Strategy s){
+    private void setStrat(Strategy s){
     	strat=s;
     }
     @Override
@@ -15,7 +15,6 @@ public class JoueurIA extends Joueur {
         if(strat.deciderReaction(this,part.joueurActif,part.getSaison())){
             jouerCarteAl(part.getJoueurActif(),part.getSaison());
         }
-            
     }
     @Override
     public void jouerAllie(Partie part){
@@ -24,24 +23,22 @@ public class JoueurIA extends Joueur {
     }
     @Override
     public boolean choixAllie(){
-        if(strat.choixAllie())
-            return true;
-        else 
-            return false;
+        return strat.choixAllie();
             
     }
     public JoueurIA(){
             super(false);
             double rand = 100*Math.random();
-            if(rand<=50)
-            {
+            //if(rand<=50)
+            //{
                 setStrat(new SafeStrat());
-            }
-            else
-            {
-            	setStrat(new AggressiveStrat());
-            }
+            //}
+            //else
+            //{
+            	//setStrat(new AggressiveStrat());
+            //}
     }
+    @Override
     public void jouerTour(Partie part){
         strat.decider(part, this);
         }

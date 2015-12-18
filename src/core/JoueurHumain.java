@@ -8,28 +8,23 @@ public class JoueurHumain extends Joueur {
         public void jouerTour(Partie part){
             console.displayJoueur(this);
             console.displayEtatJoueur(this,part.getListeJoueurs(),part.getSaison());
-            console.displayChoixCarte(this, choixJoueur);
+            console.displayChoixCarte(this);
             console.displayChoixAction(choixJoueur);
             if(choixJoueur.getAction()==TypeAction.FARFADET)
                 console.displayJoueurCible(this, choixJoueur, part.getListeJoueurs());
         }
         @Override
         public void jouerAllie(Partie part){
-        if(hasAllie()&&carteAl instanceof CarteTaupe){
-                    if(console.displayChoixCarteTaupe(this,part.getListeJoueurs())){
-                        console.displayJoueurCible(this, choixJoueur, part.getListeJoueurs());
-                        jouerCarteAl(choixJoueur, part.getSaison());
-                    }
+            if(hasAllie()&&carteAl instanceof CarteTaupe)
+                if(console.displayChoixCarteTaupe(this,part.getListeJoueurs())){
+                    console.displayJoueurCible(this, choixJoueur, part.getListeJoueurs());
+                    jouerCarteAl(choixJoueur, part.getSaison());
                 }
-        }
-        public boolean choixAllie(){
-            if(console.displayChoixAllie())
-                return true;
-            else
-                return false;
-            
                 
-        
+        }
+        @Override
+        public boolean choixAllie(){
+            return console.displayChoixAllie();
         }
         @Override
         public void deciderReaction(Partie part){

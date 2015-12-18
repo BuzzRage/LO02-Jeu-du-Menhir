@@ -3,19 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package console;
+package affich;
 import MenhirExceptions.*;
 import core.*;
 import java.util.*;
 
 
 /**
- * La classe console permet d'afficher du texte à l'écran, et de saisir des entrées claviers,
+ * La classe console permet d'afficher du texte ï¿½ l'ï¿½cran, et de saisir des entrï¿½es claviers,
  * elle propose une vue en console du jeu du menhir.
- * Elle n'est instanciable qu'une fois, grâce au patter singleton.
+ * Elle n'est instanciable qu'une fois, grï¿½ce au patter singleton.
  *
  */
-public class Console{
+public class Console extends Affichage{
 
     private final Scanner sc;
     private boolean continuer;
@@ -38,10 +38,10 @@ public class Console{
         
     }
     /**
-     * Affiche le numéro du joueur
+     * Affiche le numï¿½ro du joueur
      * 
      * @param j
-     * 		Le joueur dont on doit afficher le numéro.
+     * 		Le joueur dont on doit afficher le numï¿½ro.
      * 
      */
     public void displayJoueur(Joueur j){
@@ -97,7 +97,7 @@ public class Console{
         }
     }
     /**
-     * Affiche l'action effectué par le joueur en cours.
+     * Affiche l'action effectuï¿½ par le joueur en cours.
      * @param joueurActif
      * 		Le joueur dont on veut afficher la valeur de l'effet de son action.
      * @param saison
@@ -121,8 +121,8 @@ public class Console{
         }
     }
     /**
-     * Affiche le choix entre prendre une carte allié ou prendre deux graines. 
-     * @return true si le joueur choisi de prendre une carte allié. false si le joueur choisi de prendre 2 graines.
+     * Affiche le choix entre prendre une carte alliï¿½ ou prendre deux graines. 
+     * @return true si le joueur choisi de prendre une carte alliï¿½. false si le joueur choisi de prendre 2 graines.
      * 
      */
     public boolean displayChoixAllie(){
@@ -138,9 +138,9 @@ public class Console{
         
     }
     /**
-     * Affiche la carte tirée par le joueur actif s'il est humain.
+     * Affiche la carte tirï¿½e par le joueur actif s'il est humain.
      * @param joueurActif
-     * 		Le joueur dont on veut afficher la carte alliée.
+     * 		Le joueur dont on veut afficher la carte alliï¿½e.
      */
     public void displayTypeAllie(Joueur joueurActif){
         if(joueurActif.isHuman()){
@@ -151,9 +151,9 @@ public class Console{
         }
     }
     /**
-     * Demande le choix entre prendre une carte allié ou prendre deux graines. 
-     * @return true pour une carte allié. false pour 2 graines.
-     * @throws WrongNumberException si le choix est différent de 1 ou 2
+     * Demande le choix entre prendre une carte alliï¿½ ou prendre deux graines. 
+     * @return true pour une carte alliï¿½. false pour 2 graines.
+     * @throws WrongNumberException si le choix est diffï¿½rent de 1 ou 2
      * @throws InputMismatchException
      */
     public boolean getChoixAllie() throws WrongNumberException,InputMismatchException{
@@ -203,7 +203,7 @@ public class Console{
     }
     
     /**
-     * Affiche le numéro de la manche.
+     * Affiche le numï¿½ro de la manche.
      * @param p
      * 		La partie en cours.
      */
@@ -212,7 +212,7 @@ public class Console{
         
     }
     /**
-     * Demande au joueur s'il veut réagir contre une attaque de farfadet.
+     * Demande au joueur s'il veut rï¿½agir contre une attaque de farfadet.
      * @param lanceur
      * 		Le joueur attaquant.
      * @param choixJoueur
@@ -220,7 +220,7 @@ public class Console{
      * @param saison
      * 		La saison en cours.
      * @return
-     * 		true si le joueur décide de réagir. false sinon.
+     * 		true si le joueur dï¿½cide de rï¿½agir. false sinon.
      */
     public boolean displayReaction(Joueur lanceur,ChoixJoueur choixJoueur,TypeSaison saison){ //Pq ne pas utiliser lanceur.getChoixJoueur() ?
         System.out.print("Le joueur "+lanceur.getNbr()+" attaque le joueur "+choixJoueur.getCible().getNbr()+" !");
@@ -241,12 +241,12 @@ public class Console{
         
     }
     /**
-     * Demande au joueur s'il veut réagir.
+     * Demande au joueur s'il veut rï¿½agir.
      * @param choixJoueur
      * 		Le ChoixJoueur du joueur attaquant.
      * @param saison
-     * @return true si le joueur décide de réagir. false sinon.
-     * @throws WrongNumberException si le choix est différent de 1 ou 2
+     * @return true si le joueur dï¿½cide de rï¿½agir. false sinon.
+     * @throws WrongNumberException si le choix est diffï¿½rent de 1 ou 2
      * @throws InputMismatchException
      */
     private boolean getReaction(ChoixJoueur choixJoueur,TypeSaison saison) throws WrongNumberException,InputMismatchException{
@@ -269,12 +269,13 @@ public class Console{
         
     }
     
+    public void displayChoixCarte(Joueur j){
     /**
      * 
      * @param j
      * @param choixJoueur
      */
-    public void displayChoixCarte(Joueur j,ChoixJoueur choixJoueur){
+    
         int i=1;
         System.out.println("Quelle carte veux-tu jouer?");
         LinkedList<CarteIngredient> liste = j.getCartes();
@@ -286,7 +287,7 @@ public class Console{
         }
         while(!continuer){
             try{
-                getChoixCarte(i,j, choixJoueur);
+                getChoixCarte(i,j);
                 continuer = true;
             }
             catch(WrongNumberException | InputMismatchException e){
@@ -296,15 +297,14 @@ public class Console{
         }
         continuer = false;
     }
-
-    private void getChoixCarte(int i,Joueur joueurActif,ChoixJoueur choixJoueur) throws WrongNumberException, InputMismatchException{
+     private void getChoixCarte(int i,Joueur joueurActif) throws WrongNumberException, InputMismatchException{
         int choix;
         try{
             choix = sc.nextInt();
             if(choix<1||choix>i-1)
                 throw new WrongNumberException("Le nombre doit Ãªtre comprit entre 1 et "+(i-1)+"!");
             else{
-                choixJoueur.setCarte(joueurActif.getCarte(choix-1));
+                joueurActif.getChoixJoueur().setCarte(joueurActif.getCarte(choix-1));
             }
         }
         catch(InputMismatchException e){
@@ -479,7 +479,7 @@ public class Console{
     }
     
     /**
-     * Demande à l'utilisateur s'il veut une revanche, faire une nouvelle partie ou quitter.
+     * Demande ï¿½ l'utilisateur s'il veut une revanche, faire une nouvelle partie ou quitter.
      * @return Le choix du joueur.
      */
     public ChoixFinPartie displayChoixFinPartie(){
@@ -527,7 +527,7 @@ public class Console{
     }
     
     /**
-     * Demande à l'utilisateur de rentrer le nombre de joueurs Humains
+     * Demande ï¿½ l'utilisateur de rentrer le nombre de joueurs Humains
      * @param nbJoueurs 
      * 		Le nombre de joueurs.
      * @return
@@ -550,7 +550,7 @@ public class Console{
         return nbJH;
     }
     /**
-     * Demande à l'utilisateur de rentrer le nombre de joueurs.
+     * Demande ï¿½ l'utilisateur de rentrer le nombre de joueurs.
      * @return 
      * 		Le nombre de joueur
      * @throws WrongNumberException
@@ -574,7 +574,7 @@ public class Console{
     }
     
     /**
-     * Demande à l'utilisateur de choisir le type de partie.
+     * Demande ï¿½ l'utilisateur de choisir le type de partie.
      * @param nbJH 
      * 		Le nombre de joueurs humains.
      * @param nbJoueurs
