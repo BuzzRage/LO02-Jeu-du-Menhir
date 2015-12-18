@@ -1,7 +1,9 @@
 package core;
 
 public class SafeStrat implements Strategy {
-    @Override
+    /**
+     * @see core.Strategy#decider(core.Partie, core.Joueur)
+     */
     public void decider(Partie p,Joueur jIA){	
     	
         if(p.getSaison()==TypeSaison.HIVER){
@@ -25,16 +27,23 @@ public class SafeStrat implements Strategy {
     }
 	
 
-    @Override
+    /**
+     * @see core.Strategy#choixAllie()
+     */
     public boolean choixAllie(){
     	return false;
     }
-    @Override
+    /**
+     * @see core.Strategy#deciderReaction(core.Joueur, core.Joueur, core.TypeSaison)
+     */
     public boolean deciderReaction(Joueur jIA,Joueur attaquand,TypeSaison s){
         return false;
     }
-    @Override
-    public boolean jouerAllie(Partie part){
+    
+    /**
+     * @see core.Strategy#jouerTaupe(core.Partie)
+     */
+    public boolean jouerTaupe(Partie part){
         return false;
     }
 }
