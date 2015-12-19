@@ -8,14 +8,30 @@ public abstract class CarteAllie extends Carte{
         this.effet[0] = effet;
     }
     
+    
+    /**
+     * Renvoie la valeur de l'effet de la carte en fonction de la saison.
+     * @param s
+     * 		La saison en cours.
+     * @return L'effet de la carte.
+     */
     public int getEffet(TypeSaison s){
         return this.effet[0][s.toInteger()];
     }
+    
+    /**
+     * @see core.Carte#getEffet(core.TypeAction, core.TypeSaison)
+     */
+    public int getEffet(TypeAction a,TypeSaison s){
+        return this.effet[0][s.toInteger()];
+    }
 
-    @Override
+    /**
+     * Renvoie une String affichant les informations de la carte.
+     * 
+     *  @return L'affichage textuelle de la carte.
+     */
     public String toString(){
-        
-        
         String str;
         if(this instanceof CarteTaupe)
             str="Carte Taupe\n";
@@ -29,8 +45,16 @@ public abstract class CarteAllie extends Carte{
             }
         return str;
     }
-    public int getEffet(TypeAction a,TypeSaison s){
-        return this.effet[0][s.toInteger()];
-    }
+    
+    
+    /**
+     * Joue la CarteAlliée. Cette méthode a une implémentation spécifique dans les classes filles CarteTaupe et CarteChien.
+     * @param lanceur
+     * 		Le Joueur lançant l'action.
+     * @param cible
+     * 		Le Joueur pris pour cible.
+     * @param s
+     * 		La saison en cours.
+     */
     public abstract void jouer(Joueur lanceur, Joueur cible, TypeSaison s);
 }

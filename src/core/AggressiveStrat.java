@@ -60,11 +60,11 @@ public class AggressiveStrat implements Strategy {
     }
     
     /**
-     * Renvoie la saison pour laquelle l'effet de la carte est maximum pour une action donnée.
+     * Renvoie la saison pour laquelle l'effet de la carte est maximum pour une action donnÃ©e.
      * @param c
-     * 		La carte à analyser.
+     * 		La carte Ã  analyser.
      * @param a
-     * 		L'action choisie à analyser.
+     * 		L'action choisie Ã  analyser.
      * @return La saison optimum
      */
     public TypeSaison saisonMax(Carte c, TypeAction a){ 

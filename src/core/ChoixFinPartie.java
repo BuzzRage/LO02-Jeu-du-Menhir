@@ -6,8 +6,8 @@
 package core;
 
 /**
- *
- * @author Apache
+ * 
+ * 
  */
 public enum ChoixFinPartie {
     REJOUER,
