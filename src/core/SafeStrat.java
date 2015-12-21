@@ -1,7 +1,12 @@
 package core;
 
 public class SafeStrat implements Strategy {
-    /**
+   /**
+     * Cette classe est utilisée pour prendre une décision en fonction de l'état de la Partie.<br>
+     * Elle implémente <code>public void decider(Partie p, Joueur jIA)</code> de l'interface Strategy. <br>
+     * Cette stratégie est défensive, si le JoueurIA la possédant n'a pas de graines, il va chercher à en demander au Géant.<br>
+     * La méthode decider paramètre le ChoixJoueur du JoueurIA, en définissant une cible, une carte et une action.<br>
+     * 
      * @see core.Strategy#decider(core.Partie, core.Joueur)
      */
     public void decider(Partie p,Joueur jIA){	

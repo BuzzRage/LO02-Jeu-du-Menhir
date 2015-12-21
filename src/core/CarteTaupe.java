@@ -1,5 +1,11 @@
 package core;
 
+/**
+ * La CarteTaupe hérite de CarteAllie.<br>
+ * Elle implémente la méthode <code>void jouer(Joueur lanceur, Joueur cible, TypeAction a, TypeSaison s)</code> de l'interface Jouable.<br>
+ * Elle permet de détruire les menhirs d'un adversaire.<br>
+ *
+ */
 public class CarteTaupe extends CarteAllie {
 
     public CarteTaupe(int[] effet) {
@@ -7,7 +13,7 @@ public class CarteTaupe extends CarteAllie {
     }
     
     /**
-     * Joue la CarteTaupe du Joueur lanceur.
+     * Joue la CarteTaupe du Joueur lanceur.<br>
      * Détruit des menhirs chez le Joueur cible.
      * 
      * @param lanceur

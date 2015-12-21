@@ -1,5 +1,10 @@
 package core;
 
+/**
+ * TypeSaison est une énumération pour augmenter la lisibilité du code.<br>
+ * Elle peut s'interpréter comme un int ou comme une String.<br>
+ *
+ */
 public enum TypeSaison {
 
     PRINTEMPS(0, "Printemps"),

@@ -1,9 +1,9 @@
 package core;
 
 /**
- * La CarteChien hérite de CarteAllie.
- * Elle implémente la méthode <code>void jouer(Joueur lanceur, Joueur cible, TypeAction a, TypeSaison s)</code> de l'interface Jouable.
- * La CarteChien permet de réduire le nombre de graines volées en cas d'attaque de FARFADET.
+ * La CarteChien hérite de CarteAllie.<br>
+ * Elle implémente la méthode <code>void jouer(Joueur lanceur, Joueur cible, TypeAction a, TypeSaison s)</code> de l'interface Jouable.<br>
+ * La CarteChien permet de réduire le nombre de graines volées en cas d'attaque de FARFADET.<br>
  *
  */
 public class CarteChien extends CarteAllie {

@@ -1,8 +1,9 @@
 package core;
 
 /**
- * La CarteAllie hérite de Carte.
- * Elle redéfinit une méthode <code>String toString()</code> pour un affichage textuel de la Carte en fonction de son type le plus spécifique.
+ * La CarteAllie hérite de Carte.<br>
+ * Elle redéfinit une méthode <code>String toString()</code> pour un affichage textuel de la Carte en fonction de son type le plus spécifique.<br>
+ * 
  * @see core.Carte
  */
 public abstract class CarteAllie extends Carte{
@@ -53,7 +54,8 @@ public abstract class CarteAllie extends Carte{
     
     
     /**
-     * Joue la CarteAlliée. Cette méthode a une implémentation spécifique dans les classes filles CarteTaupe et CarteChien.
+     * Joue la CarteAlliée. <br>
+     * Cette méthode a une implémentation spécifique dans les classes filles CarteTaupe et CarteChien.
      * @param lanceur
      * 		Le Joueur lançant l'action.
      * @param cible

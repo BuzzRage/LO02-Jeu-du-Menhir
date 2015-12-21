@@ -1,10 +1,10 @@
 package core;
 
 /**
- * Cette classe est utilisé pour prendre une décision en fonction de l'état de la Partie.
- * Elle implémente <code>public void decider(Partie p, Joueur jIA)</code> de l'interface Strategy. 
- * Cette stratégie est agressive, si le JoueurIA la possédant n'a pas de graines, il va chercher à en voler aux Joueurs adverses.
- * La méthode decider paramètre le ChoixJoueur du JoueurIA, en définissant une cible, une carte et une action.
+ * Cette classe est utilisée pour prendre une décision en fonction de l'état de la Partie.<br>
+ * Elle implémente <code>public void decider(Partie p, Joueur jIA)</code> de l'interface Strategy. <br>
+ * Cette stratégie est agressive, si le JoueurIA la possédant n'a pas de graines, il va chercher à en voler aux Joueurs adverses.<br>
+ * La méthode decider paramètre le ChoixJoueur du JoueurIA, en définissant une cible, une carte et une action.<br>
  *
  */
 public class AggressiveStrat implements Strategy {

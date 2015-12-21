@@ -1,5 +1,10 @@
 package core;
 
+/**
+ * La classe CarteIngredient hérite de Carte.<br>
+ * Elle implémente la méthode <code>void jouer(Joueur lanceur, Joueur cible, TypeAction a, TypeSaison s)</code> de l'interface Jouable.<br>
+ * La CarteIngredient permet de gagner des graines, de faire pousser des menhirs, et de voler des graines.<br>
+ */
 public class CarteIngredient extends Carte{
 
     public CarteIngredient(int[][] effet) {
@@ -9,9 +14,9 @@ public class CarteIngredient extends Carte{
     }
     
     /**
-     * Joue la Carte si l'action en paramètre est GEANT ou ENGRAIS. 
-     * Ajoute des graines au lanceur si l'action est GEANT.
-     * Ajoute des menhirs au lanceur et réduit le nombre de graines du même montant si l'action est ENGRAIS.
+     * Joue la Carte si l'action en paramètre est GEANT ou ENGRAIS. <br>
+     * Ajoute des graines au lanceur si l'action est GEANT.<br>
+     * Ajoute des menhirs au lanceur et réduit le nombre de graines du même montant si l'action est ENGRAIS.<br>
      * @param lanceur
      * 		Le Joueur possèdant la CarteIngrédient.
      * @param a
