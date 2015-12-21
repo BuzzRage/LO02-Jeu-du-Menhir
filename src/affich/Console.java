@@ -10,9 +10,9 @@ import java.util.*;
 
 
 /**
- * La classe console permet d'afficher du texte � l'�cran, et de saisir des entr�es claviers,
+ * La classe console permet d'afficher du texte écran, et de saisir des entrées claviers,
  * elle propose une vue en console du jeu du menhir.
- * Elle n'est instanciable qu'une fois, gr�ce au patter singleton.
+ * Elle n'est instanciable qu'une fois, grâce au patter singleton.
  *
  */
 public class Console extends Affichage{
@@ -38,10 +38,10 @@ public class Console extends Affichage{
         
     }
     /**
-     * Affiche le num�ro du joueur
+     * Affiche le numéro du joueur
      * 
      * @param j
-     * 		Le joueur dont on doit afficher le num�ro.
+     * 		Le joueur dont on doit afficher le numéro.
      * 
      */
     public void displayJoueur(Joueur j){
@@ -97,7 +97,7 @@ public class Console extends Affichage{
         }
     }
     /**
-     * Affiche l'action effectu� par le joueur en cours.
+     * Affiche l'action effectué par le joueur en cours.
      * @param joueurActif
      * 		Le joueur dont on veut afficher la valeur de l'effet de son action.
      * @param saison
@@ -121,8 +121,8 @@ public class Console extends Affichage{
         }
     }
     /**
-     * Affiche le choix entre prendre une carte alli� ou prendre deux graines. 
-     * @return true si le joueur choisi de prendre une carte alli�. false si le joueur choisi de prendre 2 graines.
+     * Affiche le choix entre prendre une carte allié ou prendre deux graines. 
+     * @return true si le joueur choisi de prendre une carte allié. false si le joueur choisi de prendre 2 graines.
      * 
      */
     public boolean displayChoixAllie(){
@@ -138,9 +138,9 @@ public class Console extends Affichage{
         
     }
     /**
-     * Affiche la carte tir�e par le joueur actif s'il est humain.
+     * Affiche la carte tirée par le joueur actif s'il est humain.
      * @param joueurActif
-     * 		Le joueur dont on veut afficher la carte alli�e.
+     * 		Le joueur dont on veut afficher la carte alliée.
      */
     public void displayTypeAllie(Joueur joueurActif){
         if(joueurActif.isHuman()){
@@ -151,9 +151,9 @@ public class Console extends Affichage{
         }
     }
     /**
-     * Demande le choix entre prendre une carte alli� ou prendre deux graines. 
-     * @return true pour une carte alli�. false pour 2 graines.
-     * @throws WrongNumberException si le choix est diff�rent de 1 ou 2
+     * Demande le choix entre prendre une carte allié ou prendre deux graines. 
+     * @return true pour une carte allié. false pour 2 graines.
+     * @throws WrongNumberException si le choix est différent de 1 ou 2
      * @throws InputMismatchException
      */
     public boolean getChoixAllie() throws WrongNumberException,InputMismatchException{
@@ -203,7 +203,7 @@ public class Console extends Affichage{
     }
     
     /**
-     * Affiche le num�ro de la manche.
+     * Affiche le numéro de la manche.
      * @param p
      * 		La partie en cours.
      */
@@ -212,7 +212,7 @@ public class Console extends Affichage{
         
     }
     /**
-     * Demande au joueur s'il veut r�agir contre une attaque de farfadet.
+     * Demande au joueur s'il veut réagir contre une attaque de farfadet.
      * @param lanceur
      * 		Le joueur attaquant.
      * @param choixJoueur
@@ -220,7 +220,7 @@ public class Console extends Affichage{
      * @param saison
      * 		La saison en cours.
      * @return
-     * 		true si le joueur d�cide de r�agir. false sinon.
+     * 		true si le joueur décide de réagir. false sinon.
      */
     public boolean displayReaction(Joueur lanceur,ChoixJoueur choixJoueur,TypeSaison saison){ //Pq ne pas utiliser lanceur.getChoixJoueur() ?
         System.out.print("Le joueur "+lanceur.getNbr()+" attaque le joueur "+choixJoueur.getCible().getNbr()+" !");
@@ -241,12 +241,12 @@ public class Console extends Affichage{
         
     }
     /**
-     * Demande au joueur s'il veut r�agir.
+     * Demande au joueur s'il veut réagir.
      * @param choixJoueur
      * 		Le ChoixJoueur du joueur attaquant.
      * @param saison
-     * @return true si le joueur d�cide de r�agir. false sinon.
-     * @throws WrongNumberException si le choix est diff�rent de 1 ou 2
+     * @return true si le joueur décide de réagir. false sinon.
+     * @throws WrongNumberException si le choix est différent de 1 ou 2
      * @throws InputMismatchException
      */
     private boolean getReaction(ChoixJoueur choixJoueur,TypeSaison saison) throws WrongNumberException,InputMismatchException{
@@ -482,7 +482,7 @@ public class Console extends Affichage{
     }
     
     /**
-     * Demande � l'utilisateur s'il veut une revanche, faire une nouvelle partie ou quitter.
+     * Demande à l'utilisateur s'il veut une revanche, faire une nouvelle partie ou quitter.
      * @return Le choix du joueur.
      */
     public ChoixFinPartie displayChoixFinPartie(){
@@ -530,7 +530,7 @@ public class Console extends Affichage{
     }
     
     /**
-     * Demande � l'utilisateur de rentrer le nombre de joueurs Humains
+     * Demande à l'utilisateur de rentrer le nombre de joueurs Humains
      * @param nbJoueurs 
      * 		Le nombre de joueurs.
      * @return
@@ -553,7 +553,7 @@ public class Console extends Affichage{
         return nbJH;
     }
     /**
-     * Demande � l'utilisateur de rentrer le nombre de joueurs.
+     * Demande à l'utilisateur de rentrer le nombre de joueurs.
      * @return 
      * 		Le nombre de joueur
      * @throws WrongNumberException
@@ -577,7 +577,7 @@ public class Console extends Affichage{
     }
     
     /**
-     * Demande � l'utilisateur de choisir le type de partie.
+     * Demande à l'utilisateur de choisir le type de partie.
      * @param nbJH 
      * 		Le nombre de joueurs humains.
      * @param nbJoueurs

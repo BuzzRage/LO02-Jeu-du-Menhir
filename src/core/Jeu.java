@@ -8,10 +8,6 @@ import affich.Console;
 import MenhirExceptions.WrongNumberException;
 import java.util.InputMismatchException;
 
-/**
- *
- * @author Apache
- */
 public class Jeu {
     
     private ChoixFinPartie choixFinPartie;
@@ -25,6 +21,9 @@ public class Jeu {
         choixFinPartie = ChoixFinPartie.NOUVELLE_PARTIE;
     }
     
+    /**
+     *  Gère le démarrage d'une partie en mode console ou en mode graphique.
+     */
     public void lancer(){
         while(choixFinPartie!=ChoixFinPartie.QUITTER){
             if(choixFinPartie==ChoixFinPartie.NOUVELLE_PARTIE){
@@ -36,6 +35,7 @@ public class Jeu {
 
         }
     }
+    
     private void initJeu(){
         int nbJoueurs = 0;
         int nbJH = 1;

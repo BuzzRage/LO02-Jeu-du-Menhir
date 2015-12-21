@@ -20,35 +20,40 @@ public class ChoixJoueur {
     public Joueur getCible(){
         return cible;
     }
+    
     /**
      * @param j 
-     * 		Joueur a prendre pour cible.
+     * 		Joueur à prendre pour cible.
      */
     public void setCible(Joueur j){
         cible=j;
     }
+    
     /**
      * @return L'action choisi par le joueur. 
      */
     public TypeAction getAction(){
         return action;
     }
+    
     /**
      * @param a
-     * 		Action a parametrer.
+     * 		Action à parametrer.
      */
     public void setAction(TypeAction a){
         action=a;
     }
+    
     /**
      * @return La Carte choisi par le joueur.
      */
     public Carte getCarte(){
         return carte;
     }
+    
     /**
      * @param c
-     * 		La Carte a parametrer.
+     * 		La Carte à parametrer.
      */
     public void setCarte(CarteIngredient c){
         carte = c;

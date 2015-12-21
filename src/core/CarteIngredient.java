@@ -7,6 +7,18 @@ public class CarteIngredient extends Carte{
         this.effet = new int[3][4];
         this.effet = effet;
     }
+    
+    /**
+     * Joue la Carte si l'action en paramètre est GEANT ou ENGRAIS. 
+     * Ajoute des graines au lanceur si l'action est GEANT.
+     * Ajoute des menhirs au lanceur et réduit le nombre de graines du même montant si l'action est ENGRAIS.
+     * @param lanceur
+     * 		Le Joueur possèdant la CarteIngrédient.
+     * @param a
+     * 		L'action choisie.
+     * @param s
+     * 		La saison en cours.
+     */
     public void jouer(Joueur lanceur,TypeAction a,TypeSaison s){
         switch(a){
             case GEANT:
@@ -24,7 +36,19 @@ public class CarteIngredient extends Carte{
         
     }
     
-    @Override
+    /**
+     * Redéfinition de la méthode jouer de CarteIngrédient. Utilisé pour le cas où l'action est FARFADET.
+     * 
+     * @param lanceur
+     * 		Le Joueur possèdant la CarteIngrédient.
+     * @param cible
+     * 		Le Joueur pris pour cible.
+     * @param a
+     * 		L'action choisie.
+     * @param s
+     * 		La saison en cours.
+     * @see core.Jouable#jouer(core.Joueur, core.Joueur, core.TypeAction, core.TypeSaison)
+     */
     public void jouer(Joueur lanceur, Joueur cible, TypeAction a, TypeSaison s ){
         if(cible==null)
             jouer(lanceur,a,s);
@@ -45,7 +69,12 @@ public class CarteIngredient extends Carte{
         this.setPose(true);
     }
     
-    @Override
+    
+    /**
+     * Affiche une représentation textuelle des informations de la cartes.
+     * 
+     * @return La chaine de caractère représentant la carte.
+     */
     public String toString(){
         String str="";
         String action="";
