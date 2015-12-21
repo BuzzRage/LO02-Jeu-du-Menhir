@@ -1,5 +1,10 @@
 package core;
 
+/**
+ * La classe Carte modélise les aspects invariants des cartes du jeu.
+ * Une Carte dispose d'un effet (<code>int[][] effet</code>) en fonction d'une saison et d'une action, elle possède également le booléen <code>pose</code> pour indiquer si la Carte est jouée ou non.
+ * L'attribut <code>int nbr</code> permet de référencer la Carte, chaque Carte étant unique.
+ */
 public abstract class Carte implements Jouable{
 
     protected int[][] effet;

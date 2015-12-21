@@ -1,5 +1,10 @@
 package core;
 
+/**
+ * La CarteAllie hérite de Carte.
+ * Elle redéfinit une méthode <code>String toString()</code> pour un affichage textuel de la Carte en fonction de son type le plus spécifique.
+ * @see core.Carte
+ */
 public abstract class CarteAllie extends Carte{
 
     public CarteAllie(int[] effet) {

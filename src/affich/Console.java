@@ -13,10 +13,15 @@ import java.util.*;
  * La classe console permet d'afficher du texte écran, et de saisir des entrées claviers,
  * elle propose une vue en console du jeu du menhir.
  * Elle n'est instanciable qu'une fois, grâce au patter singleton.
+ * Elle possède les attributs suivants:
+ * <code>private final Scanner sc</code> pour la gestion des entrées claviers
+ * <code>private boolean continuer</code> pour la gestion des boucles
+ * <code>private static Console instance</code> initialisé à <code>null</code> pour s'assurer de l'unicité de l'instance de la Console.
  *
  */
 public class Console extends Affichage{
 
+	
     private final Scanner sc;
     private boolean continuer;
     private static Console instance =null;
