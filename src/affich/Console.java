@@ -271,7 +271,7 @@ public class Console extends Affichage{
     
     
     /**
-     * Paramètre la Carte du ChoixJoueur du joueur j.
+     * ParamÃ¨tre la Carte du ChoixJoueur du joueur j.
      * @param j
      * 		Le joueur dont on veut modifier la Carte de son ChoixJoueur.
      * 

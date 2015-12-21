@@ -88,10 +88,10 @@ public abstract class Joueur implements Observer{
     public abstract void deciderReaction(Partie part);
     public abstract void jouerAllie(Partie part);
     /**
-	 * Renvoie un booléen indiquant le choix du joueur. 
-	 * Cette méthode est implémenté par la classe JoueurHumain, qui choisira via la console, ou l'interface graphique,
-	 * et par un JoueurIA qui définira ce choix en fonction de sa stratégie. 
-	 * @return true si le joueur a choisi une carte alliée, false s'il a choisi de prendre 2 graines.
+	 * Renvoie un boolÃ©en indiquant le choix du joueur. 
+	 * Cette mÃ©thode est implÃ©mentÃ©e par la classe JoueurHumain, qui choisira via la console, ou l'interface graphique,
+	 * et par un JoueurIA qui dÃ©finira ce choix en fonction de sa stratÃ©gie. 
+	 * @return true si le joueur a choisi une carte AlliÃ©, false s'il a choisi de prendre 2 graines.
      */
     public abstract boolean choixAllie();
         

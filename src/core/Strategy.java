@@ -1,7 +1,7 @@
 package core;
 public interface Strategy {
 	/**
-	 * Paramètre le ChoixJoueur du joueur IA j.
+	 * ParamÃ¨tre le ChoixJoueur du joueur IA j.
 	 * @param p
 	 * 		La partie dont on veut connaitre les informations (liste de joueurs, saison etc..).
 	 * @param j
@@ -12,9 +12,9 @@ public interface Strategy {
 	public void decider(Partie p, Joueur j);
 	
 	/**
-	 * Renvoie un booléen indiquant le choix du joueur. 
-	 * Cette méthode est implémenté par la classe AggressiveStrat, qui définira ce choix à true,
-	 * et par la classe SafeStrat qui définira ce choix à false. 
+	 * Renvoie un boolÃ©en indiquant le choix du joueur. 
+	 * Cette mÃ©thode est implÃ©mentÃ©e par la classe AggressiveStrat, qui dÃ©finira ce choix Ã  true,
+	 * et par la classe SafeStrat qui dÃ©finira ce choix Ã  false. 
 	 * 
 	 * @return true si la Strategy est une AggressiveStrat, false si c'est une SafeStrat.
 	 * 
@@ -22,19 +22,19 @@ public interface Strategy {
 	public boolean choixAllie(); 
 	
     /**
-     * Retourne un booléen pour décider de réagir en utilisant sa CarteChien en cas d'attaque de farfadets par un Joueur adverse.
+     * Retourne un boolï¿½en pour dï¿½cider de rï¿½agir en utilisant sa CarteChien en cas d'attaque de farfadets par un Joueur adverse.
      * @param cible 
-     * 		Le Joueur ciblé.
+     * 		Le Joueur ciblï¿½.
      * @param attaquant
      * 		Le Joueur attaquant, pour avoir son ChoixJoueurs et autres getters.
      * @param s
      * 		La saison en cours.
-     * @return true si le Joueur cible réagit. false sinon.
+     * @return true si le Joueur cible rï¿½agit. false sinon.
      */
     public boolean deciderReaction(Joueur cible,Joueur attaquant,TypeSaison s);
     
     /**
-     * Retourne un booléen indiquant si le Joueur joue sa CarteTaupe ou non.
+     * Retourne un boolï¿½en indiquant si le Joueur joue sa CarteTaupe ou non.
      * Renvoie false pour la classe SafeStrat.
      * @param part
      * 		La partie en cours.
