@@ -61,4 +61,9 @@ public abstract class Carte implements Jouable{
     {
         this.pose=b;
     }
+    
+    /**
+     * @see core.Jouable#jouer(Joueur, Joueur, TypeAction, TypeSaison)
+     */
+    public abstract void jouer(Joueur lanceur, Joueur cible, TypeSaison s);
 }

@@ -29,4 +29,12 @@ public class CarteChien extends CarteAllie {
         lanceur.setProtecChien(effet[0][s.toInteger()]);
         this.setPose(true);
     }
+    
+    /**
+     * @see core.CarteAllie#toString(String)
+     */
+    public String toString(){
+        String str = super.toString("Carte Chien");
+        return str;
+    }
 }

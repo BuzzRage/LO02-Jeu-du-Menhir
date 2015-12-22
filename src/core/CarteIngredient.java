@@ -55,7 +55,7 @@ public class CarteIngredient extends Carte{
      * @see core.Jouable#jouer(core.Joueur, core.Joueur, core.TypeAction, core.TypeSaison)
      */
     public void jouer(Joueur lanceur, Joueur cible, TypeAction a, TypeSaison s ){
-        if(cible==null)
+        if(cible==null) //what the hell ??
             jouer(lanceur,a,s);
         else{
             if(cible.getNbrGraines()+cible.getProtecChien()<this.effet[a.toInteger()][s.toInteger()]){
@@ -99,5 +99,28 @@ public class CarteIngredient extends Carte{
             str+="\n";
         }
         return str;
+    }
+
+    /**
+     * @see core.Carte#jouer(core.Joueur, core.Joueur, core.TypeSaison)
+     */
+    public void jouer(Joueur lanceur, Joueur cible, TypeSaison s) {
+        if(cible==null) //what the hell ??
+            jouer(lanceur,TypeAction.FARFADET,s);
+        else{
+            if(cible.getNbrGraines()+cible.getProtecChien()<this.effet[2][s.toInteger()]){
+                cible.setNbrGraines(0);
+                lanceur.addGraines(cible.getNbrGraines());
+            }
+            else{
+                int val = this.effet[2][s.toInteger()]-cible.getProtecChien();
+                if (val<0)
+                    val = 0;
+                cible.addGraines(-val);
+                lanceur.addGraines(val);
+                cible.setProtecChien(0);
+            }    
+        }
+        this.setPose(true);
     }
 }

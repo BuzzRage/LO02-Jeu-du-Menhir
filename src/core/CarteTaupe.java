@@ -38,4 +38,12 @@ public class CarteTaupe extends CarteAllie {
         cible.addMenhirs(-effet[0][s.toInteger()]);
         this.setPose(true);
     }
+    
+    /**
+     * @see core.CarteAllie#toString(String)
+     */
+    public String toString(){
+        String str = super.toString("Carte Taupe");
+        return str;
+    }
 }

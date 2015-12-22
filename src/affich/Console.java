@@ -100,6 +100,7 @@ public class Console extends Affichage{
             
         }
     }
+    
     /**
      * Affiche l'action effectué par le joueur en cours.
      * @param joueurActif
@@ -124,6 +125,7 @@ public class Console extends Affichage{
                 break;
         }
     }
+    
     /**
      * Affiche le choix entre prendre une carte allié ou prendre deux graines. 
      * @return true si le joueur choisi de prendre une carte allié. false si le joueur choisi de prendre 2 graines.

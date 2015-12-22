@@ -305,12 +305,9 @@ public abstract class Joueur implements Observer{
      */
     public LinkedList<CarteIngredient> rendreCarteIng(){
         LinkedList<CarteIngredient> liste = new LinkedList<>();
-        for(Carte c:deck){
-            if(c instanceof CarteIngredient){
+        for(CarteIngredient c:deck){
                 c.setPose(false);
-                liste.add((CarteIngredient)c);
-            }
-                
+                liste.add((CarteIngredient)c);               
         }
         
         this.deck.removeAll(liste);

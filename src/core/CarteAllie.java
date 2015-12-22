@@ -34,16 +34,12 @@ public abstract class CarteAllie extends Carte{
 
     /**
      * Renvoie une String affichant les informations de la carte.
-     * 
+     * @param str 
+     * 		Le type de CarteAllie.
      *  @return L'affichage textuelle de la carte.
      */
-    public String toString(){
-        String str;
-        if(this instanceof CarteTaupe)
-            str="Carte Taupe\n";
-        else
-            str="Carte Chien\n";
-            
+    public String toString(String str){
+	
         str+="p   e   a   h\n";
         for(int j=0;j<this.effet[0].length;j++)
             {
@@ -51,6 +47,21 @@ public abstract class CarteAllie extends Carte{
             }
         return str;
     }
+    
+    public String toString(){
+        String str;
+        if(this instanceof CarteTaupe)
+            str="Carte Taupe\n";
+        else
+            str="Carte Chien\n";
+        str+="p   e   a   h\n";
+        for(int j=0;j<this.effet[0].length;j++)
+            {
+                str+= effet[0][j] +"   ";
+            }
+        return str;
+    }
+    
     
     
     /**
