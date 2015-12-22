@@ -4,6 +4,12 @@ import affich.Console;
 import java.util.*;
 
 
+/**
+ * La classe Partie modélise le déroulement d'une partie.<br>
+ * 
+ * 
+ *
+ */
 public abstract class Partie extends Observable{
 
     protected int nbrManches;

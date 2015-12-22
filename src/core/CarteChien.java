@@ -1,5 +1,11 @@
 package core;
 
+/**
+ * La CarteChien hérite de CarteAllie.<br>
+ * Elle implémente la méthode <code>void jouer(Joueur lanceur, Joueur cible, TypeAction a, TypeSaison s)</code> de l'interface Jouable.<br>
+ * La CarteChien permet de réduire le nombre de graines volées en cas d'attaque de FARFADET.<br>
+ *
+ */
 public class CarteChien extends CarteAllie {
 
     public CarteChien(int[] effet) {
@@ -22,5 +28,13 @@ public class CarteChien extends CarteAllie {
         
         lanceur.setProtecChien(effet[0][s.toInteger()]);
         this.setPose(true);
+    }
+    
+    /**
+     * @see core.CarteAllie#toString(String)
+     */
+    public String toString(){
+        String str = super.toString("Carte Chien");
+        return str;
     }
 }

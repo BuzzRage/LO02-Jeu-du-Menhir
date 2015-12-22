@@ -6,7 +6,13 @@
 package core;
 
 /**
- *
+ * La classe ChoixJoueur permet de stocker les informations concernant l'action à venir d'un Joueur.<br>
+ * Elle possède les attributs suivants:<br>
+ * <code>private Joueur cible</code> pour stocker le Joueur ciblé (peut être <code>null</code>)<br>
+ * <code>private TypeAction action</code> pour garder en mémoire l'action sélectionnée<br>
+ * <code>private Carte carte</code> pour stocker la Carte à jouer.<br>
+ * 
+ * @see core.TypeAction
  * 
  */
 public class ChoixJoueur {

@@ -1,5 +1,11 @@
 package core;
 
+/**
+ * La CarteAllie hérite de Carte.<br>
+ * Elle redéfinit une méthode <code>String toString()</code> pour un affichage textuel de la Carte en fonction de son type le plus spécifique.<br>
+ * 
+ * @see core.Carte
+ */
 public abstract class CarteAllie extends Carte{
 
     public CarteAllie(int[] effet) {
@@ -28,16 +34,26 @@ public abstract class CarteAllie extends Carte{
 
     /**
      * Renvoie une String affichant les informations de la carte.
-     * 
+     * @param str 
+     * 		Le type de CarteAllie.
      *  @return L'affichage textuelle de la carte.
      */
+    public String toString(String str){
+	
+        str+="p   e   a   h\n";
+        for(int j=0;j<this.effet[0].length;j++)
+            {
+                str+= effet[0][j] +"   ";
+            }
+        return str;
+    }
+    
     public String toString(){
         String str;
         if(this instanceof CarteTaupe)
             str="Carte Taupe\n";
         else
             str="Carte Chien\n";
-            
         str+="p   e   a   h\n";
         for(int j=0;j<this.effet[0].length;j++)
             {
@@ -47,8 +63,10 @@ public abstract class CarteAllie extends Carte{
     }
     
     
+    
     /**
-     * Joue la CarteAlliée. Cette méthode a une implémentation spécifique dans les classes filles CarteTaupe et CarteChien.
+     * Joue la CarteAlliée. <br>
+     * Cette méthode a une implémentation spécifique dans les classes filles CarteTaupe et CarteChien.
      * @param lanceur
      * 		Le Joueur lançant l'action.
      * @param cible

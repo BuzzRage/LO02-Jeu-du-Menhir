@@ -1,5 +1,10 @@
 package core;
 
+/**
+ * TypeAction est une énumération pour augmenter la lisibilité du code.<br>
+ * Elle peut s'interpréter comme un int ou comme une String.<br>
+ *
+ */
 public enum TypeAction {
 
     GEANT(0,"Géant"), 
@@ -14,6 +19,7 @@ public enum TypeAction {
         this.nbr = i;
         this.name = s;
     }
+    
     public int toInteger(){
         return this.nbr;
     }
