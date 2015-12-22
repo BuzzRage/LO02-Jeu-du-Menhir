@@ -41,7 +41,7 @@ public abstract class Joueur implements Observer{
     
     protected ChoixJoueur choixJoueur;
     
-    protected Console console;
+
     
     public Joueur(boolean humain) {
     	nbrPoints=0;
@@ -49,7 +49,6 @@ public abstract class Joueur implements Observer{
     	nbrMenhirs=0;
         protecChien = 0;
         choixJoueur = new ChoixJoueur();
-        console = Console.getInstance();
     	this.humain=humain;
         Joueur.nbrJoueurs++;
         this.nbr = Joueur.nbrJoueurs;
@@ -332,8 +331,10 @@ public abstract class Joueur implements Observer{
     * @return La <code>CarteAllie</code> du Joueur.
     */
     public CarteAllie rendreCarteAl(){
-       carteAl.setPose(false);
-       return carteAl;
+        carteAl.setPose(false);
+	CarteAllie cAl = carteAl;
+	carteAl=null;
+        return cAl;
    }
    public ChoixJoueur getChoixJoueur(){
        return choixJoueur;

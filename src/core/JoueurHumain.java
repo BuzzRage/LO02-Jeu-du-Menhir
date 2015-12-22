@@ -1,5 +1,7 @@
 package core;
 
+import affich.Console;
+
 /**
  * La classe JoueurHumain interagit avec l'affichage (qui peut être une console ou une interface graphique).
  * L'utilisateur incarnant un JoueurHumain, cela lui permet d'avoir une action sur le programme.
@@ -7,8 +9,11 @@ package core;
  * @see core.Joueur
  */
 public class JoueurHumain extends Joueur {
+    	protected Console console;
+    
 	public JoueurHumain(){
 		super(true);
+		console = Console.getInstance();
 	}
 	
         /**
