@@ -50,11 +50,7 @@ public abstract class CarteAllie extends Carte{
     
     public String toString(){
         String str;
-        if(this instanceof CarteTaupe)
-            str="Carte Taupe\n";
-        else
-            str="Carte Chien\n";
-        str+="p   e   a   h\n";
+        str="p   e   a   h\n";
         for(int j=0;j<this.effet[0].length;j++)
             {
                 str+= effet[0][j] +"   ";

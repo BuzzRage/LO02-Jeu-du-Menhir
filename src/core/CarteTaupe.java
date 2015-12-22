@@ -43,7 +43,8 @@ public class CarteTaupe extends CarteAllie {
      * @see core.CarteAllie#toString(String)
      */
     public String toString(){
-        String str = super.toString("Carte Taupe");
+        String str = "Carte Taupe\n";
+        str += super.toString();
         return str;
     }
 }
