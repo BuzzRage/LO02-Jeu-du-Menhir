@@ -57,14 +57,14 @@ public abstract class Partie extends Observable{
                         else
                             joueurActif.setNbrGraines(2);
                     }
-                
-                else if(joueurActif.hasAllie()&&joueurActif.getCarteAl() instanceof CarteTaupe)
-                        joueurActif.jouerAllie(this);
             }
             
                     
             for(Joueur j:listeJoueurs){
                 joueurActif = j;
+                if(partAvancee&&saison!=TypeSaison.PRINTEMPS)
+                    if(joueurActif.hasAllie()&&joueurActif.getCarteAl() instanceof CarteTaupe)
+                        joueurActif.jouerAllie(this);
                 joueurActif.jouerTour(this);
                 if(partAvancee)
                     if(joueurActif.getChoixJoueur().getAction()==TypeAction.FARFADET)
