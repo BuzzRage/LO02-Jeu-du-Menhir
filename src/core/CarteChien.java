@@ -31,7 +31,7 @@ public class CarteChien extends CarteAllie {
     }
     
     /**
-     * @see core.CarteAllie#toString(String)
+     * @see core.CarteAllie#toString()
      */
     public String toString(){
         String str = "Carte Chien\n";

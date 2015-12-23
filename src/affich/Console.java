@@ -36,6 +36,7 @@ public class Console extends Affichage{
         }
         return instance;
     }
+    
     public Console(){
         continuer=false;
         sc = new Scanner(System.in);

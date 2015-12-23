@@ -5,10 +5,20 @@ import java.util.*;
 
 
 /**
- * La classe Partie modélise le déroulement d'une partie.<br>
- * 
- * 
- *
+ * La classe Partie modélise les aspects invariants des deux types de parties <code>PartieRapide</code> et <code>PartieAvancee</code><br>
+ * Elle gère la création des Joueurs, la création des Cartes, le déroulement d'une partie, son initialisation, et le palmarès.<br>
+ * Elle possède les attributs suivants:<br>
+ *  <code>protected int nbrManches</code> valant 1 pour une <code>PartieRapide</code> et est égal au nombre de Joueurs pour une <code>PartieAvancée</code>.
+ *  <code>protected int nbrMancheActuelle</code> pour indentifier la manche en cours.
+ *  <code>protected int nbrTourActuel</code> pour indentifier le tour en cours.
+ *  <code>protected Joueur joueurActif</code> pour identifier le Joueur en cours.
+ *  <code>protected TypeSaison saison</code> pour identifier la saison en cours.
+ *  <code>protected ArrayList&lsaquo;Joueur&rsaquo; listeJoueurs</code> pour stocker les Joueurs, parcourir la liste de Joueurs et pour faire un tour en conservant l'ordre.
+ *  <code>protected LinkedList&lsaquo;CarteIngredient&rsaquo; listeCarteIng</code> pour stocker les <code>CarteIngredient</code> du jeu et pouvoir les distribuer par la suite.
+ *  <code>protected LinkedList&lsaquo;CarteAllie&rsaquo; listeCarteAl</code> pour stocker les <code>CarteAllie</code> du jeu et pouvoir les distribuer par la suite.
+ *  <code>protected boolean running</code> pour indiquer qu'une Partie est en cours.
+ *  <code>protected boolean tourRunning</code> pour indiquer qu'un tour est en cours.
+ *  <code>protected boolean partAvancee</code> pour indiquer s'il s'agit d'une <code>PartieAvancee</code> ou non.
  */
 public abstract class Partie extends Observable{
 
@@ -20,16 +30,15 @@ public abstract class Partie extends Observable{
     protected TypeSaison saison;
     protected ArrayList<Joueur> listeJoueurs;
     protected LinkedList<CarteIngredient> listeCarteIng;
+    protected LinkedList<CarteAllie> listeCarteAl;
     protected boolean running;
     protected boolean tourRunning;
-    protected Iterator<Joueur> joueurIterator;
     protected boolean partAvancee;
     
     public Partie(int nbJH,int nbJIA){
         console = Console.getInstance();
         
         listeJoueurs = new ArrayList<>();
-        joueurIterator=listeJoueurs.iterator();
         listeCarteIng = new LinkedList<>();
         running =false;
         tourRunning = false;
@@ -39,6 +48,12 @@ public abstract class Partie extends Observable{
         creerJoueur(nbJH,nbJIA);
         creerCartes();
     }
+    
+    /**
+     * C'est la boucle principale de la Partie.<br>
+     * Après initialisation de la partie et de la manche, les Joueurs jouent chacun leur tour la saison en cours, pour chaque saison, et pour chaque manche.<br>
+     * A la fin, les cartes sont récupérées et le palmarès est affiché.
+     */
     public void lancerPartie(){
         initPartie();
         do{
@@ -88,31 +103,42 @@ public abstract class Partie extends Observable{
         console.displayGagnant(this.getPalmares());
         
     }
+    
+
+    /**
+     * Initialise le nombre de points, de graines et de menhir de chaque joueur à 0.
+     */
     protected void initPartie(){
         for(Joueur j:listeJoueurs){
             j.setNbrPoints(0);
             j.setNbrGraines(0);
-            j.setNbrMenhir(nbrManches);
+            j.setNbrMenhir(0);
         }
     }
+    
+    /**
+     * Initialise la manche en mélangeant et distribuant les <code>CarteIngredients</code> aux Joueurs.<br> 
+     * Réinitialise leurs nombres de graines et de menhirs.<br>
+     * Pour une PartieRapide, cette méthode initialise le nombre de graines de chaque Joueurs à 2.
+     */
     public void initManche(){
         this.tourRunning = true;
         this.running =true;
         saison=saison.initSaison();
         Collections.shuffle(this.listeCarteIng);
+        Collections.shuffle(this.listeCarteAl);
         distribCartes();
         for(Joueur j:listeJoueurs){
             j.setNbrGraines(0);
             j.setNbrMenhir(0);
         }
+        nbrMancheActuelle = 1;
         
     }
-    public void distribCarteAl(Joueur j){
-        return;
-    }
     
-    /** Getters et Setters
-     * @return  */
+    
+    // Getters et Setters
+
     
     public int getNbrManche(){
     	return this.nbrMancheActuelle;
@@ -130,6 +156,10 @@ public abstract class Partie extends Observable{
         return listeJoueurs;
     }
     
+    /**
+     * Réordonne la liste de Joueurs en fonction du nombre de points, et renvoie la liste.
+     * @return La liste de Joueurs par ordre de points décroissant.
+     */
     public ArrayList<Joueur> getPalmares(){
         ArrayList<Joueur> palmares = new ArrayList<>();
         ArrayList<Joueur> temp = new ArrayList<>();
@@ -169,6 +199,11 @@ public abstract class Partie extends Observable{
         }
         return palmares;
     }
+    
+    /**
+     * Retourne le Joueur ayant le plus de menhirs.
+     * @return Le Joueur ayant le plus de menhirs.
+     */
     public Joueur getJoueurMaxMenhir(){
         int nbMax=-1;
         Joueur cible = null;
@@ -185,6 +220,10 @@ public abstract class Partie extends Observable{
         }
         return cible;
     }
+    /**
+     * Retourne le Joueur ayant le plus de graines.
+     * @return Le Joueur ayant le plus de graines.
+     */
     public Joueur getJoueurMaxGraines(){
         int nbMax=-1;
         Joueur cible=null;
@@ -212,18 +251,23 @@ public abstract class Partie extends Observable{
    
     
     
+    /**
+     * Incrémente <code>nbrMancheActuelle</code>, modifie l'ordre des Joueurs (le premier devient dernier, les autres gagnent une place).
+     * 
+     */
     public void nextManche(){
         nbrMancheActuelle++;
         listeJoueurs.add(listeJoueurs.remove(0));
         tourRunning=false;
         if(nbrMancheActuelle>nbrManches){
-            running = false;
-            nbrMancheActuelle = 1;
-                
+            running = false;                
         }
         
     }
  
+    /**
+     * Incrément <code>nbrTourActuel</code> et la saison.
+     */
     public void nextTour(){
         nbrTourActuel++;
         saison=saison.next();
@@ -232,6 +276,11 @@ public abstract class Partie extends Observable{
             nextManche();
         }
     }
+    
+    
+    /**
+     * Distribue les <code>CarteIngredient</code> à tout les Joueurs.
+     */
     private void distribCartes() {
         for(Joueur j:listeJoueurs){
             for(int i=0;i<4;i++){
@@ -239,6 +288,24 @@ public abstract class Partie extends Observable{
             }   
         }
     }
+    
+    /**
+     * Donne une <code>CarteAllie</code> au Joueur j.
+     * @param j
+     * 		Le Joueur recevant la <code>CarteAllie</code>.
+     */
+    public void distribCarteAl(Joueur j){
+        j.setCarteAllie(this.listeCarteAl.pop());
+    }
+    
+    /**
+     * Creer la liste de Joueurs, en fonction du nombre de JoueurIA et de JoueurHumain.
+     * 
+     * @param nbJH
+     * 		Le nombre de JoueurHumain.
+     * @param nbJIA
+     * 		Le nombre de JoueurIA.
+     */
     private void creerJoueur(int nbJH, int nbJIA){
     	Joueur.initNbrJoueurs();
         for(int i = 0;i<nbJH+nbJIA;i++)
@@ -249,9 +316,11 @@ public abstract class Partie extends Observable{
             listeJoueurs.add(new JoueurIA());
         }
     }
-        /**	Initialise la partie en param�trant le nb de joueurs humains et IA, et en cr�ant le tableau de joueurs. 
-     *	Pour une partie rapide, on met le nb de graines � 2
-     *	Pour une partie avanc�e, on demande au joueur s'il veut 2 graines ou 1 carte alli�*/
+    
+   /**	
+     *	Récupère les cartes de chaque Joueur pour les remettre dans le la liste de cartes correspondante.<br>
+     *  Pour une PartieAvancee cela restitue également les CarteAllie.
+     */
     public void recupCartes() {
         for(Joueur j : listeJoueurs){
             this.listeCarteIng.addAll(j.rendreCarteIng());
@@ -259,6 +328,11 @@ public abstract class Partie extends Observable{
         
         
     }
+    
+    /**
+     * Creer les <code>CarteIngredient</code> et les ajoutent à <code>listeCarteIng</code>.<br>
+     * Pour une PartieAvancee, cette méthode créer également les CarteAllie.
+     */
     protected void creerCartes() {
         int[][] lune1Effet      = {{1, 1, 1, 1}, {2, 0, 1, 1}, {2, 0, 2, 0}};
         int[][] lune2Effet      = {{2, 0, 1, 1}, {1, 3, 0, 0}, {0, 1, 2, 1}};

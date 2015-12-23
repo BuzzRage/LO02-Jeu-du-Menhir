@@ -16,7 +16,7 @@ public class JoueurIA extends Joueur {
     	strat=s;
     }
     
-    /** (non-Javadoc)
+    /**
      * @see core.Joueur#deciderReaction(core.Partie)
      */
     public void deciderReaction(Partie part){

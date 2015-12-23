@@ -5,7 +5,7 @@ import java.util.*;
 
 public class PartieAvancee extends Partie {
 
-    private LinkedList<CarteAllie> listeCarteAl;
+
     
     public PartieAvancee(int nbJH,int nbJIA){
         super(nbJH,nbJIA);
@@ -14,7 +14,9 @@ public class PartieAvancee extends Partie {
     }
    
     
-    @Override
+    /**
+     * @see core.Partie#recupCartes()
+     */
     public void recupCartes() {
         super.recupCartes();
         for(Joueur j:listeJoueurs){
@@ -23,11 +25,11 @@ public class PartieAvancee extends Partie {
         }
     }
     
-    public void distribCarteAl(Joueur j){
-        Collections.shuffle(this.listeCarteAl);
-        j.setCarteAllie(this.listeCarteAl.pop());
-    }
-    @Override
+    
+
+    /**
+     * @see core.Partie#creerCartes()
+     */
     public void creerCartes(){
         super.creerCartes();
         listeCarteAl  = new LinkedList<>();
