@@ -1,6 +1,6 @@
 package core;
 
-import affich.Console;
+import affich.console.Console;
 
 /**
  * La classe JoueurHumain interagit avec l'affichage (qui peut être une console ou une interface graphique).
