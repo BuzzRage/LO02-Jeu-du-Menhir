@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 package core;
-import affich.Console;
+import affich.console.Console;
+import affich.Affichage;
+import affich.gui.*;
 import MenhirExceptions.WrongNumberException;
 import java.util.InputMismatchException;
 

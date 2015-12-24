@@ -3,13 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package affich;
-import javax.swing.JFrame;
+package affich.gui;
+import affich.*;
 
 /**
  *
  * @author Apache
  */
-public class Gui{
+public class Gui extends Affichage{
+    private Fenetre fen;
+    public Gui(){
+        fen = new Fenetre();
+    }
+    
     
 }

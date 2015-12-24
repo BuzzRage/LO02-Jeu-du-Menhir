@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package affich;
+package affich.console;
 import MenhirExceptions.*;
+import affich.Affichage;
 import core.*;
 import java.util.*;
 

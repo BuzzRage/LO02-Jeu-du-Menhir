@@ -1,5 +1,5 @@
 package core;
-import affich.Console;
+import affich.console.Console;
 
 //import java.util.LinkedList;
 import java.util.*;
