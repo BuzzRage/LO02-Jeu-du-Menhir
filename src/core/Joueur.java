@@ -23,10 +23,6 @@ import java.util.*;
  *@see core.JoueurIA
  *@see core.ChoixJoueur
  */
-/**
- * @author Marius
- *
- */
 public abstract class Joueur implements Observer{
 
     private final int nbr;
