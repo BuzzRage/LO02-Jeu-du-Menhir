@@ -41,32 +41,10 @@ public class Jeu {
     private void initJeu(){
         int nbJoueurs = 0;
         int nbJH = 1;
-        while(!continuer){
-            try{
-                nbJoueurs = console.getNbJoueurs();
-                continuer = true;
-            }
-            catch(WrongNumberException | InputMismatchException e){
-                System.out.println(e.getMessage());
-            }
-
-        }
-        continuer=false;
-        while(!continuer){
-            try{
-                if(console.getTypePartie(nbJH, nbJoueurs))
-                    part = new PartieAvancee(nbJH,nbJoueurs-nbJH);
-                else
-                    part = new PartieRapide(nbJH,nbJoueurs-nbJH);
-                continuer = true;
-            }
-            catch(WrongNumberException e){
-                System.out.println(e.getMessage());
-            }
-            catch(InputMismatchException e){
-                System.out.println(e.getMessage());
-            }
-        }
-        continuer=false;
+        nbJoueurs = console.getNbJoueurs();
+        if(console.getTypePartie(nbJH, nbJoueurs))
+            part = new PartieAvancee(nbJH,nbJoueurs-nbJH);
+        else
+            part = new PartieRapide(nbJH,nbJoueurs-nbJH);
     }
 }
