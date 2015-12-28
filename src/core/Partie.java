@@ -40,6 +40,7 @@ public abstract class Partie extends Observable{
         
         listeJoueurs = new ArrayList<>();
         listeCarteIng = new LinkedList<>();
+        listeCarteAl = new LinkedList<>();
         running =false;
         tourRunning = false;
         nbrMancheActuelle =1;
