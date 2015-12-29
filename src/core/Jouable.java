@@ -10,8 +10,6 @@ public interface Jouable {
      * 		Le Joueur prit pour cible.
      * @param a
      * 		L'action choisie.
-     * @param s
-     * 		La saison en cours.
      */
-    public void jouer(Joueur lanceur, Joueur cible, TypeAction a, TypeSaison s );
+    public void jouer(Joueur lanceur, Joueur cible, TypeAction a);
 }

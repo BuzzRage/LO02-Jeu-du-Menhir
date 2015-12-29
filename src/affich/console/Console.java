@@ -114,14 +114,14 @@ public class Console extends Affichage{
         switch(joueurActif.getChoixJoueur().getAction()){
             case GEANT:
                 System.out.print("Le joueur "+joueurActif.getNbr()+" obtient ");
-                System.out.println(joueurActif.getChoixJoueur().getCarte().getEffet(TypeAction.GEANT, saison)+" graines");
+                System.out.println(joueurActif.getChoixJoueur().getCarte().getEffet(TypeAction.GEANT)+" graines");
                 break;
             case ENGRAIS:
                 System.out.print("Le joueur "+joueurActif.getNbr()+" fait pousser ");
-                System.out.println(Math.min(joueurActif.getNbrGraines(), joueurActif.getChoixJoueur().getCarte().getEffet(TypeAction.ENGRAIS, saison))+" graines");
+                System.out.println(Math.min(joueurActif.getNbrGraines(), joueurActif.getChoixJoueur().getCarte().getEffet(TypeAction.ENGRAIS))+" graines");
                 break;
             case FARFADET:
-                int nbFarf=joueurActif.getChoixJoueur().getCarte().getEffet(TypeAction.FARFADET, saison);
+                int nbFarf=joueurActif.getChoixJoueur().getCarte().getEffet(TypeAction.FARFADET);
                 int nbChien = joueurActif.getChoixJoueur().getCible().getProtecChien();
                 System.out.print("Le joueur "+joueurActif.getNbr()+" vole ");
                 System.out.print(nbFarf-nbChien);
@@ -234,7 +234,7 @@ public class Console extends Affichage{
      */
     public boolean displayReaction(Joueur lanceur,ChoixJoueur choixJoueur,TypeSaison saison){ //Pq ne pas utiliser lanceur.getChoixJoueur() ?
         System.out.print("Le joueur "+lanceur.getNbr()+" attaque le joueur "+choixJoueur.getCible().getNbr()+" !");
-        System.out.println(" Il veut voler "+lanceur.getCarteAl().getEffet(saison)+" graines.");
+        System.out.println(" Il veut voler "+lanceur.getCarteAl().getEffet()+" graines.");
         System.out.println("Joueur "+choixJoueur.getCible().getNbr()+", veux-tu utiliser ta carte Chien?");
         System.out.println(choixJoueur.getCible().getCarteAl().toString());
         System.out.println("La saison actuelle est: "+saison.toString());
@@ -357,7 +357,7 @@ public class Console extends Affichage{
         int choix;
         try{
             choix = sc.nextInt();
-            if(choix<1||choix >3)
+            if(choix<0||choix >3)
                 throw new WrongNumberException("le nombre doit être comprit entre 0 et 3!");
             else if(choix ==0)
                 throw new AnnulerException("");
@@ -562,11 +562,11 @@ public class Console extends Affichage{
         }
         return nbJH;
     }
+    
     /**
      * Demande à l'utilisateur de rentrer le nombre de joueurs.
      * @return 
      * 		Le nombre de joueur
-     * @throws WrongNumberException
      * @throws InputMismatchException
      */
     public int getNbJoueurs(){
@@ -597,7 +597,6 @@ public class Console extends Affichage{
      * 		Le nombre de joueurs.
      * @return
      * 		true si l'utilisateur choisi une partie simple. false sinon.
-     * @throws WrongNumberException si la valeur de choix n'est pas entre 1 et 2.
      * @throws InputMismatchException
      */
     public boolean getTypePartie(int nbJH, int nbJoueurs){

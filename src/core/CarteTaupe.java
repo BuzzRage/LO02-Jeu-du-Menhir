@@ -22,20 +22,18 @@ public class CarteTaupe extends CarteAllie {
      * 		Le Joueur prit pour cible.
      * @param a
      * 		L'action choisie.
-     * @param s
-     * 		La saison en cours.
-     * @see core.Jouable#jouer(core.Joueur, core.Joueur, core.TypeAction, core.TypeSaison)
+     * @see core.Jouable#jouer(core.Joueur, core.Joueur, core.TypeAction)
      */
-    public void jouer(Joueur lanceur, Joueur cible, TypeAction a, TypeSaison s ) {
-        cible.addMenhirs(-effet[0][s.toInteger()]);
+    public void jouer(Joueur lanceur, Joueur cible, TypeAction a) {
+        cible.addMenhirs(-effet[0][saisonActuelle.toInteger()]);
         this.setPose(true);
     }
     
     /**
-     * @see core.CarteAllie#jouer(core.Joueur, core.Joueur, core.TypeSaison)
+     * @see core.CarteAllie#jouer(core.Joueur, core.Joueur)
      */
-    public void jouer(Joueur lanceur, Joueur cible,TypeSaison s ) {
-        cible.addMenhirs(-effet[0][s.toInteger()]);
+    public void jouer(Joueur lanceur, Joueur cible) {
+        cible.addMenhirs(-effet[0][saisonActuelle.toInteger()]);
         this.setPose(true);
     }
     

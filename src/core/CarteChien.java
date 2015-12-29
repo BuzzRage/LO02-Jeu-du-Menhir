@@ -13,20 +13,20 @@ public class CarteChien extends CarteAllie {
     }
 
     /**
-     * @see core.Jouable#jouer(core.Joueur, core.Joueur, core.TypeAction, core.TypeSaison)
+     * @see core.Jouable#jouer(core.Joueur, core.Joueur, core.TypeAction)
      */
-    public void jouer(Joueur lanceur, Joueur cible, TypeAction a, TypeSaison s ) {
+    public void jouer(Joueur lanceur, Joueur cible, TypeAction a) {
         
-        lanceur.setProtecChien(effet[0][s.toInteger()]);
+        lanceur.setProtecChien(effet[0][saisonActuelle.toInteger()]);
         this.setPose(true);
     }
     
     /**
-     * @see core.CarteAllie#jouer(core.Joueur, core.Joueur, core.TypeSaison)
+     * @see core.CarteAllie#jouer(core.Joueur, core.Joueur)
      */
-    public void jouer(Joueur lanceur, Joueur cible, TypeSaison s ) {
+    public void jouer(Joueur lanceur, Joueur cible) {
         
-        lanceur.setProtecChien(effet[0][s.toInteger()]);
+        lanceur.setProtecChien(effet[0][saisonActuelle.toInteger()]);
         this.setPose(true);
     }
     

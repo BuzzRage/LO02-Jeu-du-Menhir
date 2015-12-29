@@ -41,11 +41,11 @@ public class AggressiveStrat implements Strategy {
     }
     
     /**
-     * @see core.Strategy#deciderReaction(core.Joueur, core.Joueur, core.TypeSaison)
+     * @see core.Strategy#deciderReaction(core.Joueur, core.Joueur)
      */
-    public boolean deciderReaction(Joueur jIA,Joueur attaquant,TypeSaison s){
+    public boolean deciderReaction(Joueur jIA,Joueur attaquant){
     	if(jIA.getCarteAl() instanceof CarteChien){
-            if(attaquant.getChoixJoueur().getCarte().getEffet(TypeAction.FARFADET,s)>0&&jIA.getCarteAl().getEffet(s)>0)
+            if(attaquant.getChoixJoueur().getCarte().getEffet(TypeAction.FARFADET)>0&&jIA.getCarteAl().getEffet()>0)
                 return true;
             else
                 return false;

@@ -20,8 +20,8 @@ public class JoueurIA extends Joueur {
      * @see core.Joueur#deciderReaction(core.Partie)
      */
     public void deciderReaction(Partie part){
-        if(strat.deciderReaction(this,part.joueurActif,part.getSaison())){
-            jouerCarteAl(part.getJoueurActif(),part.getSaison());
+        if(strat.deciderReaction(this,part.joueurActif)){
+            jouerCarteAl(part.getJoueurActif());
         }
     }
     
@@ -31,7 +31,7 @@ public class JoueurIA extends Joueur {
      */
     public void jouerAllie(Partie part){
         if(carteAl instanceof CarteTaupe && strat.jouerTaupe(part))
-            jouerCarteAl(part.getJoueurMaxMenhir(),part.getSaison());
+            jouerCarteAl(part.getJoueurMaxMenhir());
     }
     
     

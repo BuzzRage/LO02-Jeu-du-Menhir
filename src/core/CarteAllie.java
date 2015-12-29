@@ -16,13 +16,11 @@ public abstract class CarteAllie extends Carte{
     
     
     /**
-     * Renvoie la valeur de l'effet de la carte en fonction de la saison.
-     * @param s
-     * 		La saison en cours.
+     * Renvoie la valeur de l'effet de la carte en fonction de la saison en cours.
      * @return L'effet de la carte.
      */
-    public int getEffet(TypeSaison s){
-        return this.effet[0][s.toInteger()];
+    public int getEffet(){
+        return this.effet[0][saisonActuelle.toInteger()];
     }
     
     /**
@@ -56,8 +54,6 @@ public abstract class CarteAllie extends Carte{
      * 		Le Joueur lançant l'action.
      * @param cible
      * 		Le Joueur pris pour cible.
-     * @param s
-     * 		La saison en cours.
      */
-    public abstract void jouer(Joueur lanceur, Joueur cible, TypeSaison s);
+    public abstract void jouer(Joueur lanceur, Joueur cible);
 }

@@ -12,7 +12,7 @@ public class menhir {
 
 	public static void main(String[] args) {
             
-            Gui gui = new Gui();
+            //Gui gui = new Gui();
 
             Jeu jeu = new Jeu();
             jeu.lancer();

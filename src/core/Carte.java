@@ -16,10 +16,12 @@ public abstract class Carte extends Observable implements Jouable,Observer{
     protected int[][] effet;
     private boolean pose;
     private final TypeCarte type;
+    protected TypeSaison saisonActuelle;
 
     public Carte(TypeCarte type) {
         this.pose = false;
         this.type=type;
+        this.saisonActuelle=TypeSaison.PRINTEMPS;
     }
     /**
      * Renvoie un booléen indiquant si un carte est posée ou non. Cela permet de savoir quelles cartes ont déjà été jouées.
@@ -43,8 +45,18 @@ public abstract class Carte extends Observable implements Jouable,Observer{
      * Retourne l'effet de la carte, en fonction de la saison en cours et de l'action voulue.
      * @param a
      * 		L'action choisie par le Joueur.
+     * @return L'effet de la carte.
+     */
+    public int getEffet(TypeAction a){
+        return this.effet[a.toInteger()][saisonActuelle.toInteger()];
+    }
+    
+    /**
+     * Retourne l'effet de la carte, en fonction de la saison voulue et de l'action voulue.
+     * @param a
+     * 		L'action choisie par le Joueur.
      * @param s
-     * 		La saison en cours.
+     * 		La saison voulue.
      * @return L'effet de la carte.
      */
     public int getEffet(TypeAction a,TypeSaison s){
@@ -62,11 +74,13 @@ public abstract class Carte extends Observable implements Jouable,Observer{
     }
     
     public void update(Observable o,Object arg){
-	
+	if(o instanceof Partie){
+	    saisonActuelle=((Partie) o).getSaison();
+	}
     }
     
     /**
-     * @see core.Jouable#jouer(Joueur, Joueur, TypeAction, TypeSaison)
+     * @see core.Jouable#jouer(Joueur, Joueur, TypeAction)
      */
-    public abstract void jouer(Joueur lanceur, Joueur cible, TypeSaison s);
+    public abstract void jouer(Joueur lanceur, Joueur cible);
 }

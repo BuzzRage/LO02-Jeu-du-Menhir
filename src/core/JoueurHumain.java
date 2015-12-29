@@ -35,7 +35,7 @@ public class JoueurHumain extends Joueur {
             if(hasAllie()&&carteAl instanceof CarteTaupe)
                 if(console.displayChoixCarteTaupe(this,part.getListeJoueurs())){
                     console.displayJoueurCible(this, choixJoueur, part.getListeJoueurs());
-                    jouerCarteAl(choixJoueur, part.getSaison());
+                    jouerCarteAl(choixJoueur);
                 }
                 
         }
@@ -56,7 +56,7 @@ public class JoueurHumain extends Joueur {
                 if(console.displayReaction(part.getJoueurActif(),choixJoueur,part.getSaison())){
                     ChoixJoueur choix = new ChoixJoueur();
                     choix.setCible(part.joueurActif);
-                    jouerCarteAl(choix,part.getSaison());
+                    jouerCarteAl(choix);
                 }
             }
         }

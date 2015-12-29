@@ -120,38 +120,31 @@ public abstract class Joueur extends Observable implements Observer{
     
     /**
      *  Joue la <code>Carte</code> du <code>ChoixJoueur</code> du Joueur. 
-     * @param s
-     * 		La saison en cours.
      */
-    public void jouerCarte(TypeSaison s){
-        
-        choixJoueur.getCarte().jouer(this,choixJoueur.getCible(),choixJoueur.getAction(),s);
+    public void jouerCarte(){
+        choixJoueur.getCarte().jouer(this,choixJoueur.getCible(),choixJoueur.getAction());
     }    
     
     /**
      * Joue la <code>CarteAllie</code> du Joueur.
      * @param choix
      * 		Le ChoixJoueur contenant la cible, la carte et l'action désirée. Ce paramètre peut être différent du ChoixJoueur du Joueur en cours.
-     * @param s
-     * 		La saison en cours.
      * 
      * @see core.ChoixJoueur
      */
-    public void jouerCarteAl(ChoixJoueur choix,TypeSaison s){
-        carteAl.jouer(this, choix.getCible(), choix.getAction(), s);
+    public void jouerCarteAl(ChoixJoueur choix){
+        carteAl.jouer(this, choix.getCible(), choix.getAction());
     }
     
     /**
      * Joue la <code>CarteAllie</code> du Joueur.
      * @param cible
      * 		Le Joueur ciblé. Peut être différent de <code>choixJoueur.getCible()</code>.
-     * @param s
-     * 		La saison en cours.
      * 
      * @see core.ChoixJoueur
      */
-    public void jouerCarteAl(Joueur cible,TypeSaison s){
-        carteAl.jouer(this,cible,s);
+    public void jouerCarteAl(Joueur cible){
+        carteAl.jouer(this,cible);
     }
     
     /**

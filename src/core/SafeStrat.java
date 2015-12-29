@@ -41,9 +41,9 @@ public class SafeStrat implements Strategy {
     	return false;
     }
     /**
-     * @see core.Strategy#deciderReaction(core.Joueur, core.Joueur, core.TypeSaison)
+     * @see core.Strategy#deciderReaction(core.Joueur, core.Joueur)
      */
-    public boolean deciderReaction(Joueur jIA,Joueur attaquand,TypeSaison s){
+    public boolean deciderReaction(Joueur jIA,Joueur attaquand){
         return false;
     }
     

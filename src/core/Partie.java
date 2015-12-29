@@ -88,7 +88,7 @@ public abstract class Partie extends Observable implements Observer{
                                 joueurActif.getChoixJoueur().getCible().deciderReaction(this);
                 
                 console.displayAction(joueurActif,saison);
-                joueurActif.jouerCarte(saison);
+                joueurActif.jouerCarte();
                 joueurActif.setChoixJoueur(new ChoixJoueur());
 
             }
@@ -276,6 +276,8 @@ public abstract class Partie extends Observable implements Observer{
     public void nextTour(){
         nbrTourActuel++;
         saison=saison.next();
+        this.setChanged();
+        this.notifyObservers();
         if(nbrTourActuel>4){
             nbrTourActuel=1;
             nextManche();

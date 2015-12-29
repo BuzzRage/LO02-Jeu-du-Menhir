@@ -27,11 +27,9 @@ public interface Strategy {
      * 		Le Joueur ciblé.
      * @param attaquant
      * 		Le Joueur attaquant, pour avoir son ChoixJoueur et autres getters.
-     * @param s
-     * 		La saison en cours.
      * @return true si le Joueur cible réagit. false sinon.
      */
-    public boolean deciderReaction(Joueur cible,Joueur attaquant,TypeSaison s);
+    public boolean deciderReaction(Joueur cible,Joueur attaquant);
     
     /**
      * Retourne un booléen indiquant si le Joueur joue sa CarteTaupe ou non.

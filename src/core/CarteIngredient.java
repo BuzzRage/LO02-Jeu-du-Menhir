@@ -21,16 +21,14 @@ public class CarteIngredient extends Carte{
      * 		Le Joueur possèdant la CarteIngrédient.
      * @param a
      * 		L'action choisie.
-     * @param s
-     * 		La saison en cours.
      */
-    public void jouer(Joueur lanceur,TypeAction a,TypeSaison s){
+    public void jouer(Joueur lanceur,TypeAction a){
         switch(a){
             case GEANT:
-                lanceur.addGraines(effet[a.toInteger()][s.toInteger()]);
+                lanceur.addGraines(effet[a.toInteger()][saisonActuelle.toInteger()]);
                 break;
             case ENGRAIS:
-                int val = Math.min(effet[a.toInteger()][s.toInteger()],lanceur.getNbrGraines());
+                int val = Math.min(effet[a.toInteger()][saisonActuelle.toInteger()],lanceur.getNbrGraines());
                 lanceur.addMenhirs(val);
                 lanceur.addGraines(-val);
                 lanceur.addPoints(val);
@@ -50,20 +48,18 @@ public class CarteIngredient extends Carte{
      * 		Le Joueur pris pour cible.
      * @param a
      * 		L'action choisie.
-     * @param s
-     * 		La saison en cours.
-     * @see core.Jouable#jouer(core.Joueur, core.Joueur, core.TypeAction, core.TypeSaison)
+     * @see core.Jouable#jouer(core.Joueur, core.Joueur, core.TypeAction)
      */
-    public void jouer(Joueur lanceur, Joueur cible, TypeAction a, TypeSaison s ){
+    public void jouer(Joueur lanceur, Joueur cible, TypeAction a){
         if(cible==null) //what the hell ??
-            jouer(lanceur,a,s);
+            jouer(lanceur,a);
         else{
-            if(cible.getNbrGraines()+cible.getProtecChien()<this.effet[a.toInteger()][s.toInteger()]){
+            if(cible.getNbrGraines()+cible.getProtecChien()<this.effet[a.toInteger()][saisonActuelle.toInteger()]){
                 cible.setNbrGraines(0);
                 lanceur.addGraines(cible.getNbrGraines());
             }
             else{
-                int val = this.effet[a.toInteger()][s.toInteger()]-cible.getProtecChien();
+                int val = this.effet[a.toInteger()][saisonActuelle.toInteger()]-cible.getProtecChien();
                 if (val<0)
                     val = 0;
                 cible.addGraines(-val);
@@ -102,18 +98,18 @@ public class CarteIngredient extends Carte{
     }
 
     /**
-     * @see core.Carte#jouer(core.Joueur, core.Joueur, core.TypeSaison)
+     * @see core.Carte#jouer(core.Joueur, core.Joueur)
      */
-    public void jouer(Joueur lanceur, Joueur cible, TypeSaison s) {
+    public void jouer(Joueur lanceur, Joueur cible) {
         if(cible==null) //what the hell ??
-            jouer(lanceur,TypeAction.FARFADET,s);
+            jouer(lanceur,TypeAction.FARFADET);
         else{
-            if(cible.getNbrGraines()+cible.getProtecChien()<this.effet[2][s.toInteger()]){
+            if(cible.getNbrGraines()+cible.getProtecChien()<this.effet[2][saisonActuelle.toInteger()]){
                 cible.setNbrGraines(0);
                 lanceur.addGraines(cible.getNbrGraines());
             }
             else{
-                int val = this.effet[2][s.toInteger()]-cible.getProtecChien();
+                int val = this.effet[2][saisonActuelle.toInteger()]-cible.getProtecChien();
                 if (val<0)
                     val = 0;
                 cible.addGraines(-val);
