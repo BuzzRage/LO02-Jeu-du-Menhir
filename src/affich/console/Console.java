@@ -166,7 +166,7 @@ public class Console extends Affichage{
      * @throws WrongNumberException si le choix est différent de 1 ou 2
      * @throws InputMismatchException
      */
-    public boolean getChoixAllie() throws WrongNumberException,InputMismatchException{
+    private boolean getChoixAllie() throws WrongNumberException,InputMismatchException{
         int choix;
         boolean bool = false;
         System.out.println("Choix Allie");
