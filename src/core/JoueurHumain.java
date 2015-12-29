@@ -14,7 +14,6 @@ public class JoueurHumain extends Joueur {
     
 	public JoueurHumain(){
 		super(true);
-		//affich = Console.getInstance();
 	}
 	
         /**
