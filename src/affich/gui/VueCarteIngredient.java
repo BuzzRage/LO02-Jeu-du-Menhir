@@ -21,8 +21,11 @@ public class VueCarteIngredient extends JPanel implements ActionListener,Observe
     private final JButton engrais,geant,farfadet;
     private final int ratio = 2;
     private final JPanel boutons;
+    private CarteIngredient carte;
     
-    public VueCarteIngredient(String url){
+    public VueCarteIngredient(String url,CarteIngredient carte){
+	this.carte=carte;
+	this.carte.addObserver(this);
         img = new ImageIcon(TypeCarte.DOS_INGREDIENT.getImageUrl());
         background = Toolkit.getDefaultToolkit().getImage(TypeCarte.DOS_INGREDIENT.getImageUrl());
         Dimension size = new Dimension(img.getIconWidth()/ratio,img.getIconHeight()/ratio);

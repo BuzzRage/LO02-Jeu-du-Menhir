@@ -72,5 +72,11 @@ public class Gui extends Affichage{
     public boolean getTypePartie(){
         return false;
     }
+
+    @Override
+    public void displayJoueurCible() {
+	// TODO Auto-generated method stub
+	
+    }
     
 }

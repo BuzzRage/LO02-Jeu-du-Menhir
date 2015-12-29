@@ -1,7 +1,5 @@
 package core;
-import affich.console.Console;
 
-//import java.util.LinkedList;
 import java.util.*;
 /**
  * La classe Joueur modélise les aspects invariants du JoueurHumain et du JoueurIA.<br>
