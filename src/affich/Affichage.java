@@ -18,12 +18,11 @@ public abstract class Affichage implements Observer {
     protected Joueur joueurActif;
     protected ArrayList<Joueur> listeJoueurs;
     protected int nbMancheActuelle;
-    private static Affichage instance = null;
     
     
     
-    public abstract void displayJoueur();
-    public abstract void displayEtatJoueur();
+    
+    public abstract void displayTour();
     public abstract void displayFinManche();
     public abstract void displayAction();
     public abstract boolean displayChoixAllie();
@@ -31,8 +30,11 @@ public abstract class Affichage implements Observer {
     public abstract void displayGagnant(ArrayList<Joueur> palmares);
     public abstract void displayNbManche();
     public abstract boolean displayReaction();
-    public abstract void displayChoixCarte();
-    public abstract void displayChoixAction();
+    public abstract boolean displayChoixCarteTaupe();
+    public abstract ChoixFinPartie displayChoixFinPartie();
+    public abstract int getNbJoueurs();
+    public abstract boolean getTypePartie();
+    
     
     
     

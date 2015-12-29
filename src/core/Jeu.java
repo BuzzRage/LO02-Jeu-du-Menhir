@@ -15,13 +15,13 @@ import java.util.LinkedList;
 public class Jeu extends Observable{
     
     private ChoixFinPartie choixFinPartie;
-    private Console console;
+    private Affichage affich;
     private Partie part;
     private LinkedList<CarteIngredient> listeCarteIng;
     private LinkedList<CarteAllie> listeCarteAl;
     
     public Jeu(){
-        console = Console.getInstance();
+        affich = Console.getInstance();
         choixFinPartie = ChoixFinPartie.NOUVELLE_PARTIE;
         listeCarteIng = new LinkedList<>();
         listeCarteAl = new LinkedList<>();
@@ -36,7 +36,7 @@ public class Jeu extends Observable{
                 initJeu();
             }
             part.lancerPartie();
-            choixFinPartie =console.displayChoixFinPartie();
+            choixFinPartie =affich.displayChoixFinPartie();
         }
     }
     
@@ -44,11 +44,11 @@ public class Jeu extends Observable{
         creerCartes();
         int nbJoueurs = 0;
         int nbJH = 1;
-        nbJoueurs = console.getNbJoueurs();
-        if(console.getTypePartie())
-            part = new PartieAvancee(nbJH,nbJoueurs-nbJH);
+        nbJoueurs = affich.getNbJoueurs();
+        if(affich.getTypePartie())
+            part = new PartieAvancee(nbJH,nbJoueurs-nbJH,affich);
         else
-            part = new PartieRapide(nbJH,nbJoueurs-nbJH);
+            part = new PartieRapide(nbJH,nbJoueurs-nbJH,affich);
         this.addObserver(part);
         this.setChanged();
         this.notifyObservers();
@@ -130,5 +130,7 @@ public class Jeu extends Observable{
     public LinkedList<CarteAllie> getListeCarteAl(){
         return listeCarteAl;
     }
-    
+    public Affichage getAffichage(){
+        return affich;
+    }
 }

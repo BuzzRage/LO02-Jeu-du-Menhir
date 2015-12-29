@@ -20,10 +20,8 @@ public class JoueurHumain extends Joueur {
          * @see core.Joueur#jouerTour()
          */
         public void jouerTour(){
-            console.displayJoueur();
-            console.displayEtatJoueur();
-            console.displayChoixCarte();
-            console.displayChoixAction();
+            
+            console.displayTour();
             if(choixJoueur.getAction()==TypeAction.FARFADET)
                 console.displayJoueurCible();
         }

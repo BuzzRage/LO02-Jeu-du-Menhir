@@ -1,14 +1,14 @@
 package core;
 
 import java.util.*;
-
+import affich.Affichage;
 
 public class PartieAvancee extends Partie {
 
 
     
-    public PartieAvancee(int nbJH,int nbJIA){
-        super(nbJH,nbJIA);
+    public PartieAvancee(int nbJH,int nbJIA,Affichage affich){
+        super(nbJH,nbJIA,affich);
         super.setNbrManches(nbJH+nbJIA);
         partAvancee = true;
     }

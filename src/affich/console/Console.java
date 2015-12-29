@@ -43,6 +43,12 @@ public class Console extends Affichage{
         sc = new Scanner(System.in);
         
     }
+    public void displayTour(){
+        displayJoueur();
+        displayEtatJoueur();
+        displayChoixCarte();
+        displayChoixAction();
+    }
     /**
      * Affiche le numéro du joueur
      * 
@@ -50,7 +56,7 @@ public class Console extends Affichage{
      * 		Le joueur dont on doit afficher le numéro.
      * 
      */
-    public void displayJoueur(){
+    private void displayJoueur(){
         System.out.println("Joueur "+Integer.toString(joueurActif.getNbr())+", à toi de jouer!");
         System.out.println("=========================");
     }
@@ -64,7 +70,7 @@ public class Console extends Affichage{
      * @param listeJoueurs
      * 		La liste de joueurs de la partie en cours.
      */
-    public void displayEtatJoueur(){
+    private void displayEtatJoueur(){
         
         System.out.println("Tu possèdes:");
         System.out.println(joueurActif.getNbrGraines()+"  Graines");
@@ -294,7 +300,7 @@ public class Console extends Affichage{
      * 
      * @see ChoixJoueur
      */
-    public void displayChoixCarte(){
+    private void displayChoixCarte(){
     
         int i=1;
         System.out.println("Quelle carte veux-tu jouer?");
@@ -338,7 +344,7 @@ public class Console extends Affichage{
      * @param choixJoueur
      * 		Le ChoixJoueur du joueur en cours.
      */
-    public void displayChoixAction(){
+    private void displayChoixAction(){
         System.out.println("Quelle action veux-tu effectuer?");
         System.out.println();
         System.out.println("1. Géant");
@@ -397,7 +403,7 @@ public class Console extends Affichage{
      * @param listeJoueurs
      * 		La liste de joueurs de la partie.
      */
-    public void displayJoueursAdverses(){
+    private void displayJoueursAdverses(){
         for(Joueur j : listeJoueurs){
             if(joueurActif!=j){
                 System.out.println(j.toString());

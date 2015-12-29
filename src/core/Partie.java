@@ -1,6 +1,7 @@
 package core;
 
 import affich.console.Console;
+import affich.Affichage;
 import java.util.*;
 
 
@@ -25,7 +26,7 @@ public abstract class Partie extends Observable implements Observer{
     protected int nbrManches;
     protected int nbrMancheActuelle;
     protected int nbrTourActuel;
-    protected Console console;
+    protected Affichage affich;
     protected Joueur joueurActif;
     protected TypeSaison saison;
     protected ArrayList<Joueur> listeJoueurs;
@@ -35,9 +36,9 @@ public abstract class Partie extends Observable implements Observer{
     protected boolean tourRunning;
     protected boolean partAvancee;
     
-    public Partie(int nbJH,int nbJIA){
-        console = Console.getInstance();
-        this.addObserver(console);
+    public Partie(int nbJH,int nbJIA, Affichage affich){
+        this.affich = affich;
+        this.addObserver(this.affich);
         
         listeJoueurs = new ArrayList<>();
         listeCarteIng = new LinkedList<>();
@@ -62,7 +63,7 @@ public abstract class Partie extends Observable implements Observer{
         do{
             if(!tourRunning){
                 initManche();
-                console.displayNbManche();
+                affich.displayNbManche();
             }
             if(partAvancee){
                 if(saison==TypeSaison.PRINTEMPS)
@@ -72,7 +73,7 @@ public abstract class Partie extends Observable implements Observer{
                         this.notifyObservers();
                         if(joueurActif.choixAllie()){
                             distribCarteAl(j);
-                            console.displayTypeAllie();
+                            affich.displayTypeAllie();
                         }
                         else
                             joueurActif.setNbrGraines(2);
@@ -94,7 +95,7 @@ public abstract class Partie extends Observable implements Observer{
                             if(joueurActif.getChoixJoueur().getCible().getCarteAl() instanceof CarteChien)
                                 joueurActif.getChoixJoueur().getCible().deciderReaction();
                 
-                console.displayAction();
+                affich.displayAction();
                 joueurActif.jouerCarte();
                 joueurActif.setChoixJoueur(new ChoixJoueur());
 
@@ -103,11 +104,11 @@ public abstract class Partie extends Observable implements Observer{
             if(!tourRunning){
                 this.recupCartes();
                 if(partAvancee)
-                    console.displayFinManche();
+                    affich.displayFinManche();
             } 
         }while(running);
         listeJoueurs.add(listeJoueurs.remove(0));
-        console.displayGagnant(this.getPalmares());
+        affich.displayGagnant(this.getPalmares());
         
     }
     
@@ -351,8 +352,10 @@ public abstract class Partie extends Observable implements Observer{
     }
     public void update(Observable obs, Object o){
 	if(obs instanceof Jeu){
-            this.listeCarteIng = ((Jeu)obs).getListeCarteIng();
-            this.listeCarteAl = ((Jeu)obs).getListeCarteAl();
+            Jeu jeu = (Jeu)obs;
+            this.listeCarteIng = jeu.getListeCarteIng();
+            this.listeCarteAl = jeu.getListeCarteAl();
+            this.affich = jeu.getAffichage();
 	}
     }
     
