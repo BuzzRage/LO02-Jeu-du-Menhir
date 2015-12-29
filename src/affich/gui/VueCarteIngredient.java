@@ -104,9 +104,13 @@ public class VueCarteIngredient extends JPanel implements ActionListener,Observe
         
     }
     public void update(Observable obs, Object o){
-        String imageUrl = ((CarteIngredient)obs).getTypeCarte().getImageUrl();
-        img = new ImageIcon(imageUrl);
-        background = Toolkit.getDefaultToolkit().getImage(imageUrl);
+        if(obs instanceof CarteIngredient){
+            if(!((CarteIngredient)obs).isPose()){
+                String imageUrl = ((CarteIngredient)obs).getTypeCarte().getImageUrl();
+                img = new ImageIcon(imageUrl);
+                background = Toolkit.getDefaultToolkit().getImage(imageUrl);
+            }
+        }
     }
     
 }
