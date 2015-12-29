@@ -21,7 +21,7 @@ public class JoueurHumain extends Joueur {
          */
         public void jouerTour(Partie part){
             console.displayJoueur(this);
-            console.displayEtatJoueur(this,part.getListeJoueurs(),part.getSaison());
+            console.displayEtatJoueur(this,part.getListeJoueurs());
             console.displayChoixCarte(this);
             console.displayChoixAction(choixJoueur);
             if(choixJoueur.getAction()==TypeAction.FARFADET)
@@ -53,7 +53,7 @@ public class JoueurHumain extends Joueur {
          */
         public void deciderReaction(Partie part){
             if(hasAllie()&&carteAl instanceof CarteChien){
-                if(console.displayReaction(part.getJoueurActif(),choixJoueur,part.getSaison())){
+                if(console.displayReaction(part.getJoueurActif(),choixJoueur)){
                     ChoixJoueur choix = new ChoixJoueur();
                     choix.setCible(part.joueurActif);
                     jouerCarteAl(choix);

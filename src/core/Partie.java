@@ -37,6 +37,7 @@ public abstract class Partie extends Observable implements Observer{
     
     public Partie(int nbJH,int nbJIA){
         console = Console.getInstance();
+        this.addObserver(console);
         
         listeJoueurs = new ArrayList<>();
         listeCarteIng = new LinkedList<>();
@@ -45,6 +46,8 @@ public abstract class Partie extends Observable implements Observer{
         tourRunning = false;
         nbrTourActuel = 1;
         saison = TypeSaison.PRINTEMPS;
+        this.setChanged();
+        this.notifyObservers();
         creerJoueur(nbJH,nbJIA);
     }
     
@@ -87,7 +90,7 @@ public abstract class Partie extends Observable implements Observer{
                             if(joueurActif.getChoixJoueur().getCible().getCarteAl() instanceof CarteChien)
                                 joueurActif.getChoixJoueur().getCible().deciderReaction(this);
                 
-                console.displayAction(joueurActif,saison);
+                console.displayAction(joueurActif);
                 joueurActif.jouerCarte();
                 joueurActif.setChoixJoueur(new ChoixJoueur());
 

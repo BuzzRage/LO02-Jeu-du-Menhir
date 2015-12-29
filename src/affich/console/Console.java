@@ -62,10 +62,8 @@ public class Console extends Affichage{
      * 		Le joueur dont on doit afficher le nombre de graines et de menhirs.
      * @param listeJoueurs
      * 		La liste de joueurs de la partie en cours.
-     * @param saison
-     * 		La saison en cours.
      */
-    public void displayEtatJoueur(Joueur j,ArrayList<Joueur> listeJoueurs, TypeSaison saison){
+    public void displayEtatJoueur(Joueur j,ArrayList<Joueur> listeJoueurs){
         
         System.out.println("Tu possèdes:");
         System.out.println(j.getNbrGraines()+"  Graines");
@@ -73,7 +71,7 @@ public class Console extends Affichage{
         System.out.println();
         System.out.println("Liste des joueurs adverses:");
         displayJoueursAdverses(j,listeJoueurs);
-        System.out.println("La saison actuelle est " + saison.toString());
+        System.out.println("La saison actuelle est " + saisonActuelle.toString());
     }
     
     /**
@@ -107,10 +105,8 @@ public class Console extends Affichage{
      * Affiche l'action effectué par le joueur en cours.
      * @param joueurActif
      * 		Le joueur dont on veut afficher la valeur de l'effet de son action.
-     * @param saison
-     * 		La saison en cours.
      */
-    public void displayAction(Joueur joueurActif,TypeSaison saison){
+    public void displayAction(Joueur joueurActif){
         switch(joueurActif.getChoixJoueur().getAction()){
             case GEANT:
                 System.out.print("Le joueur "+joueurActif.getNbr()+" obtient ");
@@ -227,22 +223,20 @@ public class Console extends Affichage{
      * 		Le joueur attaquant.
      * @param choixJoueur
      * 		Le ChoixJoueur du lanceur
-     * @param saison
-     * 		La saison en cours.
      * @return
      * 		true si le joueur décide de réagir. false sinon.
      */
-    public boolean displayReaction(Joueur lanceur,ChoixJoueur choixJoueur,TypeSaison saison){ //Pq ne pas utiliser lanceur.getChoixJoueur() ?
+    public boolean displayReaction(Joueur lanceur,ChoixJoueur choixJoueur){ //Pq ne pas utiliser lanceur.getChoixJoueur() ?
         System.out.print("Le joueur "+lanceur.getNbr()+" attaque le joueur "+choixJoueur.getCible().getNbr()+" !");
         System.out.println(" Il veut voler "+lanceur.getCarteAl().getEffet()+" graines.");
         System.out.println("Joueur "+choixJoueur.getCible().getNbr()+", veux-tu utiliser ta carte Chien?");
         System.out.println(choixJoueur.getCible().getCarteAl().toString());
-        System.out.println("La saison actuelle est: "+saison.toString());
+        System.out.println("La saison actuelle est: "+saisonActuelle.toString());
         System.out.println("1. Oui");
         System.out.println("2. Non");
         while(true){
             try{
-                return getReaction(choixJoueur, saison);
+                return getReaction(choixJoueur);
             }
             catch(InputMismatchException | WrongNumberException e){
                 System.out.println(e.getMessage());
@@ -254,12 +248,11 @@ public class Console extends Affichage{
      * Demande au joueur s'il veut réagir.
      * @param choixJoueur
      * 		Le ChoixJoueur du joueur attaquant.
-     * @param saison
      * @return true si le joueur décide de réagir. false sinon.
      * @throws WrongNumberException si le choix est différent de 1 ou 2
      * @throws InputMismatchException
      */
-    private boolean getReaction(ChoixJoueur choixJoueur,TypeSaison saison) throws WrongNumberException,InputMismatchException{
+    private boolean getReaction(ChoixJoueur choixJoueur) throws WrongNumberException,InputMismatchException{
         int choix;
         try{
             choix = sc.nextInt();
