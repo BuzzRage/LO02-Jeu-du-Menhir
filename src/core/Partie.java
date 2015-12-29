@@ -47,6 +47,7 @@ public abstract class Partie extends Observable{
         saison = TypeSaison.PRINTEMPS;
         creerJoueur(nbJH,nbJIA);
         creerCartes();
+        
     }
     
     /**
@@ -56,6 +57,7 @@ public abstract class Partie extends Observable{
      */
     public void lancerPartie(){
         initPartie();
+        addJoueurObservers();
         do{
             if(!tourRunning){
                 initManche();
@@ -115,6 +117,12 @@ public abstract class Partie extends Observable{
             j.setNbrMenhir(0);
         }
     }
+    
+   private void addJoueurObservers(){
+       for(int i =0;i<listeJoueurs.size();i++){
+	   this.addObserver(listeJoueurs.get(i));
+       }
+   }
     
     /**
      * Initialise la manche en mélangeant et distribuant les <code>CarteIngredients</code> aux Joueurs.<br> 
@@ -286,7 +294,10 @@ public abstract class Partie extends Observable{
             for(int i=0;i<4;i++){
                 j.addCarteIng(this.listeCarteIng.pop());
             }   
+            for(int i=0;i<4;i++)
+        	this.addObserver(j.getCarte(i));
         }
+        
     }
     
     /**
@@ -296,6 +307,7 @@ public abstract class Partie extends Observable{
      */
     public void distribCarteAl(Joueur j){
         j.setCarteAllie(this.listeCarteAl.pop());
+        this.addObserver(j.getCarteAl());
     }
     
     /**
