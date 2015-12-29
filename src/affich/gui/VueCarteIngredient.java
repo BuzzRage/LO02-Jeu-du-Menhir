@@ -89,11 +89,12 @@ public class VueCarteIngredient extends JPanel implements ActionListener,Observe
         repaint();
     }
     public void actionPerformed(ActionEvent event){
+        boutons.setVisible(false);
         String imageUrl = TypeCarte.DOS_INGREDIENT.getImageUrl();
         img = new ImageIcon(imageUrl);
         background = Toolkit.getDefaultToolkit().getImage(imageUrl);
         repaint();
-        boutons.setVisible(false);
+        
     }
     public void paintComponent(Graphics g){
         super.paintComponent(g);
