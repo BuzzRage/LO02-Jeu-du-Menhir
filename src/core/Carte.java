@@ -8,7 +8,7 @@ import java.util.Observable;
 /**
  * La classe Carte modélise les aspects invariants des cartes du jeu.<br>
  * Une Carte dispose d'un effet (<code>int[][] effet</code>) en fonction d'une saison et d'une action, elle possède également le booléen <code>pose</code> pour indiquer si la Carte est jouée ou non.<br>
- * L'attribut <code>int nbr</code> permet de référencer la Carte, chaque Carte étant unique.<br>
+ * <code>static TypeSaison saisonActuelle</code> contient la saison en cours de la partie via le pattern Observer-Observable. Elle est commune à toute les cartes donc static.
  */
 public abstract class Carte extends Observable implements Jouable,Observer{
 
@@ -16,10 +16,12 @@ public abstract class Carte extends Observable implements Jouable,Observer{
     protected int[][] effet;
     private boolean pose;
     private final TypeCarte type;
+    protected static TypeSaison saisonActuelle;
 
     public Carte(TypeCarte type) {
         this.pose = false;
         this.type=type;
+        this.saisonActuelle=TypeSaison.PRINTEMPS;
     }
     /**
      * Renvoie un booléen indiquant si un carte est posée ou non. Cela permet de savoir quelles cartes ont déjà été jouées.
@@ -43,8 +45,18 @@ public abstract class Carte extends Observable implements Jouable,Observer{
      * Retourne l'effet de la carte, en fonction de la saison en cours et de l'action voulue.
      * @param a
      * 		L'action choisie par le Joueur.
+     * @return L'effet de la carte.
+     */
+    public int getEffet(TypeAction a){
+        return this.effet[a.toInteger()][saisonActuelle.toInteger()];
+    }
+    
+    /**
+     * Retourne l'effet de la carte, en fonction de la saison voulue et de l'action voulue.
+     * @param a
+     * 		L'action choisie par le Joueur.
      * @param s
-     * 		La saison en cours.
+     * 		La saison voulue.
      * @return L'effet de la carte.
      */
     public int getEffet(TypeAction a,TypeSaison s){
@@ -62,11 +74,13 @@ public abstract class Carte extends Observable implements Jouable,Observer{
     }
     
     public void update(Observable o,Object arg){
-	
+	if(o instanceof Partie){
+	    saisonActuelle=((Partie) o).getSaison();
+	}
     }
     
     /**
-     * @see core.Jouable#jouer(Joueur, Joueur, TypeAction, TypeSaison)
+     * @see core.Jouable#jouer(Joueur, Joueur, TypeAction)
      */
-    public abstract void jouer(Joueur lanceur, Joueur cible, TypeSaison s);
+    public abstract void jouer(Joueur lanceur, Joueur cible);
 }

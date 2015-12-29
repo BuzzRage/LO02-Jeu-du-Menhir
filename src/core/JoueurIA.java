@@ -1,37 +1,40 @@
 package core;
 
+import java.util.Observable;
+
 /**
  * La classe JoueurIA possède un attribut de type Strategy permettant de définir le JoueurIA comme aggressif ou défensif.<br>
  * Son comportement est ainsi impacté par le type de Strategy qu'il possède. Ce type est défini dans le constructeur de manière aléatoire mais équiprobable.
  * Le JoueurIA aggressif volera des graines et prendra une carte alliée tandis que le défensif en demandera au Géant et prendra deux graines dans les partie avancées.
  */
 public class JoueurIA extends Joueur {
-    private Strategy strat;
     
-    public Strategy getStrat(){
+    private Strat strat;
+    
+    public Strat getStrat(){
     	return strat;
     }
     
-    private void setStrat(Strategy s){
+    private void setStrat(Strat s){
     	strat=s;
     }
     
     /**
-     * @see core.Joueur#deciderReaction(core.Partie)
+     * @see core.Joueur#deciderReaction()
      */
-    public void deciderReaction(Partie part){
-        if(strat.deciderReaction(this,part.joueurActif,part.getSaison())){
-            jouerCarteAl(part.getJoueurActif(),part.getSaison());
+    public void deciderReaction(){
+        if(strat.deciderReaction(this,joueurActif)){
+            jouerCarteAl(joueurActif);
         }
     }
     
     
     /**
-     * @see core.Joueur#jouerAllie(core.Partie)
+     * @see core.Joueur#jouerAllie()
      */
-    public void jouerAllie(Partie part){
-        if(carteAl instanceof CarteTaupe && strat.jouerTaupe(part))
-            jouerCarteAl(part.getJoueurMaxMenhir(),part.getSaison());
+    public void jouerAllie(){
+        if(carteAl instanceof CarteTaupe && strat.jouerTaupe())
+            jouerCarteAl(strat.getMaxMenhirs());
     }
     
     
@@ -58,9 +61,10 @@ public class JoueurIA extends Joueur {
     
     
     /**
-     * @see core.Joueur#jouerTour(core.Partie)
+     * @see core.Joueur#jouerTour()
      */
-    public void jouerTour(Partie part){
-        strat.decider(part, this);
+    public void jouerTour(){
+        strat.decider(this);
         }
-    }
+    
+}

@@ -8,21 +8,27 @@ package affich;
 import java.util.Observable;
 import java.util.Observer;
 
+import core.Partie;
+import core.TypeSaison;
+
 /**
  *
  * @author Apache
  */
 public class Affichage implements Observer {
+    protected TypeSaison saisonActuelle;
     private static Affichage instance = null;
     
     public static Affichage getInstance(){
-        if(instance ==null)
+        if(instance ==null){
             instance = new Affichage();
+        }
         return instance;
     }
-    public void update(Observable arg0, Object arg1) {
-	// TODO Auto-generated method stub
-	
+    public void update(Observable o, Object arg1) {
+	if(o instanceof Partie){
+	    saisonActuelle=((Partie) o).getSaison();
+	}	
     }
     
     

@@ -1,15 +1,14 @@
 package core;
 public interface Strategy {
+    
     /**
-     * Paramètre le ChoixJoueur du joueur IA j.
-     * @param p
-     * 		La partie dont on veut connaitre les informations (liste de joueurs, saison etc..).
+     * Paramètre le ChoixJoueur du joueur j.
      * @param j
      * 		Le joueur dont on veut modifier le ChoixJoueur.
      * 
      * @see core.ChoixJoueur
      */
-    public void decider(Partie p, Joueur j);
+    public void decider(Joueur j);
     
     /**
      * Renvoie un booléen indiquant le choix du joueur. 
@@ -27,18 +26,14 @@ public interface Strategy {
      * 		Le Joueur ciblé.
      * @param attaquant
      * 		Le Joueur attaquant, pour avoir son ChoixJoueur et autres getters.
-     * @param s
-     * 		La saison en cours.
      * @return true si le Joueur cible réagit. false sinon.
      */
-    public boolean deciderReaction(Joueur cible,Joueur attaquant,TypeSaison s);
+    public boolean deciderReaction(Joueur cible,Joueur attaquant);
     
     /**
      * Retourne un booléen indiquant si le Joueur joue sa CarteTaupe ou non.
      * Renvoie false pour la classe SafeStrat.
-     * @param part
-     * 		La partie en cours.
      * @return true si le Joueur joue sa carte Taupe, false sinon.
      */
-    public boolean jouerTaupe(Partie part);
+    public boolean jouerTaupe();
 }

@@ -31,6 +31,8 @@ public abstract class Joueur extends Observable implements Observer{
     private int nbrGraines;
     private int nbrMenhirs;
     private final boolean humain;
+    protected ArrayList<Joueur> listeJoueursAdverses;
+    protected Joueur joueurActif;
     private LinkedList<CarteIngredient> deck = new LinkedList<>();
     protected CarteAllie carteAl;
     private static int nbrJoueurs = 0;
@@ -120,62 +122,49 @@ public abstract class Joueur extends Observable implements Observer{
     
     /**
      *  Joue la <code>Carte</code> du <code>ChoixJoueur</code> du Joueur. 
-     * @param s
-     * 		La saison en cours.
      */
-    public void jouerCarte(TypeSaison s){
-        
-        choixJoueur.getCarte().jouer(this,choixJoueur.getCible(),choixJoueur.getAction(),s);
+    public void jouerCarte(){
+        choixJoueur.getCarte().jouer(this,choixJoueur.getCible(),choixJoueur.getAction());
     }    
     
     /**
      * Joue la <code>CarteAllie</code> du Joueur.
      * @param choix
      * 		Le ChoixJoueur contenant la cible, la carte et l'action désirée. Ce paramètre peut être différent du ChoixJoueur du Joueur en cours.
-     * @param s
-     * 		La saison en cours.
      * 
      * @see core.ChoixJoueur
      */
-    public void jouerCarteAl(ChoixJoueur choix,TypeSaison s){
-        carteAl.jouer(this, choix.getCible(), choix.getAction(), s);
+    public void jouerCarteAl(ChoixJoueur choix){
+        carteAl.jouer(this, choix.getCible(), choix.getAction());
     }
     
     /**
      * Joue la <code>CarteAllie</code> du Joueur.
      * @param cible
      * 		Le Joueur ciblé. Peut être différent de <code>choixJoueur.getCible()</code>.
-     * @param s
-     * 		La saison en cours.
      * 
      * @see core.ChoixJoueur
      */
-    public void jouerCarteAl(Joueur cible,TypeSaison s){
-        carteAl.jouer(this,cible,s);
+    public void jouerCarteAl(Joueur cible){
+        carteAl.jouer(this,cible);
     }
     
     /**
      * Joue le tour d'un Joueur.<br>
      * Pour un JoueurHumain, cette méthode affiche les informations nécessaire à la prise de décision de l'utilisateur, puis elle lui propose de choisir ce qu'il veut faire.<br>
      * Pour un JoueurIA, cette méthode paramètre le ChoixJoueur du JoueurIA.
-     * @param part
-     * 		La Partie en cours.
      */
-    public abstract void jouerTour(Partie part);
+    public abstract void jouerTour();
     
     /**
      * Décide de réagir ou non face à une attaque de farfadet si le Joueur possède une CarteChien.
-     * @param part
-     * 		La Partie en cours.
      */
-    public abstract void deciderReaction(Partie part);
+    public abstract void deciderReaction();
     
     /**
      * Décide de jouer la <code>CarteAllie</code> ou non.
-     * @param part
-     * 		La Partie en cours.
      */
-    public abstract void jouerAllie(Partie part);
+    public abstract void jouerAllie();
     
     /**
      * Renvoie un booléen indiquant le choix du joueur. <br>
@@ -254,19 +243,17 @@ public abstract class Joueur extends Observable implements Observer{
      * Retourne la <code>CarteIngredient</code> la plus efficace en fonction de l'action et de la saison en paramètre.
      * @param a
      * 		L'action voulue.
-     * @param s
-     * 		La saison voulue.
      * @return La <code>CarteIngredient</code> la plus efficace.
      */
-    public CarteIngredient getCarteMax(TypeAction a, TypeSaison s){
+    public CarteIngredient getCarteMax(TypeAction a){
         int nbMax=-1;
         CarteIngredient carte = null;
         for(CarteIngredient c:deck)
         {
             if(!c.isPose())
-                if(c.getEffet(a,s)>nbMax)
+                if(c.getEffet(a)>nbMax)
                 {
-                        nbMax=c.getEffet(a,s);
+                        nbMax=c.getEffet(a);
                         carte=c;
                 }
                
@@ -278,27 +265,26 @@ public abstract class Joueur extends Observable implements Observer{
      * Retourne la <code>CarteIngredient</code> la plus pertinente en fonction de l'action et de la saison en paramètre. L'effet de la carte retournée est bornée par la condition en paramètre + 1
      * @param a
      * 		L'action voulue.
-     * @param s
-     * 		La saison voulue.
      * @param condition
      * 		La borne à ne pas dépasser pour éviter de renvoyer une <code>CarteIngredient</code> plus efficace que nécessaire.
      * @return La <code>CarteIngredient</code> la plus pertinente.
      */
-    public CarteIngredient getCarteMax(TypeAction a, TypeSaison s, int condition){
-        int nbMax=-1;
+    public CarteIngredient getCarteMax(TypeAction a, int condition){
+        int nbMax=-1,effet=-1;
         CarteIngredient carte=null;
         for(CarteIngredient c:deck)
         {
             if(!c.isPose())
             	// TODO: rendre le if moins compact
-                if((c.getEffet(a,s)<=condition || (c.getEffet(a,s)>condition && Math.abs(c.getEffet(a,s)-condition) <= 1)) && c.getEffet(a,s)>nbMax)
+        	effet=c.getEffet(a);
+                if((effet<=condition || (effet>condition && Math.abs(effet-condition) <= 1)) && effet>nbMax)
                 {
-                        nbMax=c.getEffet(a,s);
+                        nbMax=effet;
                         carte= c;
                 }
         }
-        //if(carte == null)
-            //carte = getCarteMax(a,s);
+        if(carte == null)
+            carte = getCarteMax(a);
         return carte;
     }
     
@@ -369,7 +355,12 @@ public abstract class Joueur extends Observable implements Observer{
     }
     
     public void update(Observable o, Object arg){
-        
+        if(o instanceof Partie){
+            //Récupère la liste de joueurs de la partie
+            listeJoueursAdverses=((Partie) o).getListeJoueurs();
+           //retire le joueur this: listeJoueursAdverses.remove(listeJoueursAdverses.indexOf(this));
+            joueurActif=((Partie) o).getJoueurActif();
+        }
     }
 
 }
