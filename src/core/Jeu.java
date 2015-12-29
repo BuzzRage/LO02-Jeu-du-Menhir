@@ -130,7 +130,5 @@ public class Jeu extends Observable{
     public LinkedList<CarteAllie> getListeCarteAl(){
         return listeCarteAl;
     }
-    public Affichage getAffichage(){
-        return affich;
-    }
+    
 }

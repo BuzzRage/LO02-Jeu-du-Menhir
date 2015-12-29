@@ -171,6 +171,9 @@ public abstract class Partie extends Observable implements Observer{
     public ArrayList<Joueur> getListeJoueurs(){
         return listeJoueurs;
     }
+    public Affichage getAffichage(){
+        return affich;
+    }
     
     /**
      * Réordonne la liste de Joueurs en fonction du nombre de points, et renvoie la liste.
@@ -355,7 +358,6 @@ public abstract class Partie extends Observable implements Observer{
             Jeu jeu = (Jeu)obs;
             this.listeCarteIng = jeu.getListeCarteIng();
             this.listeCarteAl = jeu.getListeCarteAl();
-            this.affich = jeu.getAffichage();
 	}
     }
     

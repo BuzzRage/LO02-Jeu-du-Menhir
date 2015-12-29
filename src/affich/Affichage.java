@@ -34,6 +34,7 @@ public abstract class Affichage implements Observer {
     public abstract ChoixFinPartie displayChoixFinPartie();
     public abstract int getNbJoueurs();
     public abstract boolean getTypePartie();
+    public abstract void displayJoueurCible();
     
     
     

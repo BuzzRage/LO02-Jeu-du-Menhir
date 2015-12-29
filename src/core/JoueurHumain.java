@@ -1,19 +1,20 @@
 package core;
 
-import affich.console.Console;
+import affich.Affichage;
+import java.util.Observable;
 
 /**
- * La classe JoueurHumain interagit avec l'affichage (qui peut être une console ou une interface graphique).
+ * La classe JoueurHumain interagit avec l'affichage (qui peut être une affich ou une interface graphique).
  * L'utilisateur incarnant un JoueurHumain, cela lui permet d'avoir une action sur le programme.
  * 
  * @see core.Joueur
  */
 public class JoueurHumain extends Joueur {
-    	protected Console console;
+    	protected Affichage affich;
     
 	public JoueurHumain(){
 		super(true);
-		console = Console.getInstance();
+		//affich = Console.getInstance();
 	}
 	
         /**
@@ -21,9 +22,9 @@ public class JoueurHumain extends Joueur {
          */
         public void jouerTour(){
             
-            console.displayTour();
+            affich.displayTour();
             if(choixJoueur.getAction()==TypeAction.FARFADET)
-                console.displayJoueurCible();
+                affich.displayJoueurCible();
         }
         
         /**
@@ -31,8 +32,8 @@ public class JoueurHumain extends Joueur {
          */
         public void jouerAllie(){
             if(hasAllie()&&carteAl instanceof CarteTaupe)
-                if(console.displayChoixCarteTaupe()){
-                    console.displayJoueurCible();
+                if(affich.displayChoixCarteTaupe()){
+                    affich.displayJoueurCible();
                     jouerCarteAl(choixJoueur);
                 }
                 
@@ -42,7 +43,7 @@ public class JoueurHumain extends Joueur {
          * @see core.Joueur#choixAllie()
          */
         public boolean choixAllie(){
-            return console.displayChoixAllie();
+            return affich.displayChoixAllie();
         }
         
         
@@ -51,12 +52,17 @@ public class JoueurHumain extends Joueur {
          */
         public void deciderReaction(){
             if(hasAllie()&&carteAl instanceof CarteChien){
-                if(console.displayReaction()){
+                if(affich.displayReaction()){
                     ChoixJoueur choix = new ChoixJoueur();
                     choix.setCible(joueurActif);
                     jouerCarteAl(choix);
                 }
             }
+        }
+        public void update(Observable obs,Object o){
+            super.update(obs, o);
+            if(obs instanceof Partie)
+                affich = ((Partie)obs).getAffichage();
         }
        
 	
