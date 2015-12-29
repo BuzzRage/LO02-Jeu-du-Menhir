@@ -45,7 +45,7 @@ public class Jeu extends Observable{
         int nbJoueurs = 0;
         int nbJH = 1;
         nbJoueurs = console.getNbJoueurs();
-        if(console.getTypePartie(nbJH, nbJoueurs))
+        if(console.getTypePartie())
             part = new PartieAvancee(nbJH,nbJoueurs-nbJH);
         else
             part = new PartieRapide(nbJH,nbJoueurs-nbJH);

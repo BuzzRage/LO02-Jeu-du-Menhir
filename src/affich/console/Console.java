@@ -50,10 +50,11 @@ public class Console extends Affichage{
      * 		Le joueur dont on doit afficher le numéro.
      * 
      */
-    public void displayJoueur(Joueur j){
-        System.out.println("Joueur "+Integer.toString(j.getNbr())+", à toi de jouer!");
+    public void displayJoueur(){
+        System.out.println("Joueur "+Integer.toString(joueurActif.getNbr())+", à toi de jouer!");
         System.out.println("=========================");
     }
+    //public void displayTour()
     
     /**
      * Affiche le nombre de graines, le nombre de menhirs, la liste de joueurs de la partie, la saison en cours.
@@ -63,14 +64,14 @@ public class Console extends Affichage{
      * @param listeJoueurs
      * 		La liste de joueurs de la partie en cours.
      */
-    public void displayEtatJoueur(Joueur j,ArrayList<Joueur> listeJoueurs){
+    public void displayEtatJoueur(){
         
         System.out.println("Tu possèdes:");
-        System.out.println(j.getNbrGraines()+"  Graines");
-        System.out.println(j.getNbrMenhirs() +"  Menhirs");
+        System.out.println(joueurActif.getNbrGraines()+"  Graines");
+        System.out.println(joueurActif.getNbrMenhirs() +"  Menhirs");
         System.out.println();
         System.out.println("Liste des joueurs adverses:");
-        displayJoueursAdverses(j,listeJoueurs);
+        displayJoueursAdverses();
         System.out.println("La saison actuelle est " + saisonActuelle.toString());
     }
     
@@ -80,7 +81,7 @@ public class Console extends Affichage{
      * @param listeJoueurs
      * 		La liste des joueurs de la partie.
      */
-    public void displayFinManche(ArrayList<Joueur> listeJoueurs){
+    public void displayFinManche(){
         System.out.print("Fin de la manche!");
         Joueur meuneur=listeJoueurs.get(0);
         int menMax=-1;
@@ -106,7 +107,7 @@ public class Console extends Affichage{
      * @param joueurActif
      * 		Le joueur dont on veut afficher la valeur de l'effet de son action.
      */
-    public void displayAction(Joueur joueurActif){
+    public void displayAction(){
         switch(joueurActif.getChoixJoueur().getAction()){
             case GEANT:
                 System.out.print("Le joueur "+joueurActif.getNbr()+" obtient ");
@@ -161,7 +162,7 @@ public class Console extends Affichage{
      * @param joueurActif
      * 		Le joueur dont on veut afficher la carte alliée.
      */
-    public void displayTypeAllie(Joueur joueurActif){
+    public void displayTypeAllie(){
         if(joueurActif.isHuman()){
             if(joueurActif.getCarteAl() instanceof CarteChien)
                 System.out.println("Tu as tiré une carte chien!");
@@ -226,8 +227,8 @@ public class Console extends Affichage{
      * @param p
      * 		La partie en cours.
      */
-    public void displayNbManche(Partie p){
-        System.out.println("Manche "+p.getNbrManche());
+    public void displayNbManche(){
+        System.out.println("Manche "+nbMancheActuelle);
         
     }
     /**
@@ -239,17 +240,19 @@ public class Console extends Affichage{
      * @return
      * 		true si le joueur décide de réagir. false sinon.
      */
-    public boolean displayReaction(Joueur lanceur,ChoixJoueur choixJoueur){ //Pq ne pas utiliser lanceur.getChoixJoueur() ?
-        System.out.print("Le joueur "+lanceur.getNbr()+" attaque le joueur "+choixJoueur.getCible().getNbr()+" !");
-        System.out.println(" Il veut voler "+lanceur.getCarteAl().getEffet()+" graines.");
-        System.out.println("Joueur "+choixJoueur.getCible().getNbr()+", veux-tu utiliser ta carte Chien?");
-        System.out.println(choixJoueur.getCible().getCarteAl().toString());
+    public boolean displayReaction(){ //Pq ne pas utiliser lanceur.getChoixJoueur() ?
+        System.out.print("Le joueur "+joueurActif.getNbr()+
+                " attaque le joueur "+joueurActif.getChoixJoueur().getCible().getNbr()+" !");
+        System.out.println(" Il veut voler "+joueurActif.getCarteAl().getEffet()+" graines.");
+        System.out.println("Joueur "+joueurActif.getChoixJoueur().getCible().getNbr()+
+                ", veux-tu utiliser ta carte Chien?");
+        System.out.println(joueurActif.getChoixJoueur().getCible().getCarteAl().toString());
         System.out.println("La saison actuelle est: "+saisonActuelle.toString());
         System.out.println("1. Oui");
         System.out.println("2. Non");
         while(true){
             try{
-                return getReaction(choixJoueur);
+                return getReaction();
             }
             catch(InputMismatchException | WrongNumberException e){
                 System.out.println(e.getMessage());
@@ -259,13 +262,11 @@ public class Console extends Affichage{
     }
     /**
      * Demande au joueur s'il veut réagir.
-     * @param choixJoueur
-     * 		Le ChoixJoueur du joueur attaquant.
      * @return true si le joueur décide de réagir. false sinon.
      * @throws WrongNumberException si le choix est différent de 1 ou 2
      * @throws InputMismatchException
      */
-    private boolean getReaction(ChoixJoueur choixJoueur) throws WrongNumberException,InputMismatchException{
+    private boolean getReaction() throws WrongNumberException,InputMismatchException{
         int choix;
         try{
             choix = sc.nextInt();
@@ -293,11 +294,11 @@ public class Console extends Affichage{
      * 
      * @see ChoixJoueur
      */
-    public void displayChoixCarte(Joueur j){
+    public void displayChoixCarte(){
     
         int i=1;
         System.out.println("Quelle carte veux-tu jouer?");
-        LinkedList<CarteIngredient> liste = j.getCartes();
+        LinkedList<CarteIngredient> liste = joueurActif.getCartes();
         for (Iterator<CarteIngredient> it = liste.iterator(); it.hasNext();) {
             CarteIngredient c = it.next();
             System.out.println("Carte "+i);
@@ -306,7 +307,7 @@ public class Console extends Affichage{
         }
         while(!continuer){
             try{
-                getChoixCarte(i,j);
+                getChoixCarte(i,joueurActif);
                 continuer = true;
             }
             catch(WrongNumberException | InputMismatchException e){
@@ -337,7 +338,7 @@ public class Console extends Affichage{
      * @param choixJoueur
      * 		Le ChoixJoueur du joueur en cours.
      */
-    public void displayChoixAction(ChoixJoueur choixJoueur){
+    public void displayChoixAction(){
         System.out.println("Quelle action veux-tu effectuer?");
         System.out.println();
         System.out.println("1. Géant");
@@ -346,7 +347,7 @@ public class Console extends Affichage{
         System.out.println("0. Annuler");
         while(!continuer){
             try{
-                this.getchoixAction(choixJoueur);
+                this.getchoixAction();
                 continuer = true;
             }
             catch(WrongNumberException | InputMismatchException e){
@@ -359,8 +360,9 @@ public class Console extends Affichage{
         }
         continuer = false;
     }
-    private void getchoixAction(ChoixJoueur choixJoueur) throws WrongNumberException, InputMismatchException,AnnulerException{
+    private void getchoixAction() throws WrongNumberException, InputMismatchException,AnnulerException{
         int choix;
+        TypeAction action = TypeAction.ENGRAIS;
         try{
             choix = sc.nextInt();
             if(choix<0||choix >3)
@@ -370,15 +372,16 @@ public class Console extends Affichage{
             else{
                 switch(choix){
                     case 1:
-                        choixJoueur.setAction(TypeAction.GEANT);
+                        action = TypeAction.GEANT;
                         break;
                     case 2:
-                        choixJoueur.setAction(TypeAction.ENGRAIS);
+                        action = TypeAction.ENGRAIS;
                         break;
                     case 3:
-                        choixJoueur.setAction(TypeAction.FARFADET);
+                        action = TypeAction.FARFADET;
                         break;
                 }
+                joueurActif.getChoixJoueur().setAction(action);
             }
         }
         catch(InputMismatchException e){
@@ -394,7 +397,7 @@ public class Console extends Affichage{
      * @param listeJoueurs
      * 		La liste de joueurs de la partie.
      */
-    public void displayJoueursAdverses(Joueur joueurActif,ArrayList<Joueur> listeJoueurs){
+    public void displayJoueursAdverses(){
         for(Joueur j : listeJoueurs){
             if(joueurActif!=j){
                 System.out.println(j.toString());
@@ -412,13 +415,13 @@ public class Console extends Affichage{
      * @param listeJoueurs
      * 		La liste des joueurs de la partie.
      */
-    public void displayJoueurCible(Joueur joueurActif,ChoixJoueur choixJoueur, ArrayList<Joueur> listeJoueurs){
+    public void displayJoueurCible(){
         System.out.println("Choisis ta cible");
         System.out.println();
-        displayJoueursAdverses(joueurActif,listeJoueurs);
+        displayJoueursAdverses();
         while(!continuer){
             try{
-                this.getJoueurCible(joueurActif,choixJoueur,listeJoueurs);
+                this.getJoueurCible();
                 continuer = true;
             }
             catch(WrongNumberException | InputMismatchException e){
@@ -428,7 +431,7 @@ public class Console extends Affichage{
         continuer = false;
         
     }
-    private void getJoueurCible(Joueur joueurActif,ChoixJoueur choixJoueur, ArrayList<Joueur> listeJoueurs) throws WrongNumberException, InputMismatchException {//possible probleme sur le chiffre de choix
+    private void getJoueurCible() throws WrongNumberException, InputMismatchException {//possible probleme sur le chiffre de choix
         int choix;
         try{
             choix = sc.nextInt();
@@ -437,7 +440,7 @@ public class Console extends Affichage{
             else if(choix == joueurActif.getNbr())
                 throw new WrongNumberException("Tu ne peux pas te viser toi-même!");
             else
-                choixJoueur.setCible(listeJoueurs.get(choix-1));
+                joueurActif.getChoixJoueur().setCible(listeJoueurs.get(choix-1));
         }
         catch(InputMismatchException e){
             sc.nextLine();
@@ -453,10 +456,10 @@ public class Console extends Affichage{
      * 		La liste de joueurs de la Partie.
      * @return true si le joueur joue sa carte taupe. false sinon.
      */
-    public boolean displayChoixCarteTaupe(Joueur joueurActif,ArrayList<Joueur> listeJoueurs){
+    public boolean displayChoixCarteTaupe(){
         boolean bool = false;
         if(joueurActif.getCarteAl() instanceof CarteTaupe){
-            displayJoueursAdverses(joueurActif,listeJoueurs);
+            displayJoueursAdverses();
             System.out.println("Veux-tu jouer ta carte Taupe?");
             System.out.println(joueurActif.getCarteAl().toString());
             System.out.println("1. Oui");
@@ -605,7 +608,7 @@ public class Console extends Affichage{
      * 		true si l'utilisateur choisi une partie simple. false sinon.
      * @throws InputMismatchException
      */
-    public boolean getTypePartie(int nbJH, int nbJoueurs){
+    public boolean getTypePartie(){
         int choix;
         System.out.println("Choisis un type de partie");
         System.out.println();

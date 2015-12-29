@@ -62,7 +62,7 @@ public abstract class Partie extends Observable implements Observer{
         do{
             if(!tourRunning){
                 initManche();
-                console.displayNbManche(this);
+                console.displayNbManche();
             }
             if(partAvancee){
                 if(saison==TypeSaison.PRINTEMPS)
@@ -72,7 +72,7 @@ public abstract class Partie extends Observable implements Observer{
                         this.notifyObservers();
                         if(joueurActif.choixAllie()){
                             distribCarteAl(j);
-                            console.displayTypeAllie(joueurActif);
+                            console.displayTypeAllie();
                         }
                         else
                             joueurActif.setNbrGraines(2);
@@ -94,7 +94,7 @@ public abstract class Partie extends Observable implements Observer{
                             if(joueurActif.getChoixJoueur().getCible().getCarteAl() instanceof CarteChien)
                                 joueurActif.getChoixJoueur().getCible().deciderReaction();
                 
-                console.displayAction(joueurActif);
+                console.displayAction();
                 joueurActif.jouerCarte();
                 joueurActif.setChoixJoueur(new ChoixJoueur());
 
@@ -103,7 +103,7 @@ public abstract class Partie extends Observable implements Observer{
             if(!tourRunning){
                 this.recupCartes();
                 if(partAvancee)
-                    console.displayFinManche(listeJoueurs);
+                    console.displayFinManche();
             } 
         }while(running);
         listeJoueurs.add(listeJoueurs.remove(0));

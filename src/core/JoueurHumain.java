@@ -20,12 +20,12 @@ public class JoueurHumain extends Joueur {
          * @see core.Joueur#jouerTour()
          */
         public void jouerTour(){
-            console.displayJoueur(this);
-            console.displayEtatJoueur(this,listeJoueursAdverses);
-            console.displayChoixCarte(this);
-            console.displayChoixAction(choixJoueur);
+            console.displayJoueur();
+            console.displayEtatJoueur();
+            console.displayChoixCarte();
+            console.displayChoixAction();
             if(choixJoueur.getAction()==TypeAction.FARFADET)
-                console.displayJoueurCible(this, choixJoueur, listeJoueursAdverses);
+                console.displayJoueurCible();
         }
         
         /**
@@ -33,8 +33,8 @@ public class JoueurHumain extends Joueur {
          */
         public void jouerAllie(){
             if(hasAllie()&&carteAl instanceof CarteTaupe)
-                if(console.displayChoixCarteTaupe(this,listeJoueursAdverses)){
-                    console.displayJoueurCible(this, choixJoueur, listeJoueursAdverses);
+                if(console.displayChoixCarteTaupe()){
+                    console.displayJoueurCible();
                     jouerCarteAl(choixJoueur);
                 }
                 
@@ -53,7 +53,7 @@ public class JoueurHumain extends Joueur {
          */
         public void deciderReaction(){
             if(hasAllie()&&carteAl instanceof CarteChien){
-                if(console.displayReaction(joueurActif,choixJoueur)){
+                if(console.displayReaction()){
                     ChoixJoueur choix = new ChoixJoueur();
                     choix.setCible(joueurActif);
                     jouerCarteAl(choix);

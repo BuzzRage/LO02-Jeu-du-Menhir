@@ -5,29 +5,44 @@
  */
 package affich;
 
-import java.util.Observable;
-import java.util.Observer;
+import java.util.*;
 
-import core.Partie;
-import core.TypeSaison;
+import core.*;
 
 /**
  *
  * @author Apache
  */
-public class Affichage implements Observer {
+public abstract class Affichage implements Observer {
     protected TypeSaison saisonActuelle;
+    protected Joueur joueurActif;
+    protected ArrayList<Joueur> listeJoueurs;
+    protected int nbMancheActuelle;
     private static Affichage instance = null;
     
-    public static Affichage getInstance(){
-        if(instance ==null){
-            instance = new Affichage();
-        }
-        return instance;
-    }
+    
+    
+    public abstract void displayJoueur();
+    public abstract void displayEtatJoueur();
+    public abstract void displayFinManche();
+    public abstract void displayAction();
+    public abstract boolean displayChoixAllie();
+    public abstract void displayTypeAllie();
+    public abstract void displayGagnant(ArrayList<Joueur> palmares);
+    public abstract void displayNbManche();
+    public abstract boolean displayReaction();
+    public abstract void displayChoixCarte();
+    public abstract void displayChoixAction();
+    
+    
+    
     public void update(Observable o, Object arg1) {
 	if(o instanceof Partie){
-	    saisonActuelle=((Partie) o).getSaison();
+            Partie part = (Partie)o;
+	    saisonActuelle=(part.getSaison());
+            joueurActif = part.getJoueurActif();
+            listeJoueurs = part.getListeJoueurs();
+            nbMancheActuelle = part.getNbrManche();
 	}	
     }
     
