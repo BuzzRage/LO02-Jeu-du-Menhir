@@ -9,6 +9,7 @@ import core.*;
 import java.util.ArrayList;
 import javax.swing.*;
 import java.awt.*;
+import java.util.*;
 
 /**
  *
@@ -20,6 +21,7 @@ public class Gui extends Affichage{
     private String[] options = new String[NB_J_MAX];
     private String title = "Choix du nombre de joueurs";
     private String message = "Combien de joueurs souhaites-tu?";
+    JoueurHumain utilisateur;
     
     private Gui(){
         fen = new Fenetre();
@@ -76,6 +78,27 @@ public class Gui extends Affichage{
     }
     
     public void displayAction(){
+        title = "Action effectuée";
+        switch(this.joueurActif.getChoixJoueur().getAction()){
+            case GEANT:
+                message = "Le joueur " + joueurActif.getNbr(); 
+                message +=" obtient ";
+                message +=joueurActif.getChoixJoueur().getCarte().getEffet(TypeAction.GEANT)
+                        +"Graines";
+                break;
+            case ENGRAIS:
+                message = "Le joueur " + joueurActif.getNbr() + "transforme "
+                        +joueurActif.getChoixJoueur().getCarte().getEffet(TypeAction.ENGRAIS)
+                        +" graines en menhirs";
+                break;
+            case FARFADET:
+                message = "Le joueur " + joueurActif.getNbr() + " vole ";
+                message+= joueurActif.getChoixJoueur().getCarte().getEffet(TypeAction.FARFADET)
+                       + " graines ";
+                message+= "au joueur "+joueurActif.getChoixJoueur().getCible().getNbr();
+                break;
+        }
+        this.messageBox(message, title);
         
     }
     
@@ -110,6 +133,7 @@ public class Gui extends Affichage{
         title = "Numéro de la manche";
         message = "Début de la manche "+ this.nbMancheActuelle;
         this.messageBox(message, title);
+        fen.setMain(utilisateur.getCartes());
         
     }
     
@@ -151,10 +175,11 @@ public class Gui extends Affichage{
         
     }
 
-    @Override
-    public void displayJoueurCible() {
-	// TODO Auto-generated method stub
-	
+    public void update(Observable obs,Object o){
+        super.update(obs, o);
+        if(obs instanceof Partie){
+            utilisateur = ((Partie)obs).getJoueurHumain();
+        }
     }
     
 }

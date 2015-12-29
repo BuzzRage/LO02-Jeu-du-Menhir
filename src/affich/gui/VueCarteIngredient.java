@@ -23,9 +23,9 @@ public class VueCarteIngredient extends JPanel implements ActionListener,Observe
     private final JPanel boutons;
     private CarteIngredient carte;
     
-    public VueCarteIngredient(String url,CarteIngredient carte){
-	this.carte=carte;
-	this.carte.addObserver(this);
+    public VueCarteIngredient(){
+	//this.carte=carte;
+	//this.carte.addObserver(this);
         img = new ImageIcon(TypeCarte.DOS_INGREDIENT.getImageUrl());
         background = Toolkit.getDefaultToolkit().getImage(TypeCarte.DOS_INGREDIENT.getImageUrl());
         Dimension size = new Dimension(img.getIconWidth()/ratio,img.getIconHeight()/ratio);
@@ -62,6 +62,7 @@ public class VueCarteIngredient extends JPanel implements ActionListener,Observe
         boutons.setMaximumSize(dim2);
         boutons.setSize(dim2);
         boutons.setMinimumSize(dim2);
+        boutons.setVisible(false);
         
         setPreferredSize(size);
         setMinimumSize(size);
@@ -78,6 +79,14 @@ public class VueCarteIngredient extends JPanel implements ActionListener,Observe
        gbc.insets = new Insets(((img.getIconHeight()+20)/(2*ratio)),0,0,0);
        add(boutons, gbc);
         
+    }
+    
+    public void setCarteIng(CarteIngredient carteIng){
+        carte=carteIng;
+        img = new ImageIcon(carte.getTypeCarte().getImageUrl());
+        background = Toolkit.getDefaultToolkit().getImage(carte.getTypeCarte().getImageUrl());
+        boutons.setVisible(true);
+        repaint();
     }
     public void actionPerformed(ActionEvent event){
         String imageUrl = TypeCarte.DOS_INGREDIENT.getImageUrl();

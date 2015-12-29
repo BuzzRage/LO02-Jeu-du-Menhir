@@ -71,6 +71,7 @@ public class CarteIngredient extends Carte{
     }
     
     
+    
     /**
      * Affiche une représentation textuelle des informations de la cartes.
      * 

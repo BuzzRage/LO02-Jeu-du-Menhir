@@ -150,11 +150,24 @@ public abstract class Partie extends Observable implements Observer{
             j.setNbrGraines(0);
             j.setNbrMenhir(0);
         }
+        setChanged();
+        notifyObservers();
     }
     
     
     // Getters et Setters
 
+    public JoueurHumain getJoueurHumain(){
+        JoueurHumain joueur = new JoueurHumain();
+        Joueur j;
+        for(Iterator<Joueur> it = listeJoueurs.iterator();it.hasNext();){
+            j=it.next();
+            if(j instanceof JoueurHumain)
+                joueur =(JoueurHumain)j;
+            
+        }
+        return joueur;
+    }
     
     public int getNbrManche(){
     	return this.nbrMancheActuelle;

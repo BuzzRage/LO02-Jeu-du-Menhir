@@ -7,6 +7,8 @@ package affich.gui;
 import java.awt.*; 
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.*;
+import core.*;
 /**
  *
  * @author Apache
@@ -14,6 +16,9 @@ import java.awt.event.*;
 public class Fenetre extends JFrame{
     CardLayout cl = new CardLayout();
     JPanel content = new JPanel();
+    Joueur utilisateur;
+    LinkedList<CarteIngredient> main = new LinkedList<>();
+    ArrayList<VueCarteIngredient> vueMain = new ArrayList<>();
 
     public Fenetre(){
         this.setTitle("Jeu du Menhir");
@@ -21,12 +26,16 @@ public class Fenetre extends JFrame{
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setLayout(new BorderLayout());
-        VueCarteIngredient card1 = new VueCarteIngredient("RayonLune1.png");
-        VueCarteIngredient card2 = new VueCarteIngredient("EspritDolmen1.png");
-        VueCarteIngredient card3 = new VueCarteIngredient("FontainePure1.png");
-        VueCarteIngredient card4 = new VueCarteIngredient("LarmeDriade1.png");
-        VueCarteIngredient card5 = new VueCarteIngredient("lol.png");
-        VueCarteIngredient card6 = new VueCarteIngredient("lol.png");
+        VueCarteIngredient card1 = new VueCarteIngredient();
+        VueCarteIngredient card2 = new VueCarteIngredient();
+        VueCarteIngredient card3 = new VueCarteIngredient();
+        VueCarteIngredient card4 = new VueCarteIngredient();
+        vueMain.add(card1);
+        vueMain.add(card2);
+        vueMain.add(card3);
+        vueMain.add(card4);
+        //VueCarteIngredient card5 = new VueCarteIngredient();
+        //VueCarteIngredient card6 = new VueCarteIngredient();
 
         content.setLayout(new GridLayout(2,2,5,5));
         content.add(card1);
@@ -34,10 +43,23 @@ public class Fenetre extends JFrame{
         content.add(card3);
         content.add(card4);
 
-        this.getContentPane().add(card5,BorderLayout.EAST);
-        this.getContentPane().add(card6,BorderLayout.WEST);
+        //this.getContentPane().add(card5,BorderLayout.EAST);
+        //this.getContentPane().add(card6,BorderLayout.WEST);
         this.getContentPane().add(content,BorderLayout.CENTER);
         this.setVisible(true);
-    }	
+    }
+    public void setMain(LinkedList<CarteIngredient> deck){
+        this.main = deck;
+        updateCartes();
+    }
+    private void updateCartes(){
+        Iterator<CarteIngredient> it = main.iterator();
+        for(Iterator<VueCarteIngredient> iter = vueMain.iterator();iter.hasNext();){
+            VueCarteIngredient vueCarte = iter.next();
+            vueCarte.setCarteIng(it.next());
+        }
+            
+        
+    }
 
 }
