@@ -21,7 +21,10 @@ public class Jeu extends Observable{
     private LinkedList<CarteAllie> listeCarteAl;
     
     public Jeu(){
-        affich = Console.getInstance();
+        if(Gui.GuiOrConsole())
+            affich = Gui.getInstance();
+        else
+            affich = Console.getInstance();
         choixFinPartie = ChoixFinPartie.NOUVELLE_PARTIE;
         listeCarteIng = new LinkedList<>();
         listeCarteAl = new LinkedList<>();

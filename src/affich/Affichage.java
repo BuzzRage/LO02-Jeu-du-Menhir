@@ -18,7 +18,7 @@ public abstract class Affichage implements Observer {
     protected Joueur joueurActif;
     protected ArrayList<Joueur> listeJoueurs;
     protected int nbMancheActuelle;
-    
+    protected final int NB_J_MAX = 6;
     
     
     

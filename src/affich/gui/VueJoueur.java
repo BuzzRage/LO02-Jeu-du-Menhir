@@ -38,10 +38,6 @@ public class VueJoueur extends JPanel implements Observer{
 
     }
    
-    
-    public VueJoueur(){
-       // this("Joueur X",0,0,0);
-    }
     public VueJoueur(Joueur j){
 	this.joueur=j;
 	this.joueur.addObserver(this);
