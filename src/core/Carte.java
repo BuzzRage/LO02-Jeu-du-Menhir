@@ -13,13 +13,10 @@ public abstract class Carte extends Observable implements Jouable{
     protected int[][] effet;
     private boolean pose;
     private final TypeCarte type;
-    //private int nbr;
-    private ImageIcon img;
 
     public Carte(TypeCarte type) {
         this.pose = false;
         this.type=type;
-        img = new ImageIcon(type.getImageUrl());
     }
     /**
      * Renvoie un booléen indiquant si un carte est posée ou non. Cela permet de savoir quelles cartes ont déjà été jouées.
@@ -29,26 +26,15 @@ public abstract class Carte extends Observable implements Jouable{
     public boolean isPose(){
         return this.pose;
     }
-    public ImageIcon getImageIcon(){
-        return img;
+    
+    /**
+     * Retourne le type de la carte
+     * @return type
+     */
+    public TypeCarte getTypeCarte(){
+        return type;
     }
     
-    /**
-     * Paramètre le numéro de la carte, pour la repérer parmis les autres.
-     * @param n
-     * 		Le numéro de la carte.
-     */
-    /*public void setNbr(int n){
-        this.nbr =n;
-    }*/
-    
-    /**
-     * Retourne le numéro de la carte.
-     * @return Le numéro de la carte.
-     */
-    /*public int getNbr(){
-       return this.nbr;
-    }*/
     
     /**
      * Retourne l'effet de la carte, en fonction de la saison en cours et de l'action voulue.

@@ -39,7 +39,9 @@ public enum TypeCarte {
     TAUPE_3("Taupe3.png"),
     CHIEN_1("Chien1.png"),
     CHIEN_2("Chien2.png"),
-    CHIEN_3("Chien3.png");
+    CHIEN_3("Chien3.png"),
+    DOS_INGREDIENT("DosCarteIngredient.png"),
+    DOS_ALLIE("DosCarteAllie.png");
 
     private static String location="src/images/";
     private String imageUrl;

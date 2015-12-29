@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.util.*;
 import core.CarteIngredient;
+import core.TypeCarte;
 /**
  *
  * @author Apache
@@ -16,16 +17,14 @@ import core.CarteIngredient;
 public class VueCarteIngredient extends JPanel implements ActionListener,Observer{    
     private ImageIcon img;
     private Image background;
-    private final int transparence;
+    private final int transparence = 40;
     private final JButton engrais,geant,farfadet;
     private final int ratio = 2;
     private final JPanel boutons;
-    private final String location="src/images/";
     
     public VueCarteIngredient(String url){
-        transparence =40;
-        img = new ImageIcon(location+url);
-        background = Toolkit.getDefaultToolkit().getImage(location+url);
+        img = new ImageIcon(TypeCarte.DOS_INGREDIENT.getImageUrl());
+        background = Toolkit.getDefaultToolkit().getImage(TypeCarte.DOS_INGREDIENT.getImageUrl());
         Dimension size = new Dimension(img.getIconWidth()/ratio,img.getIconHeight()/ratio);
         Dimension dim = new Dimension((img.getIconWidth()-70)/ratio,46/ratio);
         Dimension dim2 = new Dimension(img.getIconWidth()/ratio,40/ratio);
@@ -78,8 +77,9 @@ public class VueCarteIngredient extends JPanel implements ActionListener,Observe
         
     }
     public void actionPerformed(ActionEvent event){
-        img = new ImageIcon(location + "DosCarteIngredient.png");
-        background = Toolkit.getDefaultToolkit().getImage(location+"DosCarteIngredient.png");
+        String imageUrl = TypeCarte.DOS_INGREDIENT.getImageUrl();
+        img = new ImageIcon(imageUrl);
+        background = Toolkit.getDefaultToolkit().getImage(imageUrl);
         repaint();
         boutons.setVisible(false);
     }
@@ -104,7 +104,9 @@ public class VueCarteIngredient extends JPanel implements ActionListener,Observe
         
     }
     public void update(Observable obs, Object o){
-        img = ((CarteIngredient)obs).getImageIcon();
+        String imageUrl = ((CarteIngredient)obs).getTypeCarte().getImageUrl();
+        img = new ImageIcon(imageUrl);
+        background = Toolkit.getDefaultToolkit().getImage(imageUrl);
     }
     
 }
