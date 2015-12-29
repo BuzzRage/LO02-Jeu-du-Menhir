@@ -1,7 +1,6 @@
 package core;
 
 import java.util.Observer;
-import javax.swing.ImageIcon;
 import java.util.Observable;
 
 
@@ -21,7 +20,7 @@ public abstract class Carte extends Observable implements Jouable,Observer{
     public Carte(TypeCarte type) {
         this.pose = false;
         this.type=type;
-        this.saisonActuelle=TypeSaison.PRINTEMPS;
+        Carte.saisonActuelle=TypeSaison.PRINTEMPS;
     }
     /**
      * Renvoie un booléen indiquant si un carte est posée ou non. Cela permet de savoir quelles cartes ont déjà été jouées.

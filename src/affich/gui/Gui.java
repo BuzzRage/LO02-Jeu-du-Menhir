@@ -150,5 +150,11 @@ public class Gui extends Affichage{
     public void displayJoueurCible(){
         
     }
+
+    @Override
+    public void displayJoueurCible() {
+	// TODO Auto-generated method stub
+	
+    }
     
 }
