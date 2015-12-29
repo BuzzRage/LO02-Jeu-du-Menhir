@@ -153,7 +153,7 @@ public class Gui extends Affichage{
     }
     
     public int getNbJoueurs(){
-        options = new String[NB_J_MAX];
+        options = new String[NB_J_MAX-1];
         title = "Choix du nombre de joueurs";
         message = "Combien de joueurs souhaites-tu?";
         for(int i = 0;i<NB_J_MAX-1;i++){
