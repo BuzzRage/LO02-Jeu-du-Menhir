@@ -8,7 +8,7 @@ import java.util.Observable;
 /**
  * La classe Carte modélise les aspects invariants des cartes du jeu.<br>
  * Une Carte dispose d'un effet (<code>int[][] effet</code>) en fonction d'une saison et d'une action, elle possède également le booléen <code>pose</code> pour indiquer si la Carte est jouée ou non.<br>
- * L'attribut <code>int nbr</code> permet de référencer la Carte, chaque Carte étant unique.<br>
+ * <code>static TypeSaison saisonActuelle</code> contient la saison en cours de la partie via le pattern Observer-Observable. Elle est commune à toute les cartes donc static.
  */
 public abstract class Carte extends Observable implements Jouable,Observer{
 
@@ -16,7 +16,7 @@ public abstract class Carte extends Observable implements Jouable,Observer{
     protected int[][] effet;
     private boolean pose;
     private final TypeCarte type;
-    protected TypeSaison saisonActuelle;
+    protected static TypeSaison saisonActuelle;
 
     public Carte(TypeCarte type) {
         this.pose = false;

@@ -118,9 +118,22 @@ public class Console extends Affichage{
                 break;
             case FARFADET:
                 int nbFarf=joueurActif.getChoixJoueur().getCarte().getEffet(TypeAction.FARFADET);
-                int nbChien = joueurActif.getChoixJoueur().getCible().getProtecChien();
+                int effetReel=nbFarf;
+                
+                if(joueurActif.getChoixJoueur().getCible().hasAllie()&&joueurActif.getChoixJoueur().getCible().getCarteAl()instanceof CarteChien){
+                    effetReel -= joueurActif.getChoixJoueur().getCible().getProtecChien();
+                    if(effetReel<0){
+                	effetReel=0;
+                    }
+                
+                }
+                
+                if(effetReel>joueurActif.getNbrGraines()){
+                    effetReel=joueurActif.getNbrGraines();
+                }
+   
                 System.out.print("Le joueur "+joueurActif.getNbr()+" vole ");
-                System.out.print(nbFarf-nbChien);
+                System.out.print(effetReel);
                 System.out.println(" graines au joueur "+joueurActif.getChoixJoueur().getCible().getNbr());
                 break;
         }

@@ -17,24 +17,24 @@ public class JoueurHumain extends Joueur {
 	}
 	
         /**
-         * @see core.Joueur#jouerTour(core.Partie)
+         * @see core.Joueur#jouerTour()
          */
-        public void jouerTour(Partie part){
+        public void jouerTour(){
             console.displayJoueur(this);
-            console.displayEtatJoueur(this,part.getListeJoueurs());
+            console.displayEtatJoueur(this,listeJoueursAdverses);
             console.displayChoixCarte(this);
             console.displayChoixAction(choixJoueur);
             if(choixJoueur.getAction()==TypeAction.FARFADET)
-                console.displayJoueurCible(this, choixJoueur, part.getListeJoueurs());
+                console.displayJoueurCible(this, choixJoueur, listeJoueursAdverses);
         }
         
         /**
-         * @see core.Joueur#jouerAllie(core.Partie)
+         * @see core.Joueur#jouerAllie()
          */
-        public void jouerAllie(Partie part){
+        public void jouerAllie(){
             if(hasAllie()&&carteAl instanceof CarteTaupe)
-                if(console.displayChoixCarteTaupe(this,part.getListeJoueurs())){
-                    console.displayJoueurCible(this, choixJoueur, part.getListeJoueurs());
+                if(console.displayChoixCarteTaupe(this,listeJoueursAdverses)){
+                    console.displayJoueurCible(this, choixJoueur, listeJoueursAdverses);
                     jouerCarteAl(choixJoueur);
                 }
                 
@@ -49,13 +49,13 @@ public class JoueurHumain extends Joueur {
         
         
         /**
-         * @see core.Joueur#deciderReaction(core.Partie)
+         * @see core.Joueur#deciderReaction()
          */
-        public void deciderReaction(Partie part){
+        public void deciderReaction(){
             if(hasAllie()&&carteAl instanceof CarteChien){
-                if(console.displayReaction(part.getJoueurActif(),choixJoueur)){
+                if(console.displayReaction(joueurActif,choixJoueur)){
                     ChoixJoueur choix = new ChoixJoueur();
-                    choix.setCible(part.joueurActif);
+                    choix.setCible(joueurActif);
                     jouerCarteAl(choix);
                 }
             }

@@ -7,30 +7,30 @@ package core;
  * La méthode decider paramètre le ChoixJoueur du JoueurIA, en définissant une cible, une carte et une action.<br>
  *
  */
-public class AggressiveStrat implements Strategy {
+public class AggressiveStrat extends Strat{
     /**
-     * @see core.Strategy#decider(core.Partie, core.Joueur)
+     * @see core.Strategy#decider(core.Joueur)
      */
-    public void decider(Partie p,Joueur jIA){
-        if(p.getSaison()==TypeSaison.PRINTEMPS)
+    public void decider(Joueur jIA){
+        if(saisonActuelle==TypeSaison.PRINTEMPS)
         {
             
-            jIA.getChoixJoueur().setCarte(jIA.getCarteMax(TypeAction.GEANT,p.getSaison()));
+            jIA.getChoixJoueur().setCarte(jIA.getCarteMax(TypeAction.GEANT));
             jIA.getChoixJoueur().setAction(TypeAction.GEANT);
             
         }
         else if(jIA.getNbrGraines()==0) //Si on a pas de graines, on en prend (le plus possible)
         {		
             jIA.getChoixJoueur().setAction(TypeAction.FARFADET);
-            jIA.getChoixJoueur().setCible(p.getJoueurMaxGraines());
-            jIA.getChoixJoueur().setCarte(jIA.getCarteMax(TypeAction.FARFADET,p.getSaison(),jIA.getChoixJoueur().getCible().getNbrGraines()));
+            jIA.getChoixJoueur().setCible(maxGraines);
+            jIA.getChoixJoueur().setCarte(jIA.getCarteMax(TypeAction.FARFADET,jIA.getChoixJoueur().getCible().getNbrGraines()));
         }
         else if(jIA.getNbrGraines()>1) //Si on a deux graines, on les fait pousser.
         {
             jIA.getChoixJoueur().setAction(TypeAction.ENGRAIS);
-            jIA.getChoixJoueur().setCarte(jIA.getCarteMax(TypeAction.ENGRAIS,p.getSaison(),jIA.getNbrGraines()));            
+            jIA.getChoixJoueur().setCarte(jIA.getCarteMax(TypeAction.ENGRAIS,jIA.getNbrGraines()));            
         }
-        else if(p.getSaison()==TypeSaison.HIVER){
+        else if(saisonActuelle==TypeSaison.HIVER){
             
         	jIA.getChoixJoueur().setAction(TypeAction.ENGRAIS);
         	jIA.getChoixJoueur().setCarte(jIA.getCarte(0));
@@ -55,12 +55,12 @@ public class AggressiveStrat implements Strategy {
     }
     
     /**
-     * @see core.Strategy#jouerTaupe(core.Partie)
+     * @see core.Strategy#jouerTaupe()
      */
-    public boolean jouerTaupe(Partie part){
-        if(part.getSaison()==TypeSaison.PRINTEMPS)
+    public boolean jouerTaupe(){
+        if(saisonActuelle==TypeSaison.PRINTEMPS)
             return false;
-        else if(part.getJoueurMaxMenhir()!=null && part.getSaison()==saisonMax(part.getJoueurActif().carteAl,TypeAction.ENGRAIS))
+        else if(maxMenhirs!=null && saisonActuelle==saisonMax(joueurActuel.carteAl,TypeAction.ENGRAIS))
             return true;
         else
             return false;

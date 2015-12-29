@@ -46,9 +46,10 @@ public abstract class Partie extends Observable implements Observer{
         tourRunning = false;
         nbrTourActuel = 1;
         saison = TypeSaison.PRINTEMPS;
+        creerJoueur(nbJH,nbJIA);
+        addJoueurObservers();
         this.setChanged();
         this.notifyObservers();
-        creerJoueur(nbJH,nbJIA);
     }
     
     /**
@@ -58,7 +59,6 @@ public abstract class Partie extends Observable implements Observer{
      */
     public void lancerPartie(){
         initPartie();
-        addJoueurObservers();
         do{
             if(!tourRunning){
                 initManche();
@@ -68,6 +68,8 @@ public abstract class Partie extends Observable implements Observer{
                 if(saison==TypeSaison.PRINTEMPS)
                     for(Joueur j:listeJoueurs){
                         joueurActif = j;
+                        this.setChanged();
+                        this.notifyObservers();
                         if(joueurActif.choixAllie()){
                             distribCarteAl(j);
                             console.displayTypeAllie(joueurActif);
@@ -80,15 +82,17 @@ public abstract class Partie extends Observable implements Observer{
                     
             for(Joueur j:listeJoueurs){
                 joueurActif = j;
+                this.setChanged();
+                this.notifyObservers();
                 if(partAvancee&&saison!=TypeSaison.PRINTEMPS)
                     if(joueurActif.hasAllie()&&joueurActif.getCarteAl() instanceof CarteTaupe)
-                        joueurActif.jouerAllie(this);
-                joueurActif.jouerTour(this);
+                        joueurActif.jouerAllie();
+                joueurActif.jouerTour();
                 if(partAvancee)
                     if(joueurActif.getChoixJoueur().getAction()==TypeAction.FARFADET)
                         if(joueurActif.getChoixJoueur().getCible().hasAllie())
                             if(joueurActif.getChoixJoueur().getCible().getCarteAl() instanceof CarteChien)
-                                joueurActif.getChoixJoueur().getCible().deciderReaction(this);
+                                joueurActif.getChoixJoueur().getCible().deciderReaction();
                 
                 console.displayAction(joueurActif);
                 joueurActif.jouerCarte();
@@ -121,8 +125,11 @@ public abstract class Partie extends Observable implements Observer{
     }
     
    private void addJoueurObservers(){
-       for(int i =0;i<listeJoueurs.size();i++){
-	   this.addObserver(listeJoueurs.get(i));
+       for(Joueur j:listeJoueurs){
+	   this.addObserver(j);
+	   if(j instanceof JoueurIA){
+	       this.addObserver(((JoueurIA) j).getStrat());
+	   }
        }
    }
     
@@ -343,8 +350,10 @@ public abstract class Partie extends Observable implements Observer{
         
     }
     public void update(Observable obs, Object o){
-        this.listeCarteIng = ((Jeu)obs).getListeCarteIng();
-        this.listeCarteAl = ((Jeu)obs).getListeCarteAl();
+	if(obs instanceof Jeu){
+            this.listeCarteIng = ((Jeu)obs).getListeCarteIng();
+            this.listeCarteAl = ((Jeu)obs).getListeCarteAl();
+	}
     }
     
     

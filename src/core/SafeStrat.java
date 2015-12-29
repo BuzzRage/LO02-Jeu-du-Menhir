@@ -7,13 +7,13 @@ package core;
  * La méthode decider paramètre le ChoixJoueur du JoueurIA, en définissant une cible, une carte et une action.<br>
  *
  */
-public class SafeStrat implements Strategy {
+public class SafeStrat extends Strat{
    /**
-     * @see core.Strategy#decider(core.Partie, core.Joueur)
+     * @see core.Strategy#decider(core.Joueur)
      */
-    public void decider(Partie p,Joueur jIA){	
+    public void decider(Joueur jIA){	
     	
-        if(p.getSaison()==TypeSaison.HIVER){
+        if(saisonActuelle==TypeSaison.HIVER){
             jIA.getChoixJoueur().setAction(TypeAction.ENGRAIS);
             jIA.getChoixJoueur().setCarte(jIA.getCarte(0));
         }
@@ -22,12 +22,12 @@ public class SafeStrat implements Strategy {
             if(jIA.getNbrGraines()==0) //Si on a pas de graines, on en prend (le plus possible)
             {
                 jIA.getChoixJoueur().setAction(TypeAction.GEANT);
-                jIA.getChoixJoueur().setCarte(jIA.getCarteMax(TypeAction.GEANT,p.getSaison()));
+                jIA.getChoixJoueur().setCarte(jIA.getCarteMax(TypeAction.GEANT));
             }
             else if(jIA.getNbrGraines()>0) //Si on a des graines, on les fait pousser.
             {
                 jIA.getChoixJoueur().setAction(TypeAction.ENGRAIS);
-                jIA.getChoixJoueur().setCarte(jIA.getCarteMax(TypeAction.ENGRAIS,p.getSaison(),jIA.getNbrGraines()));
+                jIA.getChoixJoueur().setCarte(jIA.getCarteMax(TypeAction.ENGRAIS,jIA.getNbrGraines()));
             }
         }
         
@@ -43,14 +43,14 @@ public class SafeStrat implements Strategy {
     /**
      * @see core.Strategy#deciderReaction(core.Joueur, core.Joueur)
      */
-    public boolean deciderReaction(Joueur jIA,Joueur attaquand){
+    public boolean deciderReaction(Joueur jIA,Joueur attaquant){
         return false;
     }
     
     /**
-     * @see core.Strategy#jouerTaupe(core.Partie)
+     * @see core.Strategy#jouerTaupe()
      */
-    public boolean jouerTaupe(Partie part){
+    public boolean jouerTaupe(){
         return false;
     }
 }
