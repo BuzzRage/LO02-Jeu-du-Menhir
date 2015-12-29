@@ -121,8 +121,10 @@ public class Console extends Affichage{
                 System.out.println(Math.min(joueurActif.getNbrGraines(), joueurActif.getChoixJoueur().getCarte().getEffet(TypeAction.ENGRAIS, saison))+" graines");
                 break;
             case FARFADET:
+                int nbFarf=joueurActif.getChoixJoueur().getCarte().getEffet(TypeAction.FARFADET, saison);
+                int nbChien = joueurActif.getChoixJoueur().getCible().getProtecChien();
                 System.out.print("Le joueur "+joueurActif.getNbr()+" vole ");
-                System.out.print(joueurActif.getChoixJoueur().getCarte().getEffet(TypeAction.FARFADET, saison)-joueurActif.getChoixJoueur().getCible().getProtecChien());
+                System.out.print(nbFarf-nbChien);
                 System.out.println(" graines au joueur "+joueurActif.getChoixJoueur().getCible().getNbr());
                 break;
         }
@@ -567,20 +569,23 @@ public class Console extends Affichage{
      * @throws WrongNumberException
      * @throws InputMismatchException
      */
-    public int getNbJoueurs()throws WrongNumberException,InputMismatchException{
+    public int getNbJoueurs(){
         int nbJoueurs;
+        //boolean continuer = false;
         System.out.println("Combien de joueurs?");
-        
-        try{
-            nbJoueurs = sc.nextInt();
-            if(nbJoueurs<2||nbJoueurs>6)
-                throw new WrongNumberException("Le nombre de joueurs doit être comprit entre 2 et 6!");
+        while(true){
+            try{
+                nbJoueurs = sc.nextInt();
+                if(nbJoueurs<2||nbJoueurs>6)
+                    System.out.println("Le nombre de joueurs doit être comprit entre 2 et 6!");
+                else
+                    return nbJoueurs;
+            }
+            catch(InputMismatchException e){
+                sc.nextLine();
+                System.out.println("Entre un nombre doit être comprit entre 2 et 6");
+            }
         }
-        catch(InputMismatchException e){
-            sc.nextLine();
-            throw new InputMismatchException("Entre un nombre doit être comprit entre 2 et 6");
-        }
-        return nbJoueurs;
         
     }
     
@@ -595,35 +600,30 @@ public class Console extends Affichage{
      * @throws WrongNumberException si la valeur de choix n'est pas entre 1 et 2.
      * @throws InputMismatchException
      */
-    public boolean getTypePartie(int nbJH, int nbJoueurs)throws WrongNumberException,InputMismatchException{
-        boolean bool=false;
+    public boolean getTypePartie(int nbJH, int nbJoueurs){
         int choix;
         System.out.println("Choisis un type de partie");
         System.out.println();
         System.out.println("1. Partie Simple");
         System.out.println("2. Partie Avancée");
-        try{
-            choix = sc.nextInt();
-            if(choix<1||choix>2)
-                throw new WrongNumberException("Le nombre doit être comprit entre 1 et 2!");
-            else{
-                switch(choix){
-                    case 1:
-                        bool= false;
-                        break;
-                    case 2:
-                        bool = true;
-                        break;
-                }
-                
-            }    
+        while(true){
+            try{
+                choix = sc.nextInt();
+                if(choix<1||choix>2)
+                    System.out.println("Le nombre doit être comprit entre 1 et 2!");
+                else{
+                    switch(choix){
+                        case 1:
+                            return false;
+                        case 2:
+                            return true;
+                    }
+                }    
+            }
+            catch(InputMismatchException e){
+                sc.nextLine();
+                System.out.println("Entre un nombre entre 1 et 2");
+            }
         }
-        catch(InputMismatchException e){
-            sc.nextLine();
-            throw new InputMismatchException("Entre un nombre entre 1 et 2");
-        }
-        return bool;
-        
-        
     }
 }

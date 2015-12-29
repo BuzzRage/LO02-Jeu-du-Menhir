@@ -1,7 +1,9 @@
 package core;
 
-import java.util.Observable;
 import java.util.Observer;
+import javax.swing.ImageIcon;
+import java.util.Observable;
+
 
 /**
  * La classe Carte modélise les aspects invariants des cartes du jeu.<br>
@@ -10,12 +12,17 @@ import java.util.Observer;
  */
 public abstract class Carte extends Observable implements Jouable,Observer{
 
+
     protected int[][] effet;
     private boolean pose;
-    private int nbr;
+    private final TypeCarte type;
+    //private int nbr;
+    private ImageIcon img;
 
-    public Carte() {
+    public Carte(TypeCarte type) {
         this.pose = false;
+        this.type=type;
+        img = new ImageIcon(type.getImageUrl());
     }
     /**
      * Renvoie un booléen indiquant si un carte est posée ou non. Cela permet de savoir quelles cartes ont déjà été jouées.
@@ -25,23 +32,26 @@ public abstract class Carte extends Observable implements Jouable,Observer{
     public boolean isPose(){
         return this.pose;
     }
+    public ImageIcon getImageIcon(){
+        return img;
+    }
     
     /**
      * Paramètre le numéro de la carte, pour la repérer parmis les autres.
      * @param n
      * 		Le numéro de la carte.
      */
-    public void setNbr(int n){
+    /*public void setNbr(int n){
         this.nbr =n;
-    }
+    }*/
     
     /**
      * Retourne le numéro de la carte.
      * @return Le numéro de la carte.
      */
-    public int getNbr(){
+    /*public int getNbr(){
        return this.nbr;
-    }
+    }*/
     
     /**
      * Retourne l'effet de la carte, en fonction de la saison en cours et de l'action voulue.
@@ -63,6 +73,10 @@ public abstract class Carte extends Observable implements Jouable,Observer{
     public void setPose(boolean b)
     {
         this.pose=b;
+    }
+    
+    public void update(Observable o,Object arg){
+	
     }
     
     /**

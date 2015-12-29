@@ -7,8 +7,8 @@ package core;
  */
 public class CarteIngredient extends Carte{
 
-    public CarteIngredient(int[][] effet) {
-        super();
+    public CarteIngredient(int[][] effet,TypeCarte type) {
+        super(type);
         this.effet = new int[3][4];
         this.effet = effet;
     }

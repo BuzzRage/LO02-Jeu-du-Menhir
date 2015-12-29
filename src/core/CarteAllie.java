@@ -8,8 +8,8 @@ package core;
  */
 public abstract class CarteAllie extends Carte{
 
-    public CarteAllie(int[] effet) {
-        super();
+    public CarteAllie(int[] effet, TypeCarte type) {
+        super(type);
         this.effet = new int[1][4];
         this.effet[0] = effet;
     }

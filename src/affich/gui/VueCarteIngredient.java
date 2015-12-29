@@ -7,17 +7,19 @@ package affich.gui;
 import java.awt.*; 
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.*;
+import core.CarteIngredient;
 /**
  *
  * @author Apache
  */
-public class VueCarteIngredient extends JPanel implements ActionListener{    
+public class VueCarteIngredient extends JPanel implements ActionListener,Observer{    
     private ImageIcon img;
     private Image background;
     private final int transparence;
-    private JButton engrais,geant,farfadet;
-    private int ratio = 2;
-    private JPanel boutons;
+    private final JButton engrais,geant,farfadet;
+    private final int ratio = 2;
+    private final JPanel boutons;
     private final String location="src/images/";
     
     public VueCarteIngredient(String url){
@@ -27,9 +29,9 @@ public class VueCarteIngredient extends JPanel implements ActionListener{
         Dimension size = new Dimension(img.getIconWidth()/ratio,img.getIconHeight()/ratio);
         Dimension dim = new Dimension((img.getIconWidth()-70)/ratio,46/ratio);
         Dimension dim2 = new Dimension(img.getIconWidth()/ratio,40/ratio);
-        engrais = new MBouton("","engrais.wav");
-        geant = new MBouton("","geant.wav");
-        farfadet = new MBouton("","farfadet.wav");
+        engrais = new MBouton("engrais.wav");
+        geant = new MBouton("geant.wav");
+        farfadet = new MBouton("farfadet.wav");
         
         engrais.setOpaque(true);
         engrais.setContentAreaFilled(false);
@@ -100,6 +102,9 @@ public class VueCarteIngredient extends JPanel implements ActionListener{
             g.fillRect(a, b, largeur, hauteur);
         }
         
+    }
+    public void update(Observable obs, Object o){
+        img = ((CarteIngredient)obs).getImageIcon();
     }
     
 }

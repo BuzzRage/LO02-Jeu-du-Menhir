@@ -308,7 +308,6 @@ public abstract class Joueur extends Observable implements Observer{
      * 		La <code>CarteIngredient</code> à ajouter.
      */
     public void addCarteIng(CarteIngredient c){
-        c.setNbr(deck.size()+1);
         this.deck.add(c);
     }
     

@@ -20,7 +20,7 @@ import java.util.*;
  *  <code>protected boolean tourRunning</code> pour indiquer qu'un tour est en cours.
  *  <code>protected boolean partAvancee</code> pour indiquer s'il s'agit d'une <code>PartieAvancee</code> ou non.
  */
-public abstract class Partie extends Observable{
+public abstract class Partie extends Observable implements Observer{
 
     protected int nbrManches;
     protected int nbrMancheActuelle;
@@ -40,14 +40,12 @@ public abstract class Partie extends Observable{
         
         listeJoueurs = new ArrayList<>();
         listeCarteIng = new LinkedList<>();
+        listeCarteAl = new LinkedList<>();
         running =false;
         tourRunning = false;
-        nbrMancheActuelle =1;
         nbrTourActuel = 1;
         saison = TypeSaison.PRINTEMPS;
         creerJoueur(nbJH,nbJIA);
-        creerCartes();
-        
     }
     
     /**
@@ -111,6 +109,7 @@ public abstract class Partie extends Observable{
      * Initialise le nombre de points, de graines et de menhir de chaque joueur à 0.
      */
     protected void initPartie(){
+        nbrMancheActuelle = 1;
         for(Joueur j:listeJoueurs){
             j.setNbrPoints(0);
             j.setNbrGraines(0);
@@ -140,8 +139,6 @@ public abstract class Partie extends Observable{
             j.setNbrGraines(0);
             j.setNbrMenhir(0);
         }
-        nbrMancheActuelle = 1;
-        
     }
     
     
@@ -340,62 +337,13 @@ public abstract class Partie extends Observable{
         
         
     }
-    
-    /**
-     * Creer les <code>CarteIngredient</code> et les ajoutent à <code>listeCarteIng</code>.<br>
-     * Pour une PartieAvancee, cette méthode créer également les CarteAllie.
-     */
-    protected void creerCartes() {
-        int[][] lune1Effet      = {{1, 1, 1, 1}, {2, 0, 1, 1}, {2, 0, 2, 0}};
-        int[][] lune2Effet      = {{2, 0, 1, 1}, {1, 3, 0, 0}, {0, 1, 2, 1}};
-        int[][] lune3Effet      = {{0, 0, 4, 0}, {0, 2, 2, 0}, {0, 0, 1, 3}};
-        int[][] sirene1Effet    = {{1, 3, 1, 0}, {1, 2, 1, 1}, {1, 0, 4, 0}};
-        int[][] sirene2Effet    = {{2, 1, 1, 1}, {1, 0, 2, 2}, {3, 0, 0, 2}};
-        int[][] sirene3Effet    = {{1, 2, 2, 0}, {1, 1, 2, 1}, {2, 0, 1, 2}};
-        int[][] dryade1Effet    = {{2, 1, 1, 2}, {1, 1, 1, 3}, {2, 0, 2, 2}};
-        int[][] dryade2Effet    = {{0, 3, 0, 3}, {2, 1, 3, 0}, {1, 1, 3, 1}};
-        int[][] dryade3Effet    = {{1, 2, 1, 2}, {1, 0, 1, 4}, {2, 4, 0, 0}};
-        int[][] fontaine1Effet  = {{1, 3, 1, 2}, {2, 1, 2, 2}, {0, 0, 3, 4}};
-        int[][] fontaine2Effet  = {{2, 2, 0, 3}, {1, 1, 4, 1}, {1, 2, 1, 3}};
-        int[][] fontaine3Effet  = {{2, 2, 3, 1}, {2, 3, 0, 3}, {1, 1, 3, 3}};
-        int[][] or1Effet        = {{2, 2, 3, 1}, {2, 3, 0, 3}, {1, 1, 3, 3}};
-        int[][] or2Effet        = {{2, 2, 2, 2}, {0, 4, 4, 0}, {1, 3, 2, 2}};
-        int[][] or3Effet        = {{3, 1, 3, 1}, {1, 4, 2, 1}, {2, 4, 1, 1}};
-        int[][] arcEnCiel1Effet = {{4, 1, 1, 1}, {1, 2, 1, 3}, {1, 2, 2, 2}};
-        int[][] arcEnCiel2Effet = {{2, 3, 2, 0}, {0, 4, 3, 0}, {2, 1, 1, 3}};
-        int[][] arcEnCiel3Effet = {{2, 2, 3, 0}, {1, 1, 1, 4}, {2, 0, 3, 2}};
-        int[][] dolmen1Effet    = {{3, 1, 4, 1}, {2, 1, 3, 3}, {2, 3, 2, 2}};
-        int[][] dolmen2Effet    = {{2, 4, 1, 2}, {2, 2, 2, 3}, {1, 4, 3, 1}};
-        int[][] dolmen3Effet    = {{3, 3, 3, 0}, {1, 3, 3, 2}, {2, 3, 1, 3}};
-        int[][] fee1Effet       = {{1, 2, 2, 1}, {1, 2, 3, 0}, {0, 2, 2, 2}};
-        int[][] fee2Effet       = {{4, 0, 1, 1}, {1, 1, 3, 1}, {0, 0, 3, 3}};
-        int[][] fee3Effet       = {{2, 0, 3, 1}, {0, 3, 0, 3}, {1, 2, 2, 1}};
-        
-        listeCarteIng.add(new CarteIngredient(lune1Effet));
-        listeCarteIng.add(new CarteIngredient(lune2Effet));
-        listeCarteIng.add(new CarteIngredient(lune3Effet));
-        listeCarteIng.add(new CarteIngredient(sirene1Effet));
-        listeCarteIng.add(new CarteIngredient(sirene2Effet));
-        listeCarteIng.add(new CarteIngredient(sirene3Effet));
-        listeCarteIng.add(new CarteIngredient(dryade1Effet));
-        listeCarteIng.add(new CarteIngredient(dryade2Effet));
-        listeCarteIng.add(new CarteIngredient(dryade3Effet));
-        listeCarteIng.add(new CarteIngredient(fontaine1Effet));
-        listeCarteIng.add(new CarteIngredient(fontaine2Effet));
-        listeCarteIng.add(new CarteIngredient(fontaine3Effet));
-        listeCarteIng.add(new CarteIngredient(or1Effet));
-        listeCarteIng.add(new CarteIngredient(or2Effet));
-        listeCarteIng.add(new CarteIngredient(or3Effet));
-        listeCarteIng.add(new CarteIngredient(arcEnCiel1Effet));
-        listeCarteIng.add(new CarteIngredient(arcEnCiel2Effet));
-        listeCarteIng.add(new CarteIngredient(arcEnCiel3Effet));
-        listeCarteIng.add(new CarteIngredient(dolmen1Effet));
-        listeCarteIng.add(new CarteIngredient(dolmen2Effet));
-        listeCarteIng.add(new CarteIngredient(dolmen3Effet));
-        listeCarteIng.add(new CarteIngredient(fee1Effet));
-        listeCarteIng.add(new CarteIngredient(fee2Effet));
-        listeCarteIng.add(new CarteIngredient(fee3Effet));
+    public void update(Observable obs, Object o){
+        this.listeCarteIng = ((Jeu)obs).getListeCarteIng();
+        this.listeCarteAl = ((Jeu)obs).getListeCarteAl();
     }
+    
+    
+    
 }    
     
     

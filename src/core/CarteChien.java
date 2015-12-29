@@ -8,8 +8,8 @@ package core;
  */
 public class CarteChien extends CarteAllie {
 
-    public CarteChien(int[] effet) {
-        super(effet);
+    public CarteChien(int[] effet,TypeCarte type) {
+        super(effet,type);
     }
 
     /**
