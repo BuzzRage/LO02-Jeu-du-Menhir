@@ -121,8 +121,10 @@ public class Console extends Affichage{
                 System.out.println(Math.min(joueurActif.getNbrGraines(), joueurActif.getChoixJoueur().getCarte().getEffet(TypeAction.ENGRAIS, saison))+" graines");
                 break;
             case FARFADET:
+                int nbFarf=joueurActif.getChoixJoueur().getCarte().getEffet(TypeAction.FARFADET, saison);
+                int nbChien = joueurActif.getChoixJoueur().getCible().getProtecChien();
                 System.out.print("Le joueur "+joueurActif.getNbr()+" vole ");
-                System.out.print(joueurActif.getChoixJoueur().getCarte().getEffet(TypeAction.FARFADET, saison)-joueurActif.getChoixJoueur().getCible().getProtecChien());
+                System.out.print(nbFarf-nbChien);
                 System.out.println(" graines au joueur "+joueurActif.getChoixJoueur().getCible().getNbr());
                 break;
         }
