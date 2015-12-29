@@ -6,27 +6,50 @@
 package affich.gui;
 import java.awt.*; 
 import javax.swing.*;
+
+import core.Joueur;
+
 import java.awt.event.*;
+import java.util.Observable;
+import java.util.Observer;
+
 /**
  *
  * @author Apache
  */
-public class VueJoueur extends JPanel{
+public class VueJoueur extends JPanel implements Observer{
     private JLabel nom;
     private JLabel points;
     private JLabel menhirs;
     private JLabel graines;
+
+    private Joueur joueur;
     private JPanel pan;
     
+    public void update(Observable o, Object arg) {
+	if(o.hasChanged()){
+	    if(o instanceof Joueur){
+		   this.points.setText(Integer.toString(((Joueur)o).getNbrPoints()));
+		   this.menhirs.setText(Integer.toString(((Joueur)o).getNbrMenhirs()));
+		   this.graines.setText(Integer.toString(((Joueur)o).getNbrGraines()));
+		   //Faire les changements necessaire (choixJoueur etc..) 
+	    }
+	}
+
+    }
+   
     
     public VueJoueur(){
-        this("Joueur X",0,0,0);
+       // this("Joueur X",0,0,0);
     }
-    public VueJoueur(String nom,int points, int menhirs, int graines){
-        this.nom.setText(nom);
-        this.points.setText(Integer.toString(points));
-        this.menhirs.setText(Integer.toString(menhirs));
-        this.graines.setText(Integer.toString(graines));
+    public VueJoueur(Joueur j){
+	this.joueur=j;
+	this.joueur.addObserver(this);
+        this.nom.setText("Joueur "+j.getNbr());
+        this.points.setText(Integer.toString(j.getNbrPoints()));
+        this.menhirs.setText(Integer.toString(j.getNbrMenhirs()));
+        this.graines.setText(Integer.toString(j.getNbrGraines()));
+
         //pan = new 
     }
 }

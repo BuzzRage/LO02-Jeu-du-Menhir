@@ -1,14 +1,17 @@
 package core;
 
+import java.util.Observer;
 import javax.swing.ImageIcon;
 import java.util.Observable;
+
 
 /**
  * La classe Carte modélise les aspects invariants des cartes du jeu.<br>
  * Une Carte dispose d'un effet (<code>int[][] effet</code>) en fonction d'une saison et d'une action, elle possède également le booléen <code>pose</code> pour indiquer si la Carte est jouée ou non.<br>
  * L'attribut <code>int nbr</code> permet de référencer la Carte, chaque Carte étant unique.<br>
  */
-public abstract class Carte extends Observable implements Jouable{
+public abstract class Carte extends Observable implements Jouable,Observer{
+
 
     protected int[][] effet;
     private boolean pose;
@@ -56,6 +59,10 @@ public abstract class Carte extends Observable implements Jouable{
     public void setPose(boolean b)
     {
         this.pose=b;
+    }
+    
+    public void update(Observable o,Object arg){
+	
     }
     
     /**

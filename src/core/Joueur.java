@@ -23,7 +23,7 @@ import java.util.*;
  *@see core.JoueurIA
  *@see core.ChoixJoueur
  */
-public abstract class Joueur implements Observer{
+public abstract class Joueur extends Observable implements Observer{
 
     private final int nbr;
     private int nbrPoints;
@@ -90,6 +90,8 @@ public abstract class Joueur implements Observer{
     }
     public void setChoixJoueur(ChoixJoueur choix){
         choixJoueur = choix;
+	this.setChanged();
+	this.notifyObservers();
     }
     
     /**
@@ -186,18 +188,28 @@ public abstract class Joueur implements Observer{
     
     public void setNbrPoints(int nbPoints){
     	nbrPoints=nbPoints;
+	this.setChanged();
+	this.notifyObservers();
     }   
     public void setNbrGraines(int nbGraines){
     	nbrGraines=nbGraines;
+	this.setChanged();
+	this.notifyObservers();
     }
     public void setNbrMenhir(int nbMenhirs){
     	nbrMenhirs=nbMenhirs;
+	this.setChanged();
+	this.notifyObservers();
     }
     public void setProtecChien(int protec){
         protecChien = protec;
+	this.setChanged();
+	this.notifyObservers();
     }
     public void setCarteAllie(CarteAllie c){
         this.carteAl =c;
+	this.setChanged();
+	this.notifyObservers();
     }
     
     /**
@@ -209,6 +221,8 @@ public abstract class Joueur implements Observer{
         this.nbrGraines+=nbGraines;
         if (this.nbrGraines<0)
             this.nbrGraines=0;
+	this.setChanged();
+	this.notifyObservers();
     }
     
     /**
@@ -221,6 +235,8 @@ public abstract class Joueur implements Observer{
         if (this.nbrMenhirs<0){
             this.nbrMenhirs=0;
         }
+	this.setChanged();
+	this.notifyObservers();
     }
     
     /**
@@ -230,6 +246,8 @@ public abstract class Joueur implements Observer{
      */
     public void addPoints(int nbPoints){
         this.nbrPoints+=nbPoints;
+	this.setChanged();
+	this.notifyObservers();
     }
     
     /**
