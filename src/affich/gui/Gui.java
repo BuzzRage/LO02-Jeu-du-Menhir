@@ -13,8 +13,18 @@ import java.util.*;
 import java.awt.event.*;
 
 /**
- *
- * @author Apache
+ * La classe GUI permet d'afficher du texte à l'écran dans une boite de dialogue, les Cartes du jeu, les Joueurs etc..<br>
+ * Elle propose une vue graphique du jeu du menhir.<br>
+ * Elle hérite de la classe Affichage.<br>
+ * Elle n'est instanciable qu'une fois, grâce au patter singleton.<br>
+ * Elle possède les attributs suivants:<br>
+ *  <code>private Fenetre fen</code> la fenêtre sur laquelle on affichera les cartes.
+ *  <code>private static Gui instance</code> l'instance de GUI (pattern singleton).
+ *  <code>private String[] options = new String[NB_J_MAX]</code> un tableau de String générique pour gérer les textes sur les boutons.
+ *  <code>private String title</code> pour titrer les boites de dialogues.
+ *  <code>private String message</code> pour gérer le texte des boites de dialogues.
+ *  <code>private boolean continuer</code> pour gérer les boucles.
+ *  <code>private JoueurHumain utilisateur</code> pour avoir une référence sur le JoueurHumain de la Partie observée.
  */
 public class Gui extends Affichage implements ActionListener{
     private Fenetre fen;
@@ -37,6 +47,11 @@ public class Gui extends Affichage implements ActionListener{
         }
         
     }
+    
+    /**
+     * C'est le design pattern singleton. Il s'assure de n'avoir qu'une instance de GUI.
+     * @return le GUI
+     */
     public static Gui getInstance(){
         if(instance == null)
             instance = new Gui();
@@ -76,6 +91,11 @@ public class Gui extends Affichage implements ActionListener{
         JOptionPane.showMessageDialog(fen, message, title, JOptionPane.INFORMATION_MESSAGE);
     }
     
+    /**
+     * Demande à l'utilisateur le choix de l'affichage.
+     * @return
+     * 		true si l'utilisateur choisi le GUI. false s'il choisi la Console.
+     */
     public static boolean GuiOrConsole(){
         String[] options = new String[2];
         String title = "Choix du type d'interface";
@@ -90,6 +110,9 @@ public class Gui extends Affichage implements ActionListener{
         
     }
     
+    /**
+     * @see affich.Affichage#displayTour()
+     */
     public void displayTour(){
         title ="Info";
         message = "C'est à toi de jouer!";
@@ -105,6 +128,10 @@ public class Gui extends Affichage implements ActionListener{
         continuer = false;
     }
     
+    /** 
+     * Permet de stocker l'action et la carte choisie. Fais le lien avec le core.
+     * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+     */
     public void actionPerformed(ActionEvent event){
         if(event.getSource() instanceof MBouton){
             MBouton bouton = (MBouton)event.getSource();
@@ -117,6 +144,9 @@ public class Gui extends Affichage implements ActionListener{
             
     }
     
+    /**
+     * @see affich.Affichage#displayFinManche()
+     */
     public void displayFinManche(){
         Joueur meuneur=listeJoueurs.get(0);
         int menMax=-1;
@@ -131,6 +161,9 @@ public class Gui extends Affichage implements ActionListener{
         messageBox(message,title);
     }
     
+    /**
+     * @see affich.Affichage#displayAction()
+     */
     public void displayAction(){
         title = "Action effectuée";
         switch(this.joueurActif.getChoixJoueur().getAction()){
@@ -167,6 +200,9 @@ public class Gui extends Affichage implements ActionListener{
         
     }
     
+    /**
+     * @see affich.Affichage#displayChoixAllie()
+     */
     public boolean displayChoixAllie(){
         options = new String[2];
         title = "Choix";
@@ -177,6 +213,9 @@ public class Gui extends Affichage implements ActionListener{
                 
     }
     
+    /**
+     * @see affich.Affichage#displayTypeAllie()
+     */
     public void displayTypeAllie(){
         String typeCarteAl="";
         if(joueurActif.getCarteAl() instanceof CarteChien)
@@ -190,10 +229,16 @@ public class Gui extends Affichage implements ActionListener{
             messageBox(message, title);
     }
     
+    /**
+     * @see affich.Affichage#displayGagnant(java.util.ArrayList)
+     */
     public void displayGagnant(ArrayList<Joueur> palmares){
         
     }
     
+    /**
+     * @see affich.Affichage#displayNbManche()
+     */
     public void displayNbManche(){
         title = "Numéro de la manche";
         message = "Début de la manche "+ this.nbMancheActuelle;
@@ -202,16 +247,25 @@ public class Gui extends Affichage implements ActionListener{
         
     }
     
+    /**
+     * @see affich.Affichage#displayReaction()
+     */
     public boolean displayReaction(){
         
         return false;
     }
     
+    /**
+     * @see affich.Affichage#displayChoixCarteTaupe()
+     */
     public boolean displayChoixCarteTaupe(){
         
         return false;
     }
     
+    /**
+     * @see affich.Affichage#displayChoixFinPartie()
+     */
     public ChoixFinPartie displayChoixFinPartie(){
         options = new String[3];
         title = "Fin de partie";
@@ -225,6 +279,9 @@ public class Gui extends Affichage implements ActionListener{
         return ChoixFinPartie.QUITTER;
     }
     
+    /**
+     * @see affich.Affichage#getNbJoueurs()
+     */
     public int getNbJoueurs(){
         options = new String[NB_J_MAX-1];
         title = "Choix du nombre de joueurs";
@@ -235,6 +292,9 @@ public class Gui extends Affichage implements ActionListener{
         return this.getNumber(message, title, options, options[0]);
     }
     
+    /**
+     * @see affich.Affichage#getTypePartie()
+     */
     public boolean getTypePartie(){
         options = new String[2];
         title = "Choix du type de partie";
@@ -244,6 +304,9 @@ public class Gui extends Affichage implements ActionListener{
         return this.getYesOrNo(message, title, options, options[1]);
     }
     
+    /**
+     * @see affich.Affichage#displayJoueurCible()
+     */
     public void displayJoueurCible(){
         Joueur[] items = new Joueur[NB_J_MAX-1];
         title = "Choix de la cible";
@@ -275,6 +338,10 @@ public class Gui extends Affichage implements ActionListener{
         
     }
 
+    /**
+     * Met à jour la référence sur le JoueurHumain, en plus des autres informations.
+     * @see affich.Affichage#update(java.util.Observable, java.lang.Object)
+     */
     public void update(Observable obs,Object o){
         super.update(obs, o);
         if(obs instanceof Partie){

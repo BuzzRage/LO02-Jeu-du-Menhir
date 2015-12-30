@@ -13,6 +13,7 @@ import java.util.*;
 /**
  * La classe console permet d'afficher du texte écran, et de saisir des entrées claviers,
  * elle propose une vue en console du jeu du menhir.<br>
+ * Elle hérite de la classe Affichage.<br>
  * Elle n'est instanciable qu'une fois, grâce au patter singleton.<br>
  * Elle possède les attributs suivants:<br>
  * <code>private final Scanner sc</code> pour la gestion des entrées claviers<br>
@@ -43,32 +44,28 @@ public class Console extends Affichage{
         sc = new Scanner(System.in);
         
     }
+    
+    
+    /**
+     * @see affich.Affichage#displayTour()
+     */
     public void displayTour(){
         displayJoueur();
         displayEtatJoueur();
         displayChoixCarte();
         displayChoixAction();
     }
+    
     /**
-     * Affiche le numéro du joueur
-     * 
-     * @param j
-     * 		Le joueur dont on doit afficher le numéro.
-     * 
+     * Affiche le numéro du joueur en cours de la Partie. 
      */
     private void displayJoueur(){
         System.out.println("Joueur "+Integer.toString(joueurActif.getNbr())+", à toi de jouer!");
         System.out.println("=========================");
     }
-    //public void displayTour()
     
     /**
      * Affiche le nombre de graines, le nombre de menhirs, la liste de joueurs de la partie, la saison en cours.
-     * 
-     * @param j
-     * 		Le joueur dont on doit afficher le nombre de graines et de menhirs.
-     * @param listeJoueurs
-     * 		La liste de joueurs de la partie en cours.
      */
     private void displayEtatJoueur(){
         
@@ -83,9 +80,6 @@ public class Console extends Affichage{
     
     /**
      * Affiche la fin de de la manche et son gagnant.
-     * 
-     * @param listeJoueurs
-     * 		La liste des joueurs de la partie.
      */
     public void displayFinManche(){
         System.out.print("Fin de la manche!");
@@ -110,8 +104,6 @@ public class Console extends Affichage{
     
     /**
      * Affiche l'action effectué par le joueur en cours.
-     * @param joueurActif
-     * 		Le joueur dont on veut afficher la valeur de l'effet de son action.
      */
     public void displayAction(){
         switch(joueurActif.getChoixJoueur().getAction()){
@@ -126,20 +118,26 @@ public class Console extends Affichage{
             case FARFADET:
                 int nbFarf=joueurActif.getChoixJoueur().getCarte().getEffet(TypeAction.FARFADET);
                 int effetReel=nbFarf;
-                
-                if(joueurActif.getChoixJoueur().getCible().hasAllie()&&joueurActif.getChoixJoueur().getCible().getCarteAl()instanceof CarteChien){
-                    effetReel -= joueurActif.getChoixJoueur().getCible().getProtecChien();
-                    if(effetReel<0)
-                	effetReel=0;
+
+                Joueur cible=joueurActif.getChoixJoueur().getCible();
+                if(cible.hasAllie()&&cible.getCarteAl()instanceof CarteChien){
+                    if(cible instanceof JoueurIA &&((JoueurIA)cible).getStrat().deciderReaction()){
+                	//Si la cible décide de jouer sa carte chien
+                        effetReel -= cible.getProtecChien();
+                        if(effetReel<0){
+                    	effetReel=0;
+                        }
+                        System.out.println("Le joueur "+cible.getNbr() + " décide de réagir."
+                        + "\nIl se protèges de " + cible.getProtecChien() + " graines volées.");    
+                    }
+
                 }
                 
                 if(effetReel>joueurActif.getNbrGraines()){
                     effetReel=joueurActif.getNbrGraines();
                 }
-   
-                System.out.print("Le joueur "+joueurActif.getNbr()+" vole ");
-                System.out.print(effetReel);
-                System.out.println(" graines au joueur "+joueurActif.getChoixJoueur().getCible().getNbr());
+                System.out.println("Le joueur "+joueurActif.getNbr()+" vole "+effetReel
+                +" graines au joueur "+cible.getNbr());
                 break;
         }
     }
@@ -163,8 +161,6 @@ public class Console extends Affichage{
     }
     /**
      * Affiche la carte tirée par le joueur actif s'il est humain.
-     * @param joueurActif
-     * 		Le joueur dont on veut afficher la carte alliée.
      */
     public void displayTypeAllie(){
         if(joueurActif.isHuman()){
@@ -174,8 +170,9 @@ public class Console extends Affichage{
                 System.out.println("Tu as tiré une carte taupe!");
         }
     }
+    
     /**
-     * Demande le choix entre prendre une carte allié ou prendre deux graines. 
+     * Demande le choix entre prendre une CarteAllie ou prendre deux graines. 
      * @return true pour une carte allié. false pour 2 graines.
      * @throws WrongNumberException si le choix est différent de 1 ou 2
      * @throws InputMismatchException
@@ -228,23 +225,18 @@ public class Console extends Affichage{
     
     /**
      * Affiche le numéro de la manche.
-     * @param p
-     * 		La partie en cours.
      */
     public void displayNbManche(){
         System.out.println("Manche "+nbMancheActuelle);
         
     }
+    
     /**
      * Demande au joueur s'il veut réagir contre une attaque de farfadet.
-     * @param lanceur
-     * 		Le joueur attaquant.
-     * @param choixJoueur
-     * 		Le ChoixJoueur du lanceur
      * @return
      * 		true si le joueur décide de réagir. false sinon.
      */
-    public boolean displayReaction(){ //Pq ne pas utiliser lanceur.getChoixJoueur() ?
+    public boolean displayReaction(){
         System.out.print("Le joueur "+joueurActif.getNbr()+
                 " attaque le joueur "+joueurActif.getChoixJoueur().getCible().getNbr()+" !");
         System.out.println(" Il veut voler "+joueurActif.getCarteAl().getEffet()+" graines.");
@@ -256,7 +248,12 @@ public class Console extends Affichage{
         System.out.println("2. Non");
         while(true){
             try{
-                return getReaction();
+                boolean reaction = getReaction();
+                if(reaction){
+                    System.out.println("Le joueur "+joueurActif.getChoixJoueur().getCible().getNbr() + " décide de réagir."
+                    	+ "\nIl se protèges de " + joueurActif.getChoixJoueur().getCible().getCarteAl().getEffet() + " graines volées.");                    
+                }
+                return reaction;                
             }
             catch(InputMismatchException | WrongNumberException e){
                 System.out.println(e.getMessage());
@@ -264,6 +261,7 @@ public class Console extends Affichage{
         }
         
     }
+    
     /**
      * Demande au joueur s'il veut réagir.
      * @return true si le joueur décide de réagir. false sinon.
@@ -292,9 +290,7 @@ public class Console extends Affichage{
     
     
     /**
-     * Paramètre la Carte du ChoixJoueur du joueur j.
-     * @param j
-     * 		Le joueur dont on veut modifier la Carte de son ChoixJoueur.
+     * Paramètre la Carte du ChoixJoueur du joueurActif de la Partie.
      * 
      * @see ChoixJoueur
      */
@@ -339,8 +335,6 @@ public class Console extends Affichage{
     
     /**
      * Demande au joueur de choisir son action.
-     * @param choixJoueur
-     * 		Le ChoixJoueur du joueur en cours.
      */
     private void displayChoixAction(){
         System.out.println("Quelle action veux-tu effectuer?");
@@ -396,10 +390,6 @@ public class Console extends Affichage{
        
     /**
      * Afficher la liste des joueurs adverses, leur nombre de graines et de menhirs.
-     * @param joueurActif
-     * 		Le joueur en cours
-     * @param listeJoueurs
-     * 		La liste de joueurs de la partie.
      */
     private void displayJoueursAdverses(){
         for(Joueur j : listeJoueurs){
@@ -412,12 +402,6 @@ public class Console extends Affichage{
     
     /**
      * Demande au joueur de choisir sa cible.
-     * @param joueurActif
-     * 		Le joueur en cours.
-     * @param choixJoueur
-     * 		Le ChoixJoueur du joueurActif.
-     * @param listeJoueurs
-     * 		La liste des joueurs de la partie.
      */
     public void displayJoueurCible(){
         System.out.println("Choisis ta cible");
@@ -453,11 +437,7 @@ public class Console extends Affichage{
     }
     
     /**
-     * Demande au joueur s'il veut jouer sa carte Taupe
-     * @param joueurActif
-     * 		Le joueur en cours.
-     * @param listeJoueurs
-     * 		La liste de joueurs de la Partie.
+     * Demande au joueurActif s'il veut jouer sa carte Taupe
      * @return true si le joueur joue sa carte taupe. false sinon.
      */
     public boolean displayChoixCarteTaupe(){
@@ -552,29 +532,6 @@ public class Console extends Affichage{
        return choixFinPartie;
     }
     
-    /**
-     * Demande à l'utilisateur de rentrer le nombre de joueurs Humains
-     * @param nbJoueurs 
-     * 		Le nombre de joueurs.
-     * @return
-     * 		Le nombre de joueurs humains
-     * @throws WrongNumberException si le nombre de joueurs humains n'est pas entre 0 et nbJoueurs.
-     * @throws InputMismatchException
-     */
-    public int getNbJH(int nbJoueurs) throws WrongNumberException,InputMismatchException{
-        int nbJH;
-        System.out.println("Combien de joueurs humains?");
-        try{
-            nbJH = sc.nextInt();
-            if(nbJH<0||nbJH>nbJoueurs)
-                throw new WrongNumberException("Le nombre de joueurs Humains doit être comprit entre 1 et "+nbJoueurs+"!");
-        }
-        catch(InputMismatchException e){
-            sc.nextLine();
-            throw new InputMismatchException("Entre un nombre doit être comprit entre 1 et 6");
-        }
-        return nbJH;
-    }
     
     /**
      * Demande à l'utilisateur de rentrer le nombre de joueurs.
@@ -604,10 +561,6 @@ public class Console extends Affichage{
     
     /**
      * Demande à l'utilisateur de choisir le type de partie.
-     * @param nbJH 
-     * 		Le nombre de joueurs humains.
-     * @param nbJoueurs
-     * 		Le nombre de joueurs.
      * @return
      * 		true si l'utilisateur choisi une partie simple. false sinon.
      * @throws InputMismatchException

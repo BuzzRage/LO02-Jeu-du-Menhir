@@ -22,13 +22,9 @@ public interface Strategy {
 	
     /**
      * Retourne un booléen pour décider de réagir en utilisant la <code>CarteChien</code> du JoueurIA en cas d'attaque de farfadets par un Joueur adverse.
-     * @param cible 
-     * 		Le Joueur ciblé.
-     * @param attaquant
-     * 		Le Joueur attaquant, pour avoir son ChoixJoueur et autres getters.
      * @return true si le Joueur cible réagit. false sinon.
      */
-    public boolean deciderReaction(Joueur cible,Joueur attaquant);
+    public boolean deciderReaction();
     
     /**
      * Retourne un booléen indiquant si le Joueur joue sa CarteTaupe ou non.

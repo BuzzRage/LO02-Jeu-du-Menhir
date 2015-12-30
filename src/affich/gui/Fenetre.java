@@ -18,6 +18,10 @@ public class Fenetre extends JFrame{
     LinkedList<CarteIngredient> main = new LinkedList<>();
     ArrayList<VueCarteIngredient> vueMain = new ArrayList<>();
 
+    /**
+     * Règle la taille de la fenetre le titre et affiche 4 CarteIngredient face cachée.<br>
+     * 
+     */
     public Fenetre(){
         this.setTitle("Jeu du Menhir");
         this.setSize(1200, 600);
@@ -43,13 +47,16 @@ public class Fenetre extends JFrame{
         
         this.setVisible(true);
     }
+    
     public void setMain(LinkedList<CarteIngredient> deck){
         this.main = deck;
         updateCartes();
     }
+    
     public ArrayList<VueCarteIngredient> getVuesCarteIng(){
         return vueMain;
     }
+    
     private void updateCartes(){
         Iterator<CarteIngredient> it = main.iterator();
         for(Iterator<VueCarteIngredient> iter = vueMain.iterator();iter.hasNext();){

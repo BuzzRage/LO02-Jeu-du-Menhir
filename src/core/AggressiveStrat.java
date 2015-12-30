@@ -41,11 +41,12 @@ public class AggressiveStrat extends Strat{
     }
     
     /**
-     * @see core.Strategy#deciderReaction(core.Joueur, core.Joueur)
+     * @see core.Strategy#deciderReaction()
      */
-    public boolean deciderReaction(Joueur jIA,Joueur attaquant){
-    	if(jIA.getCarteAl() instanceof CarteChien){
-            if(attaquant.getChoixJoueur().getCarte().getEffet(TypeAction.FARFADET)>0&&jIA.getCarteAl().getEffet()>0)
+    public boolean deciderReaction(){
+	Joueur cible=joueurActuel.getChoixJoueur().getCible();
+    	if(cible.getCarteAl() instanceof CarteChien){
+            if(joueurActuel.getChoixJoueur().getCarte().getEffet(TypeAction.FARFADET)>0&&cible.getCarteAl().getEffet()>0)
                 return true;
             else
                 return false;
