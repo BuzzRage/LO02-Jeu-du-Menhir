@@ -56,4 +56,5 @@ public abstract class CarteAllie extends Carte{
      * 		Le Joueur pris pour cible.
      */
     public abstract void jouer(Joueur lanceur, Joueur cible);
+    
 }

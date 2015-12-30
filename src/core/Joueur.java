@@ -136,7 +136,7 @@ public abstract class Joueur extends Observable implements Observer{
      * @see core.ChoixJoueur
      */
     public void jouerCarteAl(ChoixJoueur choix){
-        carteAl.jouer(this, choix.getCible(), choix.getAction());
+        carteAl.jouer(this, choix.getCible());
     }
     
     /**

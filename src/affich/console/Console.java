@@ -82,38 +82,34 @@ public class Console extends Affichage{
      * Affiche la fin de de la manche et son gagnant.
      */
     public void displayFinManche(){
-        System.out.print("Fin de la manche!");
-        Joueur meuneur=listeJoueurs.get(0);
-        int menMax=-1;
-        for(Joueur j:listeJoueurs){
-            if(j.getNbrMenhirs()>menMax){
-                menMax = j.getNbrPoints();
-                meuneur = j;
-            }
-        }
-        System.out.println("Le meneur est le joueur "+meuneur.getNbr()+" avec "+menMax+" points!");
-        System.out.println();
-        System.out.println("Liste des joueurs: ");
+        super.displayFinManche();
+        message  ="Fin de la manche!\n";
+        message += "Le meneur est le joueur "+meuneur.getNbr();
+        message +=" avec "+meuneur+" points!\n";
+        message +="\n";
+        message +="Liste des joueurs: \n";
+        
         for(Joueur j : listeJoueurs){
-            System.out.println("Joueur "+j.getNbr());
-            System.out.println(j.getNbrPoints()+" points");
-            System.out.println();
-            
+            message+="Joueur "+j.getNbr()+"\n";
+            message += j.getNbrPoints()+" points\n";
         }
+        System.out.print(message);
     }
     
     /**
      * Affiche l'action effectué par le joueur en cours.
      */
     public void displayAction(){
+        message = "";
         switch(joueurActif.getChoixJoueur().getAction()){
             case GEANT:
-                System.out.print("Le joueur "+joueurActif.getNbr()+" obtient ");
-                System.out.println(joueurActif.getChoixJoueur().getCarte().getEffet(TypeAction.GEANT)+" graines");
+                message+="Le joueur "+joueurActif.getNbr()+" obtient ";
+                message+=joueurActif.getChoixJoueur().getCarte().getEffet(TypeAction.GEANT)+" graines";
                 break;
             case ENGRAIS:
-                System.out.print("Le joueur "+joueurActif.getNbr()+" fait pousser ");
-                System.out.println(Math.min(joueurActif.getNbrGraines(), joueurActif.getChoixJoueur().getCarte().getEffet(TypeAction.ENGRAIS))+" graines");
+                message +="Le joueur "+joueurActif.getNbr()+" fait pousser ";
+                message += Math.min(joueurActif.getNbrGraines(), 
+                        joueurActif.getChoixJoueur().getCarte().getEffet(TypeAction.ENGRAIS))+" graines";
                 break;
             case FARFADET:
                 int nbFarf=joueurActif.getChoixJoueur().getCarte().getEffet(TypeAction.FARFADET);
@@ -127,8 +123,8 @@ public class Console extends Affichage{
                         if(effetReel<0){
                     	effetReel=0;
                         }
-                        System.out.println("Le joueur "+cible.getNbr() + " décide de réagir."
-                        + "\nIl se protèges de " + cible.getProtecChien() + " graines volées.");    
+                        message +="Le joueur "+cible.getNbr() + " décide de réagir."
+                        + "\nIl se protèges de " + cible.getProtecChien() + " graines volées.\n";    
                     }
 
                 }
@@ -136,10 +132,11 @@ public class Console extends Affichage{
                 if(effetReel>joueurActif.getNbrGraines()){
                     effetReel=joueurActif.getNbrGraines();
                 }
-                System.out.println("Le joueur "+joueurActif.getNbr()+" vole "+effetReel
-                +" graines au joueur "+cible.getNbr());
+                message+="Le joueur "+joueurActif.getNbr()+" vole "+effetReel
+                +" graines au joueur "+cible.getNbr();
                 break;
         }
+        System.out.println(message);
     }
     
     /**
@@ -165,9 +162,10 @@ public class Console extends Affichage{
     public void displayTypeAllie(){
         if(joueurActif.isHuman()){
             if(joueurActif.getCarteAl() instanceof CarteChien)
-                System.out.println("Tu as tiré une carte chien!");
+                message = "Tu as tiré une carte chien!";
             else
-                System.out.println("Tu as tiré une carte taupe!");
+                message = "Tu as tiré une carte taupe!";
+            System.out.println(message);
         }
     }
     

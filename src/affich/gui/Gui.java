@@ -31,7 +31,6 @@ public class Gui extends Affichage implements ActionListener{
     private static Gui instance;
     private String[] options = new String[NB_J_MAX];
     private String title;
-    private String message;
     private boolean continuer;
     private JoueurHumain utilisateur;
     
@@ -53,24 +52,32 @@ public class Gui extends Affichage implements ActionListener{
      * @return le GUI
      */
     public static Gui getInstance(){
-        if(instance == null)
+        if(instance == null){
             instance = new Gui();
+            
+        }
         return instance;
     }
-    
     private boolean getYesOrNo(Object message, 
-            String title,Object[] options,Object initialSelected){
+            String title,Object[] options,Object initialSelected, Icon icon){
         
         while(true){
         int res = JOptionPane.showOptionDialog(fen, 
                 message,title, 
-                JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,
+                JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,icon,
                 options,initialSelected);
         if(res == JOptionPane.CLOSED_OPTION)
             JOptionPane.showMessageDialog(fen, "Vous devez faire un choix", "Erreur", JOptionPane.ERROR_MESSAGE);
         else
             return res==JOptionPane.YES_OPTION;
         }
+    }
+    
+    
+    private boolean getYesOrNo(Object message, 
+            String title,Object[] options,Object initialSelected){
+        return getYesOrNo(message,title,options,initialSelected,null);
+        
     }
     private int getNumber(Object message,String title,Object[] options,Object initialSelected){
         //boolean continuer=false;
@@ -148,16 +155,9 @@ public class Gui extends Affichage implements ActionListener{
      * @see affich.Affichage#displayFinManche()
      */
     public void displayFinManche(){
-        Joueur meuneur=listeJoueurs.get(0);
-        int menMax=-1;
-        for(Joueur j:listeJoueurs){
-            if(j.getNbrMenhirs()>menMax){
-                menMax = j.getNbrPoints();
-                meuneur = j;
-            }
-        }
+        super.displayFinManche();
         title = "Fin de manche";
-        message = "Le meneur est le joueur "+meuneur.getNbr()+" avec "+menMax+" points!";
+        message = "Le meneur est le joueur "+meuneur.getNbr()+" avec "+meuneur.getNbrPoints()+" points!";
         messageBox(message,title);
     }
     
@@ -251,16 +251,26 @@ public class Gui extends Affichage implements ActionListener{
      * @see affich.Affichage#displayReaction()
      */
     public boolean displayReaction(){
-        
-        return false;
+        Icon icon = new ImageIcon(joueurActif.getCarteAl().getTypeCarte().getImageUrl());
+        message = "Voulez vous Joueur votre Carte Chien?\n";
+        message += "Saison actuelle: "+saisonActuelle.toString();
+        title = "Carte Allié";
+        options[0]="Oui";
+        options[1]="Non";
+        return getYesOrNo(message, title, options, options[0], icon);
     }
     
     /**
      * @see affich.Affichage#displayChoixCarteTaupe()
      */
     public boolean displayChoixCarteTaupe(){
-        
-        return false;
+        Icon icon = new ImageIcon(joueurActif.getCarteAl().getTypeCarte().getImageUrl());
+        message = "Voulez vous Joueur votre carte Taupe?\n";
+        message += "Saison actuelle: "+saisonActuelle.toString();
+        title = "Carte Allié";
+        options[0]="Oui";
+        options[1]="Non";
+        return getYesOrNo(message, title, options, options[0], icon);
     }
     
     /**

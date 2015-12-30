@@ -26,8 +26,9 @@ public abstract class Affichage implements Observer {
     protected Joueur joueurActif;
     protected ArrayList<Joueur> listeJoueurs;
     protected int nbMancheActuelle;
+    protected Joueur meuneur;
     protected final int NB_J_MAX = 6;
-    
+    protected String message;
     
     
     /**
@@ -39,7 +40,16 @@ public abstract class Affichage implements Observer {
     /**
      * Affiche la fin de de la manche et son gagnant.
      */
-    public abstract void displayFinManche();
+    public void displayFinManche(){
+        meuneur=listeJoueurs.get(0);
+        int menMax=-1;
+        for(Joueur j:listeJoueurs){
+            if(j.getNbrMenhirs()>menMax){
+                menMax = j.getNbrPoints();
+                meuneur = j;
+            }
+        }
+    }
     
     /**
      * Affiche l'action effectué par le joueur en cours.

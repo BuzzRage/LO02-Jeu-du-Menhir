@@ -17,8 +17,7 @@ public class CarteChien extends CarteAllie {
      */
     public void jouer(Joueur lanceur, Joueur cible, TypeAction a) {
         
-        lanceur.setProtecChien(effet[0][saisonActuelle.toInteger()]);
-        this.setPose(true);
+        this.jouer(lanceur, cible);
     }
     
     /**
