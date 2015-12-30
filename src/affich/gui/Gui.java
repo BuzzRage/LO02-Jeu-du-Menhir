@@ -10,21 +10,33 @@ import java.util.ArrayList;
 import javax.swing.*;
 import java.awt.*;
 import java.util.*;
+import java.awt.event.*;
 
 /**
  *
  * @author Apache
  */
-public class Gui extends Affichage{
+public class Gui extends Affichage implements ActionListener{
     private Fenetre fen;
     private static Gui instance;
     private String[] options = new String[NB_J_MAX];
-    private String title = "Choix du nombre de joueurs";
-    private String message = "Combien de joueurs souhaites-tu?";
-    JoueurHumain utilisateur;
+    private String title;
+    private String message;
+    private boolean continuer;
+    private JoueurHumain utilisateur;
     
     private Gui(){
+        continuer = false;
         fen = new Fenetre();
+        for(Iterator<VueCarteIngredient> it = fen.getVuesCarteIng().iterator();it.hasNext();){
+            VueCarteIngredient vueCarte = it.next();
+            vueCarte.getBoutonEngrais().addActionListener(this);
+            vueCarte.getBoutonGeant().addActionListener(this);
+            vueCarte.getBoutonFarfadet().addActionListener(this);
+            vueCarte.setBoutonsEnabled(false);
+            
+        }
+        
     }
     public static Gui getInstance(){
         if(instance == null)
@@ -40,10 +52,7 @@ public class Gui extends Affichage{
                 message,title, 
                 JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,
                 options,initialSelected);
-        if(res==JOptionPane.YES_OPTION)
-            return true;
-        else 
-            return false;
+        return res==JOptionPane.YES_OPTION;
     }
     private int getNumber(Object message,String title,Object[] options,Object initialSelected){
         String[] vals = ((String)JOptionPane.showInputDialog(fen, 
@@ -70,11 +79,33 @@ public class Gui extends Affichage{
     }
     
     public void displayTour(){
+        while(!continuer){
+            try{
+                Thread.sleep(30);
+            }
+            catch(InterruptedException e){
+                e.printStackTrace();
+            }
+        }
+        
+    }
+    
+    public void actionPerformed(ActionEvent event){
         
     }
     
     public void displayFinManche(){
-        
+        Joueur meuneur=listeJoueurs.get(0);
+        int menMax=-1;
+        for(Joueur j:listeJoueurs){
+            if(j.getNbrMenhirs()>menMax){
+                menMax = j.getNbrPoints();
+                meuneur = j;
+            }
+        }
+        title = "Fin de manche";
+        message = "Le meneur est le joueur "+meuneur.getNbr()+" avec "+menMax+" points!";
+        messageBox(message,title);
     }
     
     public void displayAction(){
@@ -148,6 +179,14 @@ public class Gui extends Affichage{
     }
     
     public ChoixFinPartie displayChoixFinPartie(){
+        options = new String[3];
+        title = "Fin de partie";
+        message = "Que veux tu faire?";
+        options[0]="Revanche (mêmes paramètres)";
+        options[1]="Nouvelle Partie";
+        options[2]="Quitter";
+        
+        //TODO JOptionPane avec 3 choix
         
         return ChoixFinPartie.QUITTER;
     }

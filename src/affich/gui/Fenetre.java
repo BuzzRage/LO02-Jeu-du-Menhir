@@ -14,9 +14,7 @@ import core.*;
  * @author Apache
  */
 public class Fenetre extends JFrame{
-    CardLayout cl = new CardLayout();
     JPanel content = new JPanel();
-    Joueur utilisateur;
     LinkedList<CarteIngredient> main = new LinkedList<>();
     ArrayList<VueCarteIngredient> vueMain = new ArrayList<>();
 
@@ -34,8 +32,6 @@ public class Fenetre extends JFrame{
         vueMain.add(card2);
         vueMain.add(card3);
         vueMain.add(card4);
-        //VueCarteIngredient card5 = new VueCarteIngredient();
-        //VueCarteIngredient card6 = new VueCarteIngredient();
 
         content.setLayout(new GridLayout(2,2,5,5));
         content.add(card1);
@@ -43,14 +39,15 @@ public class Fenetre extends JFrame{
         content.add(card3);
         content.add(card4);
 
-        //this.getContentPane().add(card5,BorderLayout.EAST);
-        //this.getContentPane().add(card6,BorderLayout.WEST);
         this.getContentPane().add(content,BorderLayout.CENTER);
         this.setVisible(true);
     }
     public void setMain(LinkedList<CarteIngredient> deck){
         this.main = deck;
         updateCartes();
+    }
+    public ArrayList<VueCarteIngredient> getVuesCarteIng(){
+        return vueMain;
     }
     private void updateCartes(){
         Iterator<CarteIngredient> it = main.iterator();

@@ -7,17 +7,19 @@ package core;
  */
 public enum TypeSaison {
 
-    PRINTEMPS(0, "Printemps"),
-    ETE(1,"Eté"),
-    AUTOMNE(2,"Automne"),
-    HIVER(3,"Hiver");
+    PRINTEMPS(0, "Printemps",-32),
+    ETE(1,"Eté",74),
+    AUTOMNE(2,"Automne",174),
+    HIVER(3,"Hiver",274);
     
     private final int nbr;
     private String name="";
     private static final TypeSaison[] saison= TypeSaison.values();
-    TypeSaison(int i, String s){
-        this.nbr = i;
-        this.name = s;
+    private int pixel;
+    TypeSaison(int i, String s,int pix){
+        nbr = i;
+        name = s;
+        pixel = pix;
     }
     public int toInteger(){
         return this.nbr;
@@ -28,6 +30,9 @@ public enum TypeSaison {
     public TypeSaison initSaison(){
         return this.saison[0];
     }    
+    public int getPixel(){
+        return pixel;
+    }
     @Override
     public String toString(){
         return this.name;

@@ -39,6 +39,10 @@ public abstract class Carte extends Observable implements Jouable,Observer{
         return type;
     }
     
+    public TypeSaison getSaison(){
+        return saisonActuelle;
+    }
+    
     
     /**
      * Retourne l'effet de la carte, en fonction de la saison en cours et de l'action voulue.

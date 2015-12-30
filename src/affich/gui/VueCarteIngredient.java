@@ -10,6 +10,7 @@ import java.awt.event.*;
 import java.util.*;
 import core.CarteIngredient;
 import core.TypeCarte;
+import core.TypeSaison;
 /**
  *
  * @author Apache
@@ -21,11 +22,12 @@ public class VueCarteIngredient extends JPanel implements ActionListener,Observe
     private final JButton engrais,geant,farfadet;
     private final int ratio = 2;
     private final JPanel boutons;
-    private CarteIngredient carte;
+    private TypeSaison saisonActuelle;
     
     public VueCarteIngredient(){
 	//this.carte=carte;
 	//this.carte.addObserver(this);
+        saisonActuelle = TypeSaison.PRINTEMPS;
         img = new ImageIcon(TypeCarte.DOS_INGREDIENT.getImageUrl());
         background = Toolkit.getDefaultToolkit().getImage(TypeCarte.DOS_INGREDIENT.getImageUrl());
         Dimension size = new Dimension(img.getIconWidth()/ratio,img.getIconHeight()/ratio);
@@ -64,6 +66,7 @@ public class VueCarteIngredient extends JPanel implements ActionListener,Observe
         boutons.setMinimumSize(dim2);
         boutons.setVisible(false);
         
+        
         setPreferredSize(size);
         setMinimumSize(size);
         setMaximumSize(size);
@@ -80,11 +83,27 @@ public class VueCarteIngredient extends JPanel implements ActionListener,Observe
        add(boutons, gbc);
         
     }
-    
+    public JButton getBoutonEngrais(){
+        return engrais;
+    }
+    public JButton getBoutonGeant(){
+        return geant;
+    }
+    public JButton getBoutonFarfadet(){
+        return farfadet;
+    }
+    public void setBoutonsEnabled(boolean en){
+        geant.setEnabled(en);
+        engrais.setEnabled(en);
+        farfadet.setEnabled(en);
+    }
     public void setCarteIng(CarteIngredient carteIng){
-        carte=carteIng;
-        img = new ImageIcon(carte.getTypeCarte().getImageUrl());
-        background = Toolkit.getDefaultToolkit().getImage(carte.getTypeCarte().getImageUrl());
+        img = new ImageIcon(carteIng.getTypeCarte().getImageUrl());
+        background = Toolkit.getDefaultToolkit().getImage(carteIng.getTypeCarte().getImageUrl());
+        
+        carteIng.addObserver(this);
+        
+        //carteIng.notifyObservers();
         boutons.setVisible(true);
         repaint();
     }
@@ -107,8 +126,7 @@ public class VueCarteIngredient extends JPanel implements ActionListener,Observe
         if(boutons.isVisible()){
             Color c = new Color(255,255,0,255*transparence/100);
             g.setColor(c);
-            int saison =0;
-            int a=x+(img.getIconWidth()-32+saison*104)/(2*ratio);
+            int a=x+(img.getIconWidth()+saisonActuelle.toInteger()*104-32)/(2*ratio);
             int b=y+(img.getIconHeight()+24)/(2*ratio);
             int largeur=30/ratio;
             int hauteur=176/ratio;
@@ -119,10 +137,13 @@ public class VueCarteIngredient extends JPanel implements ActionListener,Observe
     public void update(Observable obs, Object o){
 
         if(obs instanceof CarteIngredient){
-            if(!((CarteIngredient)obs).isPose()){
-                String imageUrl = ((CarteIngredient)obs).getTypeCarte().getImageUrl();
+            CarteIngredient carte = (CarteIngredient)obs;
+            if(!carte.isPose()){
+                String imageUrl = carte.getTypeCarte().getImageUrl();
                 img = new ImageIcon(imageUrl);
                 background = Toolkit.getDefaultToolkit().getImage(imageUrl);
+                saisonActuelle = carte.getSaison();
+                repaint();
             }
         }
     }
