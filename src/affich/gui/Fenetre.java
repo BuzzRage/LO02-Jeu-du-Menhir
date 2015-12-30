@@ -40,6 +40,7 @@ public class Fenetre extends JFrame{
         content.add(card4);
 
         this.getContentPane().add(content,BorderLayout.CENTER);
+        
         this.setVisible(true);
     }
     public void setMain(LinkedList<CarteIngredient> deck){
@@ -55,7 +56,7 @@ public class Fenetre extends JFrame{
             VueCarteIngredient vueCarte = iter.next();
             vueCarte.setCarteIng(it.next());
         }
-            
+        repaint();    
         
     }
 

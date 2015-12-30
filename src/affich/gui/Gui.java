@@ -46,18 +46,31 @@ public class Gui extends Affichage implements ActionListener{
     private boolean getYesOrNo(Object message, 
             String title,Object[] options,Object initialSelected){
         
-        
+        while(true){
         int res = JOptionPane.showOptionDialog(fen, 
                 message,title, 
                 JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,
                 options,initialSelected);
-        return res==JOptionPane.YES_OPTION;
+        if(res == JOptionPane.CLOSED_OPTION)
+            JOptionPane.showMessageDialog(fen, "Vous devez faire un choix", "Erreur", JOptionPane.ERROR_MESSAGE);
+        else
+            return res==JOptionPane.YES_OPTION;
+        }
     }
     private int getNumber(Object message,String title,Object[] options,Object initialSelected){
-        String[] vals = ((String)JOptionPane.showInputDialog(fen, 
-                 message, title,
-                JOptionPane.QUESTION_MESSAGE,null,options,initialSelected)).split("\\s+");
-        return Integer.parseInt(vals[0]);
+        //boolean continuer=false;
+        while(true){
+            Object result = JOptionPane.showInputDialog(fen, 
+                     message, title,
+                    JOptionPane.QUESTION_MESSAGE,null,options,initialSelected);
+            try{
+                String[] vals = ((String)result).split("\\s+");
+                return Integer.parseInt(vals[0]);
+            }
+            catch(NullPointerException e){
+                JOptionPane.showMessageDialog(fen, "Vous devez faire un choix", "Erreur", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
     private void messageBox(Object message,String title){
         JOptionPane.showMessageDialog(fen, message, title, JOptionPane.INFORMATION_MESSAGE);
@@ -78,6 +91,9 @@ public class Gui extends Affichage implements ActionListener{
     }
     
     public void displayTour(){
+        title ="Info";
+        message = "C'est à toi de jouer!";
+        messageBox(message,title);
         while(!continuer){
             try{
                 Thread.sleep(30);
@@ -87,8 +103,6 @@ public class Gui extends Affichage implements ActionListener{
             }
         }
         continuer = false;
-        System.out.println("out");
-        
     }
     
     public void actionPerformed(ActionEvent event){
@@ -128,13 +142,24 @@ public class Gui extends Affichage implements ActionListener{
                 break;
             case ENGRAIS:
                 message = "Le joueur " + joueurActif.getNbr() + "transforme "
-                        +joueurActif.getChoixJoueur().getCarte().getEffet(TypeAction.ENGRAIS)
+                        +Math.min(joueurActif.getNbrGraines(), 
+                                joueurActif.getChoixJoueur().getCarte().getEffet(TypeAction.ENGRAIS))
                         +" graines en menhirs";
                 break;
             case FARFADET:
+                int nbFarf=joueurActif.getChoixJoueur().getCarte().getEffet(TypeAction.FARFADET);
+                int effetReel=nbFarf;
+                if(joueurActif.getChoixJoueur().getCible().hasAllie()&&joueurActif.getChoixJoueur().getCible().getCarteAl()instanceof CarteChien){
+                    effetReel -= joueurActif.getChoixJoueur().getCible().getProtecChien();
+                    if(effetReel<0)
+                	effetReel=0;
+                }
+                
+                if(effetReel>joueurActif.getNbrGraines()){
+                    effetReel=joueurActif.getNbrGraines();
+                }
                 message = "Le joueur " + joueurActif.getNbr() + " vole ";
-                message+= joueurActif.getChoixJoueur().getCarte().getEffet(TypeAction.FARFADET)
-                       + " graines ";
+                message+= effetReel+ " graines ";
                 message+= "au joueur "+joueurActif.getChoixJoueur().getCible().getNbr();
                 break;
         }
@@ -220,6 +245,33 @@ public class Gui extends Affichage implements ActionListener{
     }
     
     public void displayJoueurCible(){
+        Joueur[] items = new Joueur[NB_J_MAX-1];
+        title = "Choix de la cible";
+        message = "Qui souhaites-tu attaquer?";
+        int i = 0;
+        for(Iterator<Joueur> it = this.listeJoueurs.iterator();it.hasNext();){
+            Joueur j = it.next();
+            if(!joueurActif.equals(j)){
+                items[i]=j;
+                i++;
+            }
+        }
+        while(true){
+        Object result = JOptionPane.showInputDialog(fen, 
+                     message, title,
+                    JOptionPane.QUESTION_MESSAGE,null,items,null);
+        try{
+                Joueur vals = ((Joueur)result);
+                joueurActif.getChoixJoueur().setCible(vals);
+                break;
+            }
+            catch(NullPointerException e){
+                JOptionPane.showMessageDialog(
+                        fen, "Vous devez faire un choix", "Erreur", 
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        
         
     }
 

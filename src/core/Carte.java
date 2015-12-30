@@ -79,6 +79,8 @@ public abstract class Carte extends Observable implements Jouable,Observer{
     public void update(Observable o,Object arg){
 	if(o instanceof Partie){
 	    saisonActuelle=((Partie) o).getSaison();
+            setChanged();
+            notifyObservers();
 	}
     }
     
