@@ -136,9 +136,9 @@ public class Gui extends Affichage implements ActionListener{
         if(event.getSource() instanceof MBouton){
             MBouton bouton = (MBouton)event.getSource();
             this.joueurActif.getChoixJoueur().setAction(
-                    bouton.getChoixJoueur().getAction());
+                    bouton.getTypeAction());
             this.joueurActif.getChoixJoueur().setCarte(
-                    bouton.getChoixJoueur().getCarte());
+                    bouton.getCarte());
             continuer = true;
         }
             
@@ -344,7 +344,7 @@ public class Gui extends Affichage implements ActionListener{
      */
     public void update(Observable obs,Object o){
         super.update(obs, o);
-        if(obs instanceof Partie){
+        if(obs instanceof Partie&& utilisateur == null){
             utilisateur = ((Partie)obs).getJoueurHumain();
         }
     }

@@ -99,8 +99,18 @@ public class VueCarteIngredient extends JPanel implements ActionListener,Observe
         farfadet.setEnabled(en);
     }
     public void setCarteIng(CarteIngredient carteIng){
+        
         img = new ImageIcon(carteIng.getTypeCarte().getImageUrl());
         background = Toolkit.getDefaultToolkit().getImage(carteIng.getTypeCarte().getImageUrl());
+        try{
+            geant.getCarte().deleteObserver(this);
+            engrais.getCarte().deleteObserver(this);
+            farfadet.getCarte().deleteObserver(this);
+        }
+        catch(NullPointerException e){
+            
+        }
+        
         geant.setCarte(carteIng);
         engrais.setCarte(carteIng);
         farfadet.setCarte(carteIng);
