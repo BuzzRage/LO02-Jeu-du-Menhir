@@ -41,9 +41,9 @@ public class SafeStrat extends Strat{
     	return false;
     }
     /**
-     * @see core.Strategy#deciderReaction(core.Joueur, core.Joueur)
+     * @see core.Strategy#deciderReaction()
      */
-    public boolean deciderReaction(Joueur jIA,Joueur attaquant){
+    public boolean deciderReaction(){
         return false;
     }
     

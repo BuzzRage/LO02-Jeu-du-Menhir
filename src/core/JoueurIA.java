@@ -23,7 +23,7 @@ public class JoueurIA extends Joueur {
      * @see core.Joueur#deciderReaction()
      */
     public void deciderReaction(){
-        if(strat.deciderReaction(this,joueurActif)){
+        if(strat.deciderReaction()){
             jouerCarteAl(joueurActif);
         }
     }

@@ -63,6 +63,9 @@ public abstract class Joueur extends Observable implements Observer{
     public int getNbr(){
         return nbr;
     }
+    /**
+     * @return La valeur de l'effet de la CarteChien
+     */
     public int getProtecChien(){
         return protecChien;
     }
