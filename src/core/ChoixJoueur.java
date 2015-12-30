@@ -18,7 +18,7 @@ package core;
 public class ChoixJoueur {
     private Joueur cible;
     private TypeAction action;
-    private Carte carte;
+    private CarteIngredient carte;
     
     /**
      * @return Le joueur prit pour cible.
@@ -53,7 +53,7 @@ public class ChoixJoueur {
     /**
      * @return La Carte choisi par le joueur.
      */
-    public Carte getCarte(){
+    public CarteIngredient getCarte(){
         return carte;
     }
     
