@@ -129,10 +129,8 @@ public class Console extends Affichage{
                 
                 if(joueurActif.getChoixJoueur().getCible().hasAllie()&&joueurActif.getChoixJoueur().getCible().getCarteAl()instanceof CarteChien){
                     effetReel -= joueurActif.getChoixJoueur().getCible().getProtecChien();
-                    if(effetReel<0){
+                    if(effetReel<0)
                 	effetReel=0;
-                    }
-                
                 }
                 
                 if(effetReel>joueurActif.getNbrGraines()){
