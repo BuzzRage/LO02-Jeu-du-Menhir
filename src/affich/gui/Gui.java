@@ -33,7 +33,6 @@ public class Gui extends Affichage implements ActionListener{
             vueCarte.getBoutonEngrais().addActionListener(this);
             vueCarte.getBoutonGeant().addActionListener(this);
             vueCarte.getBoutonFarfadet().addActionListener(this);
-            vueCarte.setBoutonsEnabled(false);
             
         }
         
@@ -87,11 +86,21 @@ public class Gui extends Affichage implements ActionListener{
                 e.printStackTrace();
             }
         }
+        continuer = false;
+        System.out.println("out");
         
     }
     
     public void actionPerformed(ActionEvent event){
-        
+        if(event.getSource() instanceof MBouton){
+            MBouton bouton = (MBouton)event.getSource();
+            this.joueurActif.getChoixJoueur().setAction(
+                    bouton.getChoixJoueur().getAction());
+            this.joueurActif.getChoixJoueur().setCarte(
+                    bouton.getChoixJoueur().getCarte());
+            continuer = true;
+        }
+            
     }
     
     public void displayFinManche(){

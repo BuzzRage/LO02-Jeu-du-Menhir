@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.util.*;
 import core.CarteIngredient;
+import core.TypeAction;
 import core.TypeCarte;
 import core.TypeSaison;
 /**
@@ -19,7 +20,7 @@ public class VueCarteIngredient extends JPanel implements ActionListener,Observe
     private ImageIcon img;
     private Image background;
     private final int transparence = 40;
-    private final JButton engrais,geant,farfadet;
+    private final MBouton engrais,geant,farfadet;
     private final int ratio = 2;
     private final JPanel boutons;
     private TypeSaison saisonActuelle;
@@ -33,9 +34,9 @@ public class VueCarteIngredient extends JPanel implements ActionListener,Observe
         Dimension size = new Dimension(img.getIconWidth()/ratio,img.getIconHeight()/ratio);
         Dimension dim = new Dimension((img.getIconWidth()-70)/ratio,46/ratio);
         Dimension dim2 = new Dimension(img.getIconWidth()/ratio,40/ratio);
-        engrais = new MBouton("engrais.wav");
-        geant = new MBouton("geant.wav");
-        farfadet = new MBouton("farfadet.wav");
+        engrais = new MBouton(TypeAction.ENGRAIS);
+        geant = new MBouton(TypeAction.GEANT);
+        farfadet = new MBouton(TypeAction.FARFADET);
         
         engrais.setOpaque(true);
         engrais.setContentAreaFilled(false);
@@ -83,13 +84,13 @@ public class VueCarteIngredient extends JPanel implements ActionListener,Observe
        add(boutons, gbc);
         
     }
-    public JButton getBoutonEngrais(){
+    public MBouton getBoutonEngrais(){
         return engrais;
     }
-    public JButton getBoutonGeant(){
+    public MBouton getBoutonGeant(){
         return geant;
     }
-    public JButton getBoutonFarfadet(){
+    public MBouton getBoutonFarfadet(){
         return farfadet;
     }
     public void setBoutonsEnabled(boolean en){
@@ -100,18 +101,21 @@ public class VueCarteIngredient extends JPanel implements ActionListener,Observe
     public void setCarteIng(CarteIngredient carteIng){
         img = new ImageIcon(carteIng.getTypeCarte().getImageUrl());
         background = Toolkit.getDefaultToolkit().getImage(carteIng.getTypeCarte().getImageUrl());
-        
+        geant.setCarte(carteIng);
+        engrais.setCarte(carteIng);
+        farfadet.setCarte(carteIng);
         carteIng.addObserver(this);
         
-        //carteIng.notifyObservers();
+        
         boutons.setVisible(true);
         repaint();
     }
     public void actionPerformed(ActionEvent event){
-        boutons.setVisible(false);
+        
         String imageUrl = TypeCarte.DOS_INGREDIENT.getImageUrl();
         img = new ImageIcon(imageUrl);
         background = Toolkit.getDefaultToolkit().getImage(imageUrl);
+        boutons.setVisible(false);
         repaint();
         
     }

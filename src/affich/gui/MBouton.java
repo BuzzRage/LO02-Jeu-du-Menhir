@@ -21,15 +21,17 @@ import core.*;
 public class MBouton extends JButton implements MouseListener{
     private static String location="src/sons/";
     private File file;
+    private ChoixJoueur choixJoueur;
     
-    public MBouton(String url){
-        this("",url);
+    public MBouton(TypeAction action){
+        this("",action);
     }
     
-    public MBouton(String str, String url){
+    public MBouton(String str, TypeAction action){
         super(str);
-        file = new File(location+url);
-        
+        choixJoueur = new ChoixJoueur();
+        choixJoueur.setAction(action);
+        file = new File(location+action.getUrl());
         this.addMouseListener(this);
     }
     
@@ -47,6 +49,13 @@ public class MBouton extends JButton implements MouseListener{
             }
         }).start();
     }
+    public ChoixJoueur getChoixJoueur(){
+        return choixJoueur;
+    }
+    public void setCarte(CarteIngredient carte){
+        choixJoueur.setCarte(carte);
+    }
+   
     @Override
     public void mouseExited(MouseEvent event){}
     @Override
@@ -56,7 +65,7 @@ public class MBouton extends JButton implements MouseListener{
     public void mouseReleased(MouseEvent event){}
     @Override
     public void mousePressed(MouseEvent event){
-     playSound();
+        playSound();
         System.out.println("Sound played");
     }
     @Override
