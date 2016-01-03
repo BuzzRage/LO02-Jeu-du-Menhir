@@ -72,15 +72,13 @@ public abstract class Partie extends Observable implements Observer{
                         this.setChanged();
                         this.notifyObservers();
                         if(joueurActif.choixAllie()){
-                            distribCarteAl(j);
+                            distribCarteAl(joueurActif);
                             affich.displayTypeAllie();
                         }
                         else
                             joueurActif.setNbrGraines(2);
                     }
             }
-            
-                    
             for(Joueur j:listeJoueurs){
                 joueurActif = j;
                 this.setChanged();
@@ -98,7 +96,6 @@ public abstract class Partie extends Observable implements Observer{
                 affich.displayAction();
                 joueurActif.jouerCarte();
                 joueurActif.setChoixJoueur(new ChoixJoueur());
-
             }
             nextTour();
             if(!tourRunning){
@@ -109,7 +106,6 @@ public abstract class Partie extends Observable implements Observer{
         }while(running);
         listeJoueurs.add(listeJoueurs.remove(0));
         affich.displayGagnant(this.getPalmares());
-        
     }
     
 
@@ -140,8 +136,8 @@ public abstract class Partie extends Observable implements Observer{
      * Pour une PartieRapide, cette méthode initialise le nombre de graines de chaque Joueurs à 2.
      */
     public void initManche(){
-        this.tourRunning = true;
-        this.running =true;
+        tourRunning = true;
+        running =true;
         saison=saison.initSaison();
         Collections.shuffle(this.listeCarteIng);
         Collections.shuffle(this.listeCarteAl);
@@ -164,7 +160,6 @@ public abstract class Partie extends Observable implements Observer{
             j=it.next();
             if(j instanceof JoueurHumain)
                 joueur =(JoueurHumain)j;
-            
         }
         return joueur;
     }
@@ -172,18 +167,23 @@ public abstract class Partie extends Observable implements Observer{
     public int getNbrManche(){
     	return this.nbrMancheActuelle;
     }
+    
     public int getNbrTour(){
         return this.nbrTourActuel;
     }
+    
     public TypeSaison getSaison(){
         return this.saison;
     }
+    
     public Joueur getJoueurActif(){
         return joueurActif;
     }
+    
     public ArrayList<Joueur> getListeJoueurs(){
         return listeJoueurs;
     }
+    
     public Affichage getAffichage(){
         return affich;
     }
@@ -242,7 +242,7 @@ public abstract class Partie extends Observable implements Observer{
         while(cible==null){
             for(Joueur j:listeJoueurs)
             {
-                if(j!=joueurActif&&j.getNbrMenhirs()>nbMax)
+                if(!j.equals(joueurActif)&&j.getNbrMenhirs()>nbMax)
                 {
                     nbMax=j.getNbrMenhirs();
                     cible = j;
@@ -252,6 +252,7 @@ public abstract class Partie extends Observable implements Observer{
         }
         return cible;
     }
+    
     /**
      * Retourne le Joueur ayant le plus de graines.
      * @return Le Joueur ayant le plus de graines.
@@ -262,7 +263,7 @@ public abstract class Partie extends Observable implements Observer{
         while(cible==null){
             for(Joueur j:listeJoueurs)
             {
-                if(j!=joueurActif&&j.getNbrGraines()>nbMax)
+                if(!j.equals(joueurActif)&&j.getNbrGraines()>nbMax)
                 {
                     nbMax=j.getNbrGraines();
                     cible=j;
@@ -271,17 +272,18 @@ public abstract class Partie extends Observable implements Observer{
         }
         return cible;
     }
+    
     public boolean isRunning(){
         return running;
     }
+    
     public boolean isTourRunning(){
         return tourRunning;
     }
+    
     public void setNbrManches(int n){
         nbrManches=n;
     }
-   
-    
     
     /**
      * Incrémente <code>nbrMancheActuelle</code>, modifie l'ordre des Joueurs (le premier devient dernier, les autres gagnent une place).
@@ -345,6 +347,7 @@ public abstract class Partie extends Observable implements Observer{
      * @param nbJIA
      * 		Le nombre de JoueurIA.
      */
+
     private void creerJoueur(int nbJH, int nbJIA){
     	Joueur.initNbrJoueurs();
         for(int i = 0;i<nbJH+nbJIA;i++)
@@ -364,9 +367,8 @@ public abstract class Partie extends Observable implements Observer{
         for(Joueur j : listeJoueurs){
             this.listeCarteIng.addAll(j.rendreCarteIng());
         }    
-        
-        
     }
+    
     public void update(Observable obs, Object o){
 	if(obs instanceof Jeu){
             Jeu jeu = (Jeu)obs;
@@ -374,9 +376,4 @@ public abstract class Partie extends Observable implements Observer{
             this.listeCarteAl = jeu.getListeCarteAl();
 	}
     }
-    
-    
-    
 }    
-    
-    
