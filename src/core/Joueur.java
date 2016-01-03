@@ -337,6 +337,7 @@ public abstract class Joueur extends Observable implements Observer{
         return cAl;
    }
    public ChoixJoueur getChoixJoueur(){
+       setChanged();
        return choixJoueur;
    }
     

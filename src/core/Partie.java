@@ -318,10 +318,11 @@ public abstract class Partie extends Observable implements Observer{
     private void distribCartes() {
         for(Joueur j:listeJoueurs){
             for(int i=0;i<4;i++){
-                j.addCarteIng(this.listeCarteIng.pop());
+                CarteIngredient carte = this.listeCarteIng.pop();
+                this.addObserver(carte);
+                j.addCarteIng(carte);
             }   
-            for(int i=0;i<4;i++)
-        	this.addObserver(j.getCarte(i));
+            
         }
         
     }
@@ -350,7 +351,7 @@ public abstract class Partie extends Observable implements Observer{
         {
             if(i<nbJH)
             listeJoueurs.add(new JoueurHumain());
-            else //if(i<=nbrJoueursH)
+            else 
             listeJoueurs.add(new JoueurIA());
         }
     }
