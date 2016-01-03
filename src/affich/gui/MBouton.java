@@ -30,10 +30,13 @@ public class MBouton extends JButton implements MouseListener{
     
     public MBouton(String str, TypeAction action){
         super(str);
+        this.setBorderPainted(false);
         this.action=action;
-        //choixJoueur.setAction(action);
         file = new File(location+action.getUrl());
         this.addMouseListener(this);
+        this.setOpaque(false);
+        this.setContentAreaFilled(false);
+        
     }
     
     public synchronized void playSound() {
@@ -44,8 +47,9 @@ public class MBouton extends JButton implements MouseListener{
                     AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
                     clip.open(inputStream);
                     clip.start(); 
-                } catch (Exception e) {
-                    System.err.println(e.getMessage());
+                } 
+                catch (Exception e) {
+                    System.out.println(e.getMessage());
                 }
             }
         }).start();
@@ -62,16 +66,18 @@ public class MBouton extends JButton implements MouseListener{
     
    
     @Override
-    public void mouseExited(MouseEvent event){}
+    public void mouseExited(MouseEvent event){
+        this.setBorderPainted(false);
+    }
     @Override
     public void mouseEntered(MouseEvent event){
+        this.setBorderPainted(true);
     }
     @Override
     public void mouseReleased(MouseEvent event){}
     @Override
     public void mousePressed(MouseEvent event){
         playSound();
-        System.out.println("Sound played");
     }
     @Override
     public void mouseClicked(MouseEvent event){

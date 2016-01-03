@@ -38,21 +38,12 @@ public class VueCarteIngredient extends JPanel implements ActionListener,Observe
         geant = new MBouton(TypeAction.GEANT);
         farfadet = new MBouton(TypeAction.FARFADET);
         
-        engrais.setOpaque(true);
-        engrais.setContentAreaFilled(false);
-        engrais.setBorderPainted(true);
         engrais.setPreferredSize(dim);
         engrais.addActionListener(this);
         
-        geant.setOpaque(false);
-        geant.setContentAreaFilled(false);
-        geant.setBorderPainted(true);
         geant.setPreferredSize(dim);
         geant.addActionListener(this);
         
-        farfadet.setOpaque(false);
-        farfadet.setContentAreaFilled(false);
-        farfadet.setBorderPainted(true);
         farfadet.setPreferredSize(dim);
         farfadet.addActionListener(this);
         
@@ -108,7 +99,7 @@ public class VueCarteIngredient extends JPanel implements ActionListener,Observe
             farfadet.getCarte().deleteObserver(this);
         }
         catch(NullPointerException e){
-            
+            System.out.println(e.getMessage());
         }
         
         geant.setCarte(carteIng);
@@ -138,7 +129,7 @@ public class VueCarteIngredient extends JPanel implements ActionListener,Observe
         
         g.drawImage(background, x, y, width,height,null);
         if(boutons.isVisible()){
-            Color c = new Color(255,255,0,255*transparence/100);
+            Color c = new Color(255,0,0,255*transparence/100);
             g.setColor(c);
             int a=x+(img.getIconWidth()+saisonActuelle.toInteger()*104-32)/(2*ratio);
             int b=y+(img.getIconHeight()+24)/(2*ratio);

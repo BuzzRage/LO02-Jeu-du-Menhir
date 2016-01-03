@@ -29,7 +29,7 @@ import java.awt.event.*;
 public class Gui extends Affichage implements ActionListener{
     private Fenetre fen;
     private static Gui instance;
-    private String[] options = new String[NB_J_MAX];
+    private String[] options;
     private String title;
     private boolean continuer;
     private JoueurHumain utilisateur;
@@ -121,6 +121,7 @@ public class Gui extends Affichage implements ActionListener{
      * @see affich.Affichage#displayTour()
      */
     public void displayTour(){
+        fen.setSaison(saisonActuelle);
         title ="Info";
         message = "C'est à toi de jouer!";
         messageBox(message,title);
@@ -142,10 +143,12 @@ public class Gui extends Affichage implements ActionListener{
     public void actionPerformed(ActionEvent event){
         if(event.getSource() instanceof MBouton){
             MBouton bouton = (MBouton)event.getSource();
-            this.joueurActif.getChoixJoueur().setAction(
+            utilisateur.getChoixJoueur().setAction(
                     bouton.getTypeAction());
-            this.joueurActif.getChoixJoueur().setCarte(
+            utilisateur.getChoixJoueur().setCarte(
                     bouton.getCarte());
+            
+            utilisateur.notifyObservers();
             continuer = true;
         }
             
@@ -165,8 +168,12 @@ public class Gui extends Affichage implements ActionListener{
      * @see affich.Affichage#displayAction()
      */
     public void displayAction(){
+        fen.repaint();
         title = "Action effectuée";
-        switch(this.joueurActif.getChoixJoueur().getAction()){
+        if(joueurActif.getChoixJoueur().getAction()==null){
+            System.out.println();
+        }
+        switch(joueurActif.getChoixJoueur().getAction()){
             case GEANT:
                 message = "Le joueur " + joueurActif.getNbr(); 
                 message +=" obtient ";
@@ -233,7 +240,13 @@ public class Gui extends Affichage implements ActionListener{
      * @see affich.Affichage#displayGagnant(java.util.ArrayList)
      */
     public void displayGagnant(ArrayList<Joueur> palmares){
-        
+        title="Palmarès";
+        message="";
+        for(Iterator<Joueur> it = palmares.iterator();it.hasNext();){
+            message += it.next().toString();
+            message +="\n";
+        }
+        messageBox(message,title);
     }
     
     /**
@@ -244,6 +257,8 @@ public class Gui extends Affichage implements ActionListener{
         message = "Début de la manche "+ this.nbMancheActuelle;
         this.messageBox(message, title);
         fen.setMain(utilisateur.getCartes());
+        fen.setJoueurs(listeJoueurs);
+        fen.repaint();
         
     }
     
@@ -251,6 +266,7 @@ public class Gui extends Affichage implements ActionListener{
      * @see affich.Affichage#displayReaction()
      */
     public boolean displayReaction(){
+        options = new String[2];
         Icon icon = new ImageIcon(joueurActif.getCarteAl().getTypeCarte().getImageUrl());
         message = "Voulez vous Joueur votre Carte Chien?\n";
         message += "Saison actuelle: "+saisonActuelle.toString();
@@ -283,10 +299,22 @@ public class Gui extends Affichage implements ActionListener{
         options[0]="Revanche (mêmes paramètres)";
         options[1]="Nouvelle Partie";
         options[2]="Quitter";
-        
-        //TODO JOptionPane avec 3 choix
-        
-        return ChoixFinPartie.QUITTER;
+        while(true){
+            int res = JOptionPane.showOptionDialog(fen, message, title, 
+                    JOptionPane.YES_NO_CANCEL_OPTION, 
+                    JOptionPane.QUESTION_MESSAGE,null,options,options[0]);
+            switch(res){
+                case JOptionPane.YES_OPTION:
+                    return ChoixFinPartie.REJOUER;
+                case JOptionPane.NO_OPTION:
+                    return ChoixFinPartie.NOUVELLE_PARTIE;
+                case JOptionPane.CANCEL_OPTION:
+                    fen.dispose();
+                    return ChoixFinPartie.QUITTER;
+                default:
+                    JOptionPane.showMessageDialog(fen, "Vous devez faire un choix", "Erreur", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
     
     /**
@@ -354,7 +382,7 @@ public class Gui extends Affichage implements ActionListener{
      */
     public void update(Observable obs,Object o){
         super.update(obs, o);
-        if(obs instanceof Partie&& utilisateur == null){
+        if(obs instanceof Partie){
             utilisateur = ((Partie)obs).getJoueurHumain();
         }
     }

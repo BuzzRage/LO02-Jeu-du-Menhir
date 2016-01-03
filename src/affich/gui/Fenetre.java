@@ -14,15 +14,17 @@ import core.*;
  * @author Apache
  */
 public class Fenetre extends JFrame{
-    JPanel content = new JPanel();
-    LinkedList<CarteIngredient> main = new LinkedList<>();
-    ArrayList<VueCarteIngredient> vueMain = new ArrayList<>();
+    private JPanel content = new JPanel();
+    private ArrayList<VueCarteIngredient> vueMain = new ArrayList<>();
+    private ArrayList<VueJoueur> vueJoueurs = new ArrayList<>();
+    private JLabel saison;
 
     /**
      * Règle la taille de la fenetre le titre et affiche 4 CarteIngredient face cachée.<br>
      * 
      */
     public Fenetre(){
+        saison=new JLabel(TypeSaison.PRINTEMPS.toString());
         this.setTitle("Jeu du Menhir");
         this.setSize(1200, 600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -44,27 +46,92 @@ public class Fenetre extends JFrame{
         content.add(card4);
 
         this.getContentPane().add(content,BorderLayout.CENTER);
+        this.getContentPane().add(saison,BorderLayout.NORTH);
         
         this.setVisible(true);
     }
     
     public void setMain(LinkedList<CarteIngredient> deck){
-        this.main = deck;
-        updateCartes();
-    }
-    
-    public ArrayList<VueCarteIngredient> getVuesCarteIng(){
-        return vueMain;
-    }
-    
-    private void updateCartes(){
-        Iterator<CarteIngredient> it = main.iterator();
+        
+        Iterator<CarteIngredient> it = deck.iterator();
         for(Iterator<VueCarteIngredient> iter = vueMain.iterator();iter.hasNext();){
             VueCarteIngredient vueCarte = iter.next();
             vueCarte.setCarteIng(it.next());
         }
-        repaint();    
+        repaint();
+    }
+    public void setSaison(TypeSaison typeSaison){
+        saison.setText(typeSaison.toString());
+        repaint();
+    }
+    public void setJoueurs(ArrayList<Joueur> listeJoueurs){
+        this.vueJoueurs.removeAll(vueJoueurs);
+        for(Iterator<Joueur> it = listeJoueurs.iterator();it.hasNext();){
+            VueJoueur vueJoueur = new VueJoueur(it.next());
+            this.vueJoueurs.add(vueJoueur);
+        }
+        JPanel est = new JPanel();
+        JPanel ouest = new JPanel();
+        JPanel nord = new JPanel();
+        JPanel sud = new JPanel();
+        sud.add(vueJoueurs.get(0));
+        GridLayout gl;
         
+        switch(vueJoueurs.size()){
+            case 2:
+                nord.add(vueJoueurs.get(1));
+                break;
+            case 3:
+                nord.add(vueJoueurs.get(1));
+                nord.add(vueJoueurs.get(2));
+                break;
+            case 4:
+                est.add(vueJoueurs.get(3));
+                nord.add(vueJoueurs.get(2));
+                ouest.add(vueJoueurs.get(1));
+                break;
+            case 5:
+                gl=new GridLayout(1,2);
+                nord.setLayout(gl);
+                est.add(vueJoueurs.get(4));
+                nord.add(vueJoueurs.get(2));
+                nord.add(vueJoueurs.get(3));
+                ouest.add(vueJoueurs.get(1));
+                
+                break;
+            case 6:
+                gl = new GridLayout(2,1,100,50);
+                est.setLayout(gl);
+                ouest.setLayout(gl);
+                
+                est.add(vueJoueurs.get(4));
+                est.add(vueJoueurs.get(5));
+                nord.add(vueJoueurs.get(3));
+                ouest.add(vueJoueurs.get(2));
+                ouest.add(vueJoueurs.get(1));
+                //est.add(vBox1);
+                //ouest.add(vBox2);
+                break;
+                       
+        }
+        sud.setVisible(true);
+        nord.setVisible(true);
+        if(listeJoueurs.size()>3){
+            est.setVisible(true);
+            ouest.setVisible(true);
+        }
+        
+        this.getContentPane().add(est,BorderLayout.EAST);
+        this.getContentPane().add(ouest,BorderLayout.WEST);
+        this.getContentPane().add(nord,BorderLayout.NORTH);
+        this.getContentPane().add(sud,BorderLayout.SOUTH);
+        
+        
+        repaint();
+    }
+    
+    public ArrayList<VueCarteIngredient> getVuesCarteIng(){
+        return vueMain;
     }
 
 }

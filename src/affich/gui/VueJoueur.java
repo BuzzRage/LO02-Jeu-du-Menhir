@@ -24,28 +24,33 @@ public class VueJoueur extends JPanel implements Observer{
     private JLabel graines;
 
     private Joueur joueur;
-    private JPanel pan;
     
     public void update(Observable o, Object arg) {
-	if(o.hasChanged()){
-	    if(o instanceof Joueur){
-		   this.points.setText(Integer.toString(((Joueur)o).getNbrPoints()));
-		   this.menhirs.setText(Integer.toString(((Joueur)o).getNbrMenhirs()));
-		   this.graines.setText(Integer.toString(((Joueur)o).getNbrGraines()));
-		   //Faire les changements necessaire (choixJoueur etc..) 
+	if(o instanceof Joueur){
+                Joueur j = (Joueur)o;
+		   points.setText("Points: "+j.getNbrPoints());
+		   menhirs.setText("Menhirs: "+j.getNbrMenhirs());
+		   graines.setText("Graines: "+j.getNbrGraines());
+		   repaint();
 	    }
-	}
-
     }
    
     public VueJoueur(Joueur j){
-	this.joueur=j;
-	this.joueur.addObserver(this);
-        this.nom.setText("Joueur "+j.getNbr());
-        this.points.setText(Integer.toString(j.getNbrPoints()));
-        this.menhirs.setText(Integer.toString(j.getNbrMenhirs()));
-        this.graines.setText(Integer.toString(j.getNbrGraines()));
-
-        //pan = new 
+	joueur=j;
+	joueur.addObserver(this);
+        nom = new JLabel("Joueur "+j.getNbr());
+        points = new JLabel("Points: "+j.getNbrPoints());
+        menhirs = new JLabel("Menhirs: "+j.getNbrMenhirs());
+        graines = new JLabel("Graines: "+j.getNbrGraines());
+        GridLayout gl = new GridLayout(2,2,10,10);
+        
+        this.setLayout(gl);
+        this.add(nom);
+        this.add(points);
+        this.add(graines);
+        this.add(menhirs);
+        this.setSize(100, 20);
+        this.setVisible(true);
+        repaint();
     }
 }
