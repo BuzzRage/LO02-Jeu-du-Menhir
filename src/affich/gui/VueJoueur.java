@@ -18,39 +18,50 @@ import java.util.Observer;
  * @author Apache
  */
 public class VueJoueur extends JPanel implements Observer{
-    private JLabel nom;
-    private JLabel points;
-    private JLabel menhirs;
-    private JLabel graines;
-
-    private Joueur joueur;
+    
+    private Object[][] data;
+    private JTable table;
+    Joueur joueur;
     
     public void update(Observable o, Object arg) {
 	if(o instanceof Joueur){
                 Joueur j = (Joueur)o;
-		   points.setText("Points: "+j.getNbrPoints());
-		   menhirs.setText("Menhirs: "+j.getNbrMenhirs());
-		   graines.setText("Graines: "+j.getNbrGraines());
-		   repaint();
+                data[0][0] = "Joueur "+j.getNbr();
+                data[0][1] = "Points: "+j.getNbrPoints();
+                data[1][0] = "Graines: "+j.getNbrGraines();
+                data[1][1] = "Menhirs: "+j.getNbrMenhirs();
+		repaint();
 	    }
     }
    
     public VueJoueur(Joueur j){
-	joueur=j;
-	joueur.addObserver(this);
-        nom = new JLabel("Joueur "+j.getNbr());
-        points = new JLabel("Points: "+j.getNbrPoints());
-        menhirs = new JLabel("Menhirs: "+j.getNbrMenhirs());
-        graines = new JLabel("Graines: "+j.getNbrGraines());
-        GridLayout gl = new GridLayout(2,2,10,10);
+        //joueur =j;
+	//joueur.addObserver(this);
+        data = new Object[2][2];
+        //data[0][0] = "Joueur "+j.getNbr();
+        //data[0][1] = "Points: "+j.getNbrPoints();
+        //data[1][0] = "Graines: "+j.getNbrGraines();
+        //data[1][1] = "Menhirs: "+j.getNbrMenhirs();
+        String[] title = {"",""};
         
-        this.setLayout(gl);
-        this.add(nom);
-        this.add(points);
-        this.add(graines);
-        this.add(menhirs);
+        table = new JTable(data,title);
+        table.setEnabled(false);
+        
+        this.add(table);
         this.setSize(100, 20);
         this.setVisible(true);
         repaint();
     }
+    public void setJoueur(Joueur j){
+        try{
+            joueur.deleteObserver(this);
+        }
+        catch(NullPointerException e){
+            
+        }
+        joueur =j;
+        joueur.addObserver(this);
+        update(joueur,null);
+    }
+    
 }

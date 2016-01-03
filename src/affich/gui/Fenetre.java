@@ -65,10 +65,13 @@ public class Fenetre extends JFrame{
         repaint();
     }
     public void setJoueurs(ArrayList<Joueur> listeJoueurs){
-        this.vueJoueurs.removeAll(vueJoueurs);
+        vueJoueurs.removeAll(vueJoueurs);
         for(Iterator<Joueur> it = listeJoueurs.iterator();it.hasNext();){
-            VueJoueur vueJoueur = new VueJoueur(it.next());
+            Joueur j = it.next();
+            VueJoueur vueJoueur = new VueJoueur(j);
+            
             this.vueJoueurs.add(vueJoueur);
+            vueJoueur.setJoueur(j);
         }
         JPanel est = new JPanel();
         JPanel ouest = new JPanel();
@@ -109,8 +112,6 @@ public class Fenetre extends JFrame{
                 nord.add(vueJoueurs.get(3));
                 ouest.add(vueJoueurs.get(2));
                 ouest.add(vueJoueurs.get(1));
-                //est.add(vBox1);
-                //ouest.add(vBox2);
                 break;
                        
         }
@@ -126,7 +127,7 @@ public class Fenetre extends JFrame{
         this.getContentPane().add(nord,BorderLayout.NORTH);
         this.getContentPane().add(sud,BorderLayout.SOUTH);
         
-        
+        revalidate();
         repaint();
     }
     

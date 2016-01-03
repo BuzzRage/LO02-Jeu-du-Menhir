@@ -258,6 +258,7 @@ public class Gui extends Affichage implements ActionListener{
         this.messageBox(message, title);
         fen.setMain(utilisateur.getCartes());
         fen.setJoueurs(listeJoueurs);
+        fen.revalidate();
         fen.repaint();
         
     }
