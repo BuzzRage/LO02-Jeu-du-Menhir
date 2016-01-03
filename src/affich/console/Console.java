@@ -45,7 +45,9 @@ public class Console extends Affichage{
         
     }
     
-    
+    public void init(){
+        System.out.println("Nouveau jeu!\n");
+    }
     /**
      * @see affich.Affichage#displayTour()
      */

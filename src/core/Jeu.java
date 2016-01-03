@@ -52,9 +52,11 @@ public class Jeu extends Observable{
             part = new PartieAvancee(nbJH,nbJoueurs-nbJH,affich);
         else
             part = new PartieRapide(nbJH,nbJoueurs-nbJH,affich);
-        this.addObserver(part);
-        this.setChanged();
-        this.notifyObservers();
+        
+        addObserver(part);
+        setChanged();
+        notifyObservers();
+        affich.init();
     }
     
     /**

@@ -14,7 +14,7 @@ import core.*;
  * @author Apache
  */
 public class Fenetre extends JFrame{
-    private JPanel content = new JPanel();
+    private JPanel content,est,ouest,nord, sud;
     private ArrayList<VueCarteIngredient> vueMain = new ArrayList<>();
     private ArrayList<VueJoueur> vueJoueurs = new ArrayList<>();
     private JLabel saison;
@@ -24,6 +24,11 @@ public class Fenetre extends JFrame{
      * 
      */
     public Fenetre(){
+        ouest = new JPanel();
+        est = new JPanel();
+        nord = new JPanel();
+        sud = new JPanel();
+        content = new JPanel();
         saison=new JLabel(TypeSaison.PRINTEMPS.toString());
         this.setTitle("Jeu du Menhir");
         this.setSize(1200, 600);
@@ -44,13 +49,13 @@ public class Fenetre extends JFrame{
         content.add(card2);
         content.add(card3);
         content.add(card4);
-
+        this.getContentPane().setLayout(new BorderLayout());
         this.getContentPane().add(content,BorderLayout.CENTER);
         this.getContentPane().add(saison,BorderLayout.NORTH);
         
         this.setVisible(true);
     }
-    
+
     public void setMain(LinkedList<CarteIngredient> deck){
         
         Iterator<CarteIngredient> it = deck.iterator();
@@ -58,14 +63,24 @@ public class Fenetre extends JFrame{
             VueCarteIngredient vueCarte = iter.next();
             vueCarte.setCarteIng(it.next());
         }
-        repaint();
+        revalidate();
     }
     public void setSaison(TypeSaison typeSaison){
         saison.setText(typeSaison.toString());
-        repaint();
+        revalidate();
     }
     public void setJoueurs(ArrayList<Joueur> listeJoueurs){
+        getContentPane().remove(nord);
+        getContentPane().remove(sud);
+        getContentPane().remove(est);
+        getContentPane().remove(ouest);
+        est = new JPanel();
+        ouest = new JPanel();
+        nord = new JPanel();
+        sud = new JPanel();
+        
         vueJoueurs.removeAll(vueJoueurs);
+        
         for(Iterator<Joueur> it = listeJoueurs.iterator();it.hasNext();){
             Joueur j = it.next();
             VueJoueur vueJoueur = new VueJoueur(j);
@@ -73,10 +88,7 @@ public class Fenetre extends JFrame{
             this.vueJoueurs.add(vueJoueur);
             vueJoueur.setJoueur(j);
         }
-        JPanel est = new JPanel();
-        JPanel ouest = new JPanel();
-        JPanel nord = new JPanel();
-        JPanel sud = new JPanel();
+        
         sud.add(vueJoueurs.get(0));
         GridLayout gl;
         
@@ -127,8 +139,10 @@ public class Fenetre extends JFrame{
         this.getContentPane().add(nord,BorderLayout.NORTH);
         this.getContentPane().add(sud,BorderLayout.SOUTH);
         
+        
+        
         revalidate();
-        repaint();
+        //repaint();
     }
     
     public ArrayList<VueCarteIngredient> getVuesCarteIng(){

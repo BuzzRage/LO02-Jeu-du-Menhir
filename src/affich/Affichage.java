@@ -30,7 +30,7 @@ public abstract class Affichage implements Observer {
     protected final int NB_J_MAX = 6;
     protected String message;
     
-    
+    public abstract void init();
     /**
      * Appelle les méthodes d'affichage nécessaire pour un tour de jeu.
      */

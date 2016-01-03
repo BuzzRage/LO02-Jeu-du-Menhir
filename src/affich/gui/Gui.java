@@ -58,6 +58,11 @@ public class Gui extends Affichage implements ActionListener{
         }
         return instance;
     }
+    
+    public void init(){
+        fen.setJoueurs(listeJoueurs);
+    }
+    
     private boolean getYesOrNo(Object message, 
             String title,Object[] options,Object initialSelected, Icon icon){
         
@@ -168,7 +173,7 @@ public class Gui extends Affichage implements ActionListener{
      * @see affich.Affichage#displayAction()
      */
     public void displayAction(){
-        fen.repaint();
+        fen.revalidate();
         title = "Action effectuée";
         if(joueurActif.getChoixJoueur().getAction()==null){
             System.out.println();
@@ -257,7 +262,6 @@ public class Gui extends Affichage implements ActionListener{
         message = "Début de la manche "+ this.nbMancheActuelle;
         this.messageBox(message, title);
         fen.setMain(utilisateur.getCartes());
-        fen.setJoueurs(listeJoueurs);
         fen.revalidate();
         fen.repaint();
         
