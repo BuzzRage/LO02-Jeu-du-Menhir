@@ -52,9 +52,7 @@ public class JoueurHumain extends Joueur {
         public void deciderReaction(){
             if(hasAllie()&&carteAl instanceof CarteChien){
                 if(affich.displayReaction()){
-                    ChoixJoueur choix = new ChoixJoueur();
-                    choix.setCible(joueurActif);
-                    jouerCarteAl(choix);
+                    jouerCarteAl(joueurActif);
                 }
             }
         }

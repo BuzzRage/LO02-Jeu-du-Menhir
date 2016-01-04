@@ -186,19 +186,17 @@ public class Gui extends Affichage implements ActionListener{
                         +"Graines";
                 break;
             case ENGRAIS:
-                message = "Le joueur " + joueurActif.getNbr() + "transforme "
+                message = "Le joueur " + joueurActif.getNbr() + " transforme "
                         +Math.min(joueurActif.getNbrGraines(), 
                                 joueurActif.getChoixJoueur().getCarte().getEffet(TypeAction.ENGRAIS))
                         +" graines en menhirs";
                 break;
-            case FARFADET:
-                int nbFarf=joueurActif.getChoixJoueur().getCarte().getEffet(TypeAction.FARFADET);
-                int effetReel=nbFarf;
-                if(joueurActif.getChoixJoueur().getCible().hasAllie()&&joueurActif.getChoixJoueur().getCible().getCarteAl()instanceof CarteChien){
-                    effetReel -= joueurActif.getChoixJoueur().getCible().getProtecChien();
-                    if(effetReel<0)
-                	effetReel=0;
-                }
+            case FARFADET:      	
+                int effetReel=joueurActif.getChoixJoueur().getCarte().getEffet(TypeAction.FARFADET);
+                Joueur cible=joueurActif.getChoixJoueur().getCible();
+                effetReel -= cible.getProtecChien();
+                if(effetReel<0)
+                    effetReel=0;
                 
                 if(effetReel>joueurActif.getNbrGraines()){
                     effetReel=joueurActif.getNbrGraines();
@@ -272,7 +270,7 @@ public class Gui extends Affichage implements ActionListener{
      */
     public boolean displayReaction(){
         options = new String[2];
-        Icon icon = new ImageIcon(joueurActif.getCarteAl().getTypeCarte().getImageUrl());
+        Icon icon = new ImageIcon(joueurActif.getChoixJoueur().getCible().getCarteAl().getTypeCarte().getImageUrl());
         message = "Voulez vous Joueur votre Carte Chien?\n";
         message += "Saison actuelle: "+saisonActuelle.toString();
         title = "Carte Allié";

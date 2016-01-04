@@ -83,10 +83,11 @@ public abstract class Joueur extends Observable implements Observer{
      * @return true si le Joueur possède une CarteAllie. false sinon.
      */
     public boolean hasAllie(){
-        boolean res =false;
-        if(this.carteAl!=null)
-            res= true;
-        return res;
+        if(this.carteAl==null||carteAl.isPose())
+            return false;
+        else 
+            return true;
+       
     }
     public boolean isHuman(){
     	return humain;
@@ -320,9 +321,9 @@ public abstract class Joueur extends Observable implements Observer{
     * @return La <code>CarteAllie</code> si elle n'est pas déjà posée. <code>null</code> sinon.
     */
     public CarteAllie getCarteAl(){
-       if(carteAl.isPose())
-           return null;
-       else
+       //if(carteAl.isPose())
+         //  return null;
+       //else
         return this.carteAl;
    }
    
@@ -337,7 +338,6 @@ public abstract class Joueur extends Observable implements Observer{
         return cAl;
    }
    public ChoixJoueur getChoixJoueur(){
-       setChanged();
        return choixJoueur;
    }
     

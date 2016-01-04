@@ -1,6 +1,7 @@
 package core;
 
 import java.util.Observable;
+import java.lang.Math;
 
 /**
  * La classe JoueurIA possède un attribut de type Strategy permettant de définir le JoueurIA comme aggressif ou défensif.<br>
@@ -23,10 +24,13 @@ public class JoueurIA extends Joueur {
      * @see core.Joueur#deciderReaction()
      */
     public void deciderReaction(){
-        if(strat.deciderReaction()){
-            jouerCarteAl(joueurActif);
-        }
+	if(hasAllie()&&carteAl instanceof CarteChien){
+            if(strat.deciderReaction()){
+                jouerCarteAl(joueurActif);
+            }
+	}
     }
+    
     
     
     /**

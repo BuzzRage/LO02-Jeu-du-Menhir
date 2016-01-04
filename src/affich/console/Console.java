@@ -116,7 +116,6 @@ public class Console extends Affichage{
             case FARFADET:
                 int nbFarf=joueurActif.getChoixJoueur().getCarte().getEffet(TypeAction.FARFADET);
                 int effetReel=nbFarf;
-
                 Joueur cible=joueurActif.getChoixJoueur().getCible();
                 if(cible.hasAllie()&&cible.getCarteAl()instanceof CarteChien){
                     if(cible instanceof JoueurIA &&((JoueurIA)cible).getStrat().deciderReaction()){
