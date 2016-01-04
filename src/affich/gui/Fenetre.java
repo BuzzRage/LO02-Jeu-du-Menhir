@@ -29,7 +29,7 @@ public class Fenetre extends JFrame{
         nord = new JPanel();
         sud = new JPanel();
         content = new JPanel();
-        saison=new JLabel(TypeSaison.PRINTEMPS.toString());
+        saison=new JLabel("Saison actuelle : "+TypeSaison.PRINTEMPS.toString());
         this.setTitle("Jeu du Menhir");
         this.setSize(1200, 600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -66,7 +66,7 @@ public class Fenetre extends JFrame{
         revalidate();
     }
     public void setSaison(TypeSaison typeSaison){
-        saison.setText(typeSaison.toString());
+        saison.setText("Saison actuelle : "+typeSaison.toString());
         revalidate();
     }
     public void setJoueurs(ArrayList<Joueur> listeJoueurs){
