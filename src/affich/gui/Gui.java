@@ -363,22 +363,20 @@ public class Gui extends Affichage implements ActionListener{
             }
         }
         while(true){
-        Object result = JOptionPane.showInputDialog(fen, 
+            Object result = JOptionPane.showInputDialog(fen, 
                      message, title,
                     JOptionPane.QUESTION_MESSAGE,null,items,null);
-        try{
-                Joueur vals = ((Joueur)result);
-                joueurActif.getChoixJoueur().setCible(vals);
-                break;
-            }
-            catch(NullPointerException e){
+            if(result == null){
                 JOptionPane.showMessageDialog(
                         fen, "Vous devez faire un choix", "Erreur", 
                         JOptionPane.ERROR_MESSAGE);
             }
+            else{
+                Joueur vals = (Joueur)result;
+                joueurActif.getChoixJoueur().setCible(vals);
+                break;
+            }
         }
-        
-        
     }
 
     /**
