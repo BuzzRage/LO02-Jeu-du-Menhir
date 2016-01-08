@@ -54,7 +54,42 @@ public abstract class Affichage implements Observer {
     /**
      * Affiche l'action effectué par le joueur en cours.
      */
-    public abstract void displayAction();
+    public void displayAction(){
+        switch(joueurActif.getChoixJoueur().getAction()){
+            case GEANT:
+                message = "Le joueur " + joueurActif.getNbr(); 
+                message +=" obtient ";
+                message +=joueurActif.getChoixJoueur().getCarte().getEffet(TypeAction.GEANT)
+                        +"Graines";
+                break;
+            case ENGRAIS:
+                message = "Le joueur " + joueurActif.getNbr() + " transforme "
+                        +Math.min(joueurActif.getNbrGraines(), 
+                                joueurActif.getChoixJoueur().getCarte().getEffet(TypeAction.ENGRAIS))
+                        +" graines en menhirs";
+                break;
+            case FARFADET:      	
+                int effetReel=joueurActif.getChoixJoueur().getCarte().getEffet(TypeAction.FARFADET);
+                Joueur cible=joueurActif.getChoixJoueur().getCible();
+                
+                if(cible.getProtecChien()>0){
+                	effetReel -= cible.getProtecChien();
+                	message ="Le joueur "+cible.getNbr() + " décide de réagir."
+                        + "\nIl se protège de " + cible.getProtecChien() + " graines volées.\n"; 
+                }
+                
+                if(effetReel<0)
+                    effetReel=0;
+                
+                if(effetReel>cible.getNbrGraines()){
+                    effetReel=cible.getNbrGraines();
+                }
+                message += "Le joueur " + joueurActif.getNbr() + " vole ";
+                message+= effetReel+ " graines ";
+                message+= "au joueur "+joueurActif.getChoixJoueur().getCible().getNbr();
+                break;
+        }
+    }
     
     
     /**
