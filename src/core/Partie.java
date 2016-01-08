@@ -83,7 +83,7 @@ public abstract class Partie extends Observable implements Observer{
                 joueurActif = j;
                 this.setChanged();
                 this.notifyObservers();
-                if(partAvancee&&saison!=TypeSaison.PRINTEMPS)
+                if(partAvancee)
                     if(joueurActif.hasAllie()&&joueurActif.getCarteAl() instanceof CarteTaupe)
                         joueurActif.jouerAllie();
                 joueurActif.jouerTour();
@@ -95,6 +95,9 @@ public abstract class Partie extends Observable implements Observer{
                 
                 affich.displayAction();
                 joueurActif.jouerCarte();
+                if(joueurActif.getChoixJoueur().getCible()!=null)
+                    if(joueurActif.getChoixJoueur().getCible().getProtecChien()!=0)
+                        joueurActif.getChoixJoueur().getCible().setProtecChien(0);
                 joueurActif.setChoixJoueur(new ChoixJoueur());
             }
             nextTour();

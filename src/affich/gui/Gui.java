@@ -126,7 +126,6 @@ public class Gui extends Affichage implements ActionListener{
      * @see affich.Affichage#displayTour()
      */
     public void displayTour(){
-        fen.setSaison(saisonActuelle);
         title ="Info";
         message = "C'est à toi de jouer!";
         messageBox(message,title);
@@ -173,45 +172,10 @@ public class Gui extends Affichage implements ActionListener{
      * @see affich.Affichage#displayAction()
      */
     public void displayAction(){
+        super.displayAction();
         fen.revalidate();
+        fen.repaint();
         title = "Action effectuée";
-        if(joueurActif.getChoixJoueur().getAction()==null){
-            System.out.println();
-        }
-        switch(joueurActif.getChoixJoueur().getAction()){
-            case GEANT:
-                message = "Le joueur " + joueurActif.getNbr(); 
-                message +=" obtient ";
-                message +=joueurActif.getChoixJoueur().getCarte().getEffet(TypeAction.GEANT)
-                        +"Graines";
-                break;
-            case ENGRAIS:
-                message = "Le joueur " + joueurActif.getNbr() + " transforme "
-                        +Math.min(joueurActif.getNbrGraines(), 
-                                joueurActif.getChoixJoueur().getCarte().getEffet(TypeAction.ENGRAIS))
-                        +" graines en menhirs";
-                break;
-            case FARFADET:      	
-                int effetReel=joueurActif.getChoixJoueur().getCarte().getEffet(TypeAction.FARFADET);
-                Joueur cible=joueurActif.getChoixJoueur().getCible();
-                
-                if(cible.getProtecChien()>0){
-                	effetReel -= cible.getProtecChien();
-                	message +="Le joueur "+cible.getNbr() + " décide de réagir."
-                        + "\nIl se protège de " + cible.getProtecChien() + " graines volées.\n"; 
-                }
-                
-                if(effetReel<0)
-                    effetReel=0;
-                
-                if(effetReel>cible.getNbrGraines()){
-                    effetReel=cible.getNbrGraines();
-                }
-                message = "Le joueur " + joueurActif.getNbr() + " vole ";
-                message+= effetReel+ " graines ";
-                message+= "au joueur "+joueurActif.getChoixJoueur().getCible().getNbr();
-                break;
-        }
         this.messageBox(message, title);
         
     }
@@ -252,7 +216,9 @@ public class Gui extends Affichage implements ActionListener{
         title="Palmarès";
         message="";
         for(Iterator<Joueur> it = palmares.iterator();it.hasNext();){
-            message += it.next().toString();
+            Joueur j = it.next();
+            message += "Joueur "+j.getNbr();
+            message += j.getNbrPoints() + " points";
             message +="\n";
         }
         messageBox(message,title);
@@ -277,7 +243,9 @@ public class Gui extends Affichage implements ActionListener{
     public boolean displayReaction(){
         options = new String[2];
         Icon icon = new ImageIcon(joueurActif.getChoixJoueur().getCible().getCarteAl().getTypeCarte().getImageUrl());
-        message = "Voulez vous Joueur votre Carte Chien?\n";
+        message = "Le joueur "+joueurActif.getNbr()+" essaie de te voler ";
+        message += joueurActif.getChoixJoueur().getCarte().getEffet(TypeAction.FARFADET)+" graines.";
+        message += "Veux-tu utiliser ta carte Chien?\n";
         message += "Saison actuelle: "+saisonActuelle.toString();
         title = "Carte Allié";
         options[0]="Oui";
@@ -391,6 +359,7 @@ public class Gui extends Affichage implements ActionListener{
         super.update(obs, o);
         if(obs instanceof Partie){
             utilisateur = ((Partie)obs).getJoueurHumain();
+            fen.setSaison(saisonActuelle);
         }
     }
     
