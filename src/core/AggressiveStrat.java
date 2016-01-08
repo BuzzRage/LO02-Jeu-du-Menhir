@@ -25,7 +25,7 @@ public class AggressiveStrat extends Strat{
             jIA.getChoixJoueur().setCible(maxGraines);
             jIA.getChoixJoueur().setCarte(jIA.getCarteMax(TypeAction.FARFADET,jIA.getChoixJoueur().getCible().getNbrGraines()));
         }
-        else if(jIA.getNbrGraines()>1) //Si on a deux graines, on les fait pousser.
+        else if(jIA.getNbrGraines()>=1) //Si on a deux graines, on les fait pousser.
         {
             jIA.getChoixJoueur().setAction(TypeAction.ENGRAIS);
             jIA.getChoixJoueur().setCarte(jIA.getCarteMax(TypeAction.ENGRAIS,jIA.getNbrGraines()));            
