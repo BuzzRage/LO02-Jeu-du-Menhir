@@ -68,6 +68,7 @@ public class Fenetre extends JFrame{
     public void setSaison(TypeSaison typeSaison){
         saison.setText("Saison actuelle : "+typeSaison.toString());
         revalidate();
+        repaint();
     }
     public void setJoueurs(ArrayList<Joueur> listeJoueurs){
         getContentPane().remove(nord);
@@ -79,7 +80,7 @@ public class Fenetre extends JFrame{
         nord = new JPanel();
         sud = new JPanel();
         
-        vueJoueurs.removeAll(vueJoueurs);
+        vueJoueurs= new ArrayList<>();
         
         for(Iterator<Joueur> it = listeJoueurs.iterator();it.hasNext();){
             Joueur j = it.next();
@@ -142,7 +143,6 @@ public class Fenetre extends JFrame{
         
         
         revalidate();
-        //repaint();
     }
     
     public ArrayList<VueCarteIngredient> getVuesCarteIng(){

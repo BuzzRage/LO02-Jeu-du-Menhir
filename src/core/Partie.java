@@ -83,7 +83,7 @@ public abstract class Partie extends Observable implements Observer{
                 joueurActif = j;
                 this.setChanged();
                 this.notifyObservers();
-                if(partAvancee&&saison!=TypeSaison.PRINTEMPS)
+                if(partAvancee)
                     if(joueurActif.hasAllie()&&joueurActif.getCarteAl() instanceof CarteTaupe)
                         joueurActif.jouerAllie();
                 joueurActif.jouerTour();

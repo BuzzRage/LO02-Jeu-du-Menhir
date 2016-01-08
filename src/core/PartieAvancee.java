@@ -20,7 +20,7 @@ public class PartieAvancee extends Partie {
     public void recupCartes() {
         super.recupCartes();
         for(Joueur j:listeJoueurs){
-            if(j.hasAllie())
+            if(j.getCarteAl() instanceof CarteAllie)
                 this.listeCarteAl.add(j.rendreCarteAl());
         }
     }

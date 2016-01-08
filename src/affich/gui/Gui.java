@@ -126,7 +126,6 @@ public class Gui extends Affichage implements ActionListener{
      * @see affich.Affichage#displayTour()
      */
     public void displayTour(){
-        fen.setSaison(saisonActuelle);
         title ="Info";
         message = "C'est à toi de jouer!";
         messageBox(message,title);
@@ -175,6 +174,7 @@ public class Gui extends Affichage implements ActionListener{
     public void displayAction(){
         super.displayAction();
         fen.revalidate();
+        fen.repaint();
         title = "Action effectuée";
         this.messageBox(message, title);
         
@@ -216,7 +216,9 @@ public class Gui extends Affichage implements ActionListener{
         title="Palmarès";
         message="";
         for(Iterator<Joueur> it = palmares.iterator();it.hasNext();){
-            message += it.next().toString();
+            Joueur j = it.next();
+            message += "Joueur "+j.getNbr();
+            message += j.getNbrPoints() + " points";
             message +="\n";
         }
         messageBox(message,title);
@@ -241,7 +243,9 @@ public class Gui extends Affichage implements ActionListener{
     public boolean displayReaction(){
         options = new String[2];
         Icon icon = new ImageIcon(joueurActif.getChoixJoueur().getCible().getCarteAl().getTypeCarte().getImageUrl());
-        message = "Voulez vous Joueur votre Carte Chien?\n";
+        message = "Le joueur "+joueurActif.getNbr()+" essaie de te voler ";
+        message += joueurActif.getChoixJoueur().getCarte().getEffet(TypeAction.FARFADET)+" graines.";
+        message += "Veux-tu utiliser ta carte Chien?\n";
         message += "Saison actuelle: "+saisonActuelle.toString();
         title = "Carte Allié";
         options[0]="Oui";
@@ -355,6 +359,7 @@ public class Gui extends Affichage implements ActionListener{
         super.update(obs, o);
         if(obs instanceof Partie){
             utilisateur = ((Partie)obs).getJoueurHumain();
+            fen.setSaison(saisonActuelle);
         }
     }
     

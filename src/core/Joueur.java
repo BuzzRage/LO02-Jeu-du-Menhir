@@ -310,7 +310,7 @@ public abstract class Joueur extends Observable implements Observer{
                 liste.add((CarteIngredient)c);               
         }
         
-        this.deck.removeAll(liste);
+        deck = new LinkedList<>();
         return liste;
         
     }
@@ -349,9 +349,9 @@ public abstract class Joueur extends Observable implements Observer{
     public String toString(){
         String str = "";
         
-        str+="Joueur " + this.nbr+"\n";
-        str+="Graines : "+this.nbrGraines+"\n";
-        str+="Menhirs : " +this.nbrMenhirs+"\n";
+        str+=" Joueur " + this.nbr+"\n";
+        str+=" Graines : "+this.nbrGraines+"\n";
+        str+=" Menhirs : " +this.nbrMenhirs+"\n";
         
         return str;
     }

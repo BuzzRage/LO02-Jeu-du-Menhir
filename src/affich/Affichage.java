@@ -60,7 +60,7 @@ public abstract class Affichage implements Observer {
                 message = "Le joueur " + joueurActif.getNbr(); 
                 message +=" obtient ";
                 message +=joueurActif.getChoixJoueur().getCarte().getEffet(TypeAction.GEANT)
-                        +"Graines";
+                        +" graines";
                 break;
             case ENGRAIS:
                 message = "Le joueur " + joueurActif.getNbr() + " transforme "
@@ -68,7 +68,8 @@ public abstract class Affichage implements Observer {
                                 joueurActif.getChoixJoueur().getCarte().getEffet(TypeAction.ENGRAIS))
                         +" graines en menhirs";
                 break;
-            case FARFADET:      	
+            case FARFADET:
+                message ="";
                 int effetReel=joueurActif.getChoixJoueur().getCarte().getEffet(TypeAction.FARFADET);
                 Joueur cible=joueurActif.getChoixJoueur().getCible();
                 
