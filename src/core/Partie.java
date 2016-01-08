@@ -95,6 +95,9 @@ public abstract class Partie extends Observable implements Observer{
                 
                 affich.displayAction();
                 joueurActif.jouerCarte();
+                if(joueurActif.getChoixJoueur().getCible()!=null)
+                    if(joueurActif.getChoixJoueur().getCible().getProtecChien()!=0)
+                        joueurActif.getChoixJoueur().getCible().setProtecChien(0);
                 joueurActif.setChoixJoueur(new ChoixJoueur());
             }
             nextTour();
