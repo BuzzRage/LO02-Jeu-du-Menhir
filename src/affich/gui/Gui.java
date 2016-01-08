@@ -194,12 +194,18 @@ public class Gui extends Affichage implements ActionListener{
             case FARFADET:      	
                 int effetReel=joueurActif.getChoixJoueur().getCarte().getEffet(TypeAction.FARFADET);
                 Joueur cible=joueurActif.getChoixJoueur().getCible();
-                effetReel -= cible.getProtecChien();
+                
+                if(cible.getProtecChien()>0){
+                	effetReel -= cible.getProtecChien();
+                	message +="Le joueur "+cible.getNbr() + " décide de réagir."
+                        + "\nIl se protège de " + cible.getProtecChien() + " graines volées.\n"; 
+                }
+                
                 if(effetReel<0)
                     effetReel=0;
                 
-                if(effetReel>joueurActif.getNbrGraines()){
-                    effetReel=joueurActif.getNbrGraines();
+                if(effetReel>cible.getNbrGraines()){
+                    effetReel=cible.getNbrGraines();
                 }
                 message = "Le joueur " + joueurActif.getNbr() + " vole ";
                 message+= effetReel+ " graines ";

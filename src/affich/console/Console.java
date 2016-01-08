@@ -114,27 +114,24 @@ public class Console extends Affichage{
                         joueurActif.getChoixJoueur().getCarte().getEffet(TypeAction.ENGRAIS))+" graines";
                 break;
             case FARFADET:
-                int nbFarf=joueurActif.getChoixJoueur().getCarte().getEffet(TypeAction.FARFADET);
-                int effetReel=nbFarf;
+                int effetReel=joueurActif.getChoixJoueur().getCarte().getEffet(TypeAction.FARFADET);
                 Joueur cible=joueurActif.getChoixJoueur().getCible();
-                if(cible.hasAllie()&&cible.getCarteAl()instanceof CarteChien){
-                    if(cible instanceof JoueurIA &&((JoueurIA)cible).getStrat().deciderReaction()){
-                	//Si la cible décide de jouer sa carte chien
-                        effetReel -= cible.getProtecChien();
-                        if(effetReel<0){
-                    	effetReel=0;
-                        }
-                        message +="Le joueur "+cible.getNbr() + " décide de réagir."
-                        + "\nIl se protèges de " + cible.getProtecChien() + " graines volées.\n";    
-                    }
-
+                
+                if(cible.getProtecChien()>0){
+                	effetReel -= cible.getProtecChien();
+                	message +="Le joueur "+cible.getNbr() + " décide de réagir."
+                        + "\nIl se protège de " + cible.getProtecChien() + " graines volées.\n"; 
                 }
                 
-                if(effetReel>joueurActif.getNbrGraines()){
-                    effetReel=joueurActif.getNbrGraines();
+                if(effetReel<0)
+                    effetReel=0;
+                
+                if(effetReel>cible.getNbrGraines()){
+                    effetReel=cible.getNbrGraines();
                 }
-                message+="Le joueur "+joueurActif.getNbr()+" vole "+effetReel
-                +" graines au joueur "+cible.getNbr();
+                message = "Le joueur " + joueurActif.getNbr() + " vole ";
+                message+= effetReel+ " graines ";
+                message+= "au joueur "+joueurActif.getChoixJoueur().getCible().getNbr();
                 break;
         }
         System.out.println(message);
