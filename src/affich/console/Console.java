@@ -119,7 +119,7 @@ public class Console extends Affichage{
                 
                 if(cible.getProtecChien()>0){
                 	effetReel -= cible.getProtecChien();
-                	message +="Le joueur "+cible.getNbr() + " décide de réagir."
+                	message ="Le joueur "+cible.getNbr() + " décide de réagir."
                         + "\nIl se protège de " + cible.getProtecChien() + " graines volées.\n"; 
                 }
                 
@@ -129,7 +129,7 @@ public class Console extends Affichage{
                 if(effetReel>cible.getNbrGraines()){
                     effetReel=cible.getNbrGraines();
                 }
-                message = "Le joueur " + joueurActif.getNbr() + " vole ";
+                message+= "Le joueur " + joueurActif.getNbr() + " vole ";
                 message+= effetReel+ " graines ";
                 message+= "au joueur "+joueurActif.getChoixJoueur().getCible().getNbr();
                 break;
