@@ -3,10 +3,13 @@ package core;
 import java.util.Observable;
 import java.util.Observer;
 
-public abstract class Strat implements Strategy,Observer{
+public abstract class Strategy implements Observer{
     protected TypeSaison saisonActuelle;
     protected Joueur joueurActuel,maxMenhirs,maxGraines;
-    
+    public abstract boolean deciderReaction();
+    public abstract boolean choixAllie();
+    public abstract boolean jouerTaupe();
+    public abstract void decider(Joueur j);
     public Joueur getMaxMenhirs() {
         return maxMenhirs;
     }

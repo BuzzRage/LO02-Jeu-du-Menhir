@@ -7,7 +7,7 @@ package core;
  * La méthode decider paramètre le ChoixJoueur du JoueurIA, en définissant une cible, une carte et une action.<br>
  *
  */
-public class AggressiveStrat extends Strat{
+public class AggressiveStrat extends Strategy{
     /**
      * @see core.Strategy#decider(core.Joueur)
      */

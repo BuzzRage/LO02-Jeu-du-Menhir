@@ -10,13 +10,13 @@ import java.lang.Math;
  */
 public class JoueurIA extends Joueur {
     
-    private Strat strat;
+    private Strategy strat;
     
-    public Strat getStrat(){
+    public Strategy getStrat(){
     	return strat;
     }
     
-    private void setStrat(Strat s){
+    private void setStrat(Strategy s){
     	strat=s;
     }
     

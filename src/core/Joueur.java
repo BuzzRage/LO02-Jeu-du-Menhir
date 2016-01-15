@@ -29,7 +29,6 @@ public abstract class Joueur extends Observable implements Observer{
     private int nbrGraines;
     private int nbrMenhirs;
     private final boolean humain;
-    protected ArrayList<Joueur> listeJoueursAdverses;
     protected Joueur joueurActif;
     private LinkedList<CarteIngredient> deck = new LinkedList<>();
     protected CarteAllie carteAl;
@@ -358,7 +357,6 @@ public abstract class Joueur extends Observable implements Observer{
     
     public void update(Observable o, Object arg){
         if(o instanceof Partie){
-            listeJoueursAdverses=((Partie) o).getListeJoueurs();
             joueurActif=((Partie) o).getJoueurActif();
         }
     }
