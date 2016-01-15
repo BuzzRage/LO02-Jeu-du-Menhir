@@ -3,8 +3,6 @@ import affich.console.Console;
 import affich.Affichage;
 import affich.gui.*;
 import java.util.Observable;
-import MenhirExceptions.WrongNumberException;
-import java.util.InputMismatchException;
 import java.util.LinkedList;
 
 public class Jeu extends Observable{

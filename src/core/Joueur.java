@@ -83,7 +83,7 @@ public abstract class Joueur extends Observable implements Observer{
      * @return true si le Joueur possède une CarteAllie. false sinon.
      */
     public boolean hasAllie(){
-        if(this.carteAl==null||carteAl.isPose())
+        if(carteAl==null||carteAl.isPose())
             return false;
         else 
             return true;
@@ -94,8 +94,8 @@ public abstract class Joueur extends Observable implements Observer{
     }
     public void setChoixJoueur(ChoixJoueur choix){
         choixJoueur = choix;
-	this.setChanged();
-	this.notifyObservers();
+	setChanged();
+	notifyObservers();
     }
     
     /**
@@ -104,7 +104,7 @@ public abstract class Joueur extends Observable implements Observer{
      */
     public LinkedList<CarteIngredient> getCartes(){
         LinkedList<CarteIngredient> liste=new LinkedList<>();
-        for(CarteIngredient c:this.deck){
+        for(CarteIngredient c:deck){
             if(!c.isPose())
                 liste.add(c);
         }
@@ -179,28 +179,28 @@ public abstract class Joueur extends Observable implements Observer{
     
     public void setNbrPoints(int nbPoints){
     	nbrPoints=nbPoints;
-	this.setChanged();
-	this.notifyObservers();
+	setChanged();
+	notifyObservers();
     }   
     public void setNbrGraines(int nbGraines){
     	nbrGraines=nbGraines;
-	this.setChanged();
-	this.notifyObservers();
+	setChanged();
+	notifyObservers();
     }
     public void setNbrMenhir(int nbMenhirs){
     	nbrMenhirs=nbMenhirs;
-	this.setChanged();
-	this.notifyObservers();
+	setChanged();
+	notifyObservers();
     }
     public void setProtecChien(int protec){
         protecChien = protec;
-	this.setChanged();
-	this.notifyObservers();
+	setChanged();
+	notifyObservers();
     }
     public void setCarteAllie(CarteAllie c){
-        this.carteAl =c;
-	this.setChanged();
-	this.notifyObservers();
+        carteAl =c;
+	setChanged();
+	notifyObservers();
     }
     
     /**
@@ -209,11 +209,11 @@ public abstract class Joueur extends Observable implements Observer{
      * 		Le nombre de graines à ajouter.
      */
     public void addGraines(int nbGraines){
-        this.nbrGraines+=nbGraines;
-        if (this.nbrGraines<0)
-            this.nbrGraines=0;
-	this.setChanged();
-	this.notifyObservers();
+        nbrGraines+=nbGraines;
+        if (nbrGraines<0)
+            nbrGraines=0;
+	setChanged();
+	notifyObservers();
     }
     
     /**
@@ -222,12 +222,12 @@ public abstract class Joueur extends Observable implements Observer{
      * 		Le nombre de menhirs à ajouter.
      */
     public void addMenhirs(int nbMenhirs){
-        this.nbrMenhirs+=nbMenhirs;
-        if (this.nbrMenhirs<0){
-            this.nbrMenhirs=0;
+        nbrMenhirs+=nbMenhirs;
+        if (nbrMenhirs<0){
+            nbrMenhirs=0;
         }
-	this.setChanged();
-	this.notifyObservers();
+	setChanged();
+	notifyObservers();
     }
     
     /**
@@ -236,9 +236,9 @@ public abstract class Joueur extends Observable implements Observer{
      * 		Le nombre de points à ajouter.
      */
     public void addPoints(int nbPoints){
-        this.nbrPoints+=nbPoints;
-	this.setChanged();
-	this.notifyObservers();
+        nbrPoints+=nbPoints;
+	setChanged();
+	notifyObservers();
     }
     
     /**
@@ -296,7 +296,7 @@ public abstract class Joueur extends Observable implements Observer{
      * 		La <code>CarteIngredient</code> à ajouter.
      */
     public void addCarteIng(CarteIngredient c){
-        this.deck.add(c);
+        deck.add(c);
     }
     
     /**
@@ -324,7 +324,7 @@ public abstract class Joueur extends Observable implements Observer{
        //if(carteAl.isPose())
          //  return null;
        //else
-        return this.carteAl;
+        return carteAl;
    }
    
    /**
@@ -349,9 +349,9 @@ public abstract class Joueur extends Observable implements Observer{
     public String toString(){
         String str = "";
         
-        str+=" Joueur " + this.nbr+"\n";
-        str+=" Graines : "+this.nbrGraines+"\n";
-        str+=" Menhirs : " +this.nbrMenhirs+"\n";
+        str+=" Joueur " + nbr+"\n";
+        str+=" Graines : "+nbrGraines+"\n";
+        str+=" Menhirs : " +nbrMenhirs+"\n";
         
         return str;
     }

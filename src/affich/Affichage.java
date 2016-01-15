@@ -153,9 +153,6 @@ public abstract class Affichage implements Observer {
      */
     public abstract void displayJoueurCible();
     
-    
-    
-    
     /**
      * Met à jour les informations qu'observe Affichage sur la Partie.
      * @see java.util.Observer#update(java.util.Observable, java.lang.Object)

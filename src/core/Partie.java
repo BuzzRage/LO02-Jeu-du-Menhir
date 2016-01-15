@@ -49,8 +49,8 @@ public abstract class Partie extends Observable implements Observer{
         saison = TypeSaison.PRINTEMPS;
         creerJoueur(nbJH,nbJIA);
         addJoueurObservers();
-        this.setChanged();
-        this.notifyObservers();
+        setChanged();
+        notifyObservers();
     }
     
     /**
@@ -69,8 +69,8 @@ public abstract class Partie extends Observable implements Observer{
                 if(saison==TypeSaison.PRINTEMPS)
                     for(Joueur j:listeJoueurs){
                         joueurActif = j;
-                        this.setChanged();
-                        this.notifyObservers();
+                        setChanged();
+                        notifyObservers();
                         if(joueurActif.choixAllie()){
                             distribCarteAl(joueurActif);
                             affich.displayTypeAllie();
@@ -81,8 +81,8 @@ public abstract class Partie extends Observable implements Observer{
             }
             for(Joueur j:listeJoueurs){
                 joueurActif = j;
-                this.setChanged();
-                this.notifyObservers();
+                setChanged();
+                notifyObservers();
                 if(partAvancee)
                     if(joueurActif.hasAllie()&&joueurActif.getCarteAl() instanceof CarteTaupe)
                         joueurActif.jouerAllie();
@@ -102,13 +102,13 @@ public abstract class Partie extends Observable implements Observer{
             }
             nextTour();
             if(!tourRunning){
-                this.recupCartes();
+                recupCartes();
                 if(partAvancee)
                     affich.displayFinManche();
             } 
         }while(running);
         listeJoueurs.add(listeJoueurs.remove(0));
-        affich.displayGagnant(this.getPalmares());
+        affich.displayGagnant(getPalmares());
     }
     
 

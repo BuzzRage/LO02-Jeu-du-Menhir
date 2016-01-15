@@ -36,9 +36,7 @@ public class Gui extends Affichage implements ActionListener{
             vueCarte.getBoutonEngrais().addActionListener(this);
             vueCarte.getBoutonGeant().addActionListener(this);
             vueCarte.getBoutonFarfadet().addActionListener(this);
-            
         }
-        
     }
     
     /**
@@ -46,13 +44,13 @@ public class Gui extends Affichage implements ActionListener{
      * @return le GUI
      */
     public static Gui getInstance(){
-        if(instance == null){
+        if(instance == null)
             instance = new Gui();
-            
-        }
+        
         return instance;
     }
     
+    @Override
     public void init(){
         fen.setJoueurs(listeJoueurs);
     }
@@ -118,6 +116,7 @@ public class Gui extends Affichage implements ActionListener{
     /**
      * @see affich.Affichage#displayTour()
      */
+    @Override
     public void displayTour(){
         title ="Info";
         message = "C'est à toi de jouer!";
@@ -127,7 +126,6 @@ public class Gui extends Affichage implements ActionListener{
                 Thread.sleep(30);
             }
             catch(InterruptedException e){
-                e.printStackTrace();
             }
         }
         continuer = false;
@@ -137,6 +135,7 @@ public class Gui extends Affichage implements ActionListener{
      * Permet de stocker l'action et la carte choisie. Fais le lien avec le core.
      * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
      */
+    @Override
     public void actionPerformed(ActionEvent event){
         if(event.getSource() instanceof MBouton){
             MBouton bouton = (MBouton)event.getSource();
@@ -154,6 +153,7 @@ public class Gui extends Affichage implements ActionListener{
     /**
      * @see affich.Affichage#displayFinManche()
      */
+    @Override
     public void displayFinManche(){
         super.displayFinManche();
         title = "Fin de manche";
@@ -164,6 +164,7 @@ public class Gui extends Affichage implements ActionListener{
     /**
      * @see affich.Affichage#displayAction()
      */
+    @Override
     public void displayAction(){
         super.displayAction();
         fen.revalidate();
@@ -176,6 +177,7 @@ public class Gui extends Affichage implements ActionListener{
     /**
      * @see affich.Affichage#displayChoixAllie()
      */
+    @Override
     public boolean displayChoixAllie(){
         options = new String[2];
         title = "Choix";
@@ -189,6 +191,7 @@ public class Gui extends Affichage implements ActionListener{
     /**
      * @see affich.Affichage#displayTypeAllie()
      */
+    @Override
     public void displayTypeAllie(){
         String typeCarteAl="";
         if(joueurActif.getCarteAl() instanceof CarteChien)
@@ -205,6 +208,7 @@ public class Gui extends Affichage implements ActionListener{
     /**
      * @see affich.Affichage#displayGagnant(java.util.ArrayList)
      */
+    @Override
     public void displayGagnant(ArrayList<Joueur> palmares){
         title="Palmarès";
         message="";
@@ -220,6 +224,7 @@ public class Gui extends Affichage implements ActionListener{
     /**
      * @see affich.Affichage#displayNbManche()
      */
+    @Override
     public void displayNbManche(){
         title = "Numéro de la manche";
         message = "Début de la manche "+ this.nbMancheActuelle;
@@ -233,6 +238,7 @@ public class Gui extends Affichage implements ActionListener{
     /**
      * @see affich.Affichage#displayReaction()
      */
+    @Override
     public boolean displayReaction(){
         options = new String[2];
         Icon icon = new ImageIcon(joueurActif.getChoixJoueur().getCible().getCarteAl().getTypeCarte().getImageUrl());
@@ -249,6 +255,7 @@ public class Gui extends Affichage implements ActionListener{
     /**
      * @see affich.Affichage#displayChoixCarteTaupe()
      */
+    @Override
     public boolean displayChoixCarteTaupe(){
         Icon icon = new ImageIcon(joueurActif.getCarteAl().getTypeCarte().getImageUrl());
         message = "Voulez vous Joueur votre carte Taupe?\n";
@@ -262,6 +269,7 @@ public class Gui extends Affichage implements ActionListener{
     /**
      * @see affich.Affichage#displayChoixFinPartie()
      */
+    @Override
     public ChoixFinPartie displayChoixFinPartie(){
         options = new String[3];
         title = "Fin de partie";
@@ -290,6 +298,7 @@ public class Gui extends Affichage implements ActionListener{
     /**
      * @see affich.Affichage#getNbJoueurs()
      */
+    @Override
     public int getNbJoueurs(){
         options = new String[NB_J_MAX-1];
         title = "Choix du nombre de joueurs";
@@ -303,6 +312,7 @@ public class Gui extends Affichage implements ActionListener{
     /**
      * @see affich.Affichage#getTypePartie()
      */
+    @Override
     public boolean getTypePartie(){
         options = new String[2];
         title = "Choix du type de partie";
@@ -315,6 +325,7 @@ public class Gui extends Affichage implements ActionListener{
     /**
      * @see affich.Affichage#displayJoueurCible()
      */
+    @Override
     public void displayJoueurCible(){
         Joueur[] items = new Joueur[NB_J_MAX-1];
         title = "Choix de la cible";
@@ -348,6 +359,7 @@ public class Gui extends Affichage implements ActionListener{
      * Met à jour la référence sur le JoueurHumain, en plus des autres informations.
      * @see affich.Affichage#update(java.util.Observable, java.lang.Object)
      */
+    @Override
     public void update(Observable obs,Object o){
         super.update(obs, o);
         if(obs instanceof Partie){
