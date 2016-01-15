@@ -22,6 +22,7 @@ public abstract class Carte extends Observable implements Jouable,Observer{
         this.type=type;
         Carte.saisonActuelle=TypeSaison.PRINTEMPS;
     }
+    
     /**
      * Renvoie un booléen indiquant si un carte est posée ou non. Cela permet de savoir quelles cartes ont déjà été jouées.
      * 

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package affich.console;
 import MenhirExceptions.*;
 import affich.Affichage;
@@ -282,6 +277,7 @@ public class Console extends Affichage{
         }
         continuer = false;
     }
+    
      private void getChoixCarte(int i,Joueur joueurActif) throws WrongNumberException, InputMismatchException{
         int choix;
         try{
@@ -384,7 +380,7 @@ public class Console extends Affichage{
         continuer = false;
         
     }
-    private void getJoueurCible() throws WrongNumberException, InputMismatchException {//possible probleme sur le chiffre de choix
+    private void getJoueurCible() throws WrongNumberException, InputMismatchException {
         int choix;
         try{
             choix = sc.nextInt();
@@ -506,7 +502,6 @@ public class Console extends Affichage{
      */
     public int getNbJoueurs(){
         int nbJoueurs;
-        //boolean continuer = false;
         System.out.println("Combien de joueurs?");
         while(true){
             try{

@@ -51,7 +51,7 @@ public class CarteIngredient extends Carte{
      * @see core.Jouable#jouer(core.Joueur, core.Joueur, core.TypeAction)
      */
     public void jouer(Joueur lanceur, Joueur cible, TypeAction a){
-        if(cible==null) //what the hell ??
+        if(cible==null)
             jouer(lanceur,a);
         else{
             if(cible.getNbrGraines()+cible.getProtecChien()<this.effet[a.toInteger()][saisonActuelle.toInteger()]){

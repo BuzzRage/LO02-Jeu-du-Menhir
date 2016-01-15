@@ -358,9 +358,7 @@ public abstract class Joueur extends Observable implements Observer{
     
     public void update(Observable o, Object arg){
         if(o instanceof Partie){
-            //Récupère la liste de joueurs de la partie
             listeJoueursAdverses=((Partie) o).getListeJoueurs();
-           //retire le joueur this: listeJoueursAdverses.remove(listeJoueursAdverses.indexOf(this));
             joueurActif=((Partie) o).getJoueurActif();
         }
     }

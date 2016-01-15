@@ -153,8 +153,6 @@ public abstract class Partie extends Observable implements Observer{
         notifyObservers();
     }
     
-    
-    // Getters et Setters
 
     public JoueurHumain getJoueurHumain(){
         JoueurHumain joueur = new JoueurHumain();
