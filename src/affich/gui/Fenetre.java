@@ -41,11 +41,13 @@ public class Fenetre extends JFrame{
         sud = new JPanel();
         content = new JPanel();
         saison=new JLabel("Saison actuelle : "+TypeSaison.PRINTEMPS.toString());
-        this.setTitle("Jeu du Menhir");
-        this.setSize(1200, 600);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLocationRelativeTo(null);
-        this.setLayout(new BorderLayout());
+        
+        setTitle("Jeu du Menhir");
+        setSize(1000, 600);
+        setMinimumSize(new Dimension(1000,600));
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setLayout(new BorderLayout());
         VueCarteIngredient card1 = new VueCarteIngredient();
         VueCarteIngredient card2 = new VueCarteIngredient();
         VueCarteIngredient card3 = new VueCarteIngredient();
@@ -60,11 +62,11 @@ public class Fenetre extends JFrame{
         content.add(card2);
         content.add(card3);
         content.add(card4);
-        this.getContentPane().setLayout(new BorderLayout());
-        this.getContentPane().add(content,BorderLayout.CENTER);
-        this.getContentPane().add(saison,BorderLayout.NORTH);
+        getContentPane().setLayout(new BorderLayout());
+        getContentPane().add(content,BorderLayout.CENTER);
+        getContentPane().add(saison,BorderLayout.NORTH);
         
-        this.setVisible(true);
+        setVisible(true);
     }
 
     
@@ -113,7 +115,7 @@ public class Fenetre extends JFrame{
             Joueur j = it.next();
             VueJoueur vueJoueur = new VueJoueur(j);
             
-            this.vueJoueurs.add(vueJoueur);
+            vueJoueurs.add(vueJoueur);
             vueJoueur.setJoueur(j);
         }
         
@@ -162,12 +164,10 @@ public class Fenetre extends JFrame{
             ouest.setVisible(true);
         }
         
-        this.getContentPane().add(est,BorderLayout.EAST);
-        this.getContentPane().add(ouest,BorderLayout.WEST);
-        this.getContentPane().add(nord,BorderLayout.NORTH);
-        this.getContentPane().add(sud,BorderLayout.SOUTH);
-        
-        
+        getContentPane().add(est,BorderLayout.EAST);
+        getContentPane().add(ouest,BorderLayout.WEST);
+        getContentPane().add(nord,BorderLayout.NORTH);
+        getContentPane().add(sud,BorderLayout.SOUTH);
         
         revalidate();
     }

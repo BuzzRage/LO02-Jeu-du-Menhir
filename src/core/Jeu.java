@@ -1,4 +1,9 @@
 package core;
+
+import affich.console.Console;
+import affich.Affichage;
+import affich.gui.*;
+import java.util.Observable;
 import java.util.LinkedList;
 import java.util.Observable;
 

@@ -33,10 +33,8 @@ public class CarteIngredient extends Carte{
                 lanceur.addGraines(-val);
                 lanceur.addPoints(val);
                 break;
-                  
         }
-        this.setPose(true);
-        
+        setPose(true);
     }
     
     /**
@@ -54,12 +52,12 @@ public class CarteIngredient extends Carte{
         if(cible==null)
             jouer(lanceur,a);
         else{
-            if(cible.getNbrGraines()+cible.getProtecChien()<this.effet[a.toInteger()][saisonActuelle.toInteger()]){
+            if(cible.getNbrGraines()+cible.getProtecChien()<effet[a.toInteger()][saisonActuelle.toInteger()]){
                 cible.setNbrGraines(0);
                 lanceur.addGraines(cible.getNbrGraines());
             }
             else{
-                int val = this.effet[a.toInteger()][saisonActuelle.toInteger()]-cible.getProtecChien();
+                int val = effet[a.toInteger()][saisonActuelle.toInteger()]-cible.getProtecChien();
                 if (val<0)
                     val = 0;
                 cible.addGraines(-val);
@@ -67,7 +65,7 @@ public class CarteIngredient extends Carte{
                 cible.setProtecChien(0);
             }    
         }
-        this.setPose(true);
+        setPose(true);
     }
     
     
@@ -81,7 +79,7 @@ public class CarteIngredient extends Carte{
         String str="";
         String action="";
         str = "   p   e   a   h\n";
-        for(int i =0;i<this.effet.length;i++){
+        for(int i =0;i<effet.length;i++){
             if(i==0)
                 action = "G  ";
             if(i==1)
@@ -89,9 +87,9 @@ public class CarteIngredient extends Carte{
             if(i==2)
                 action = "F  ";
             str+=action;
-            for(int j=0;j<this.effet[i].length;j++)
+            for(int j=0;j<effet[i].length;j++)
             {
-                str += Integer.toString(this.effet[i][j])+"   ";
+                str += Integer.toString(effet[i][j])+"   ";
             }
             str+="\n";
         }
@@ -105,12 +103,12 @@ public class CarteIngredient extends Carte{
         if(cible==null) //what the hell ??
             jouer(lanceur,TypeAction.FARFADET);
         else{
-            if(cible.getNbrGraines()+cible.getProtecChien()<this.effet[2][saisonActuelle.toInteger()]){
+            if(cible.getNbrGraines()+cible.getProtecChien()<effet[2][saisonActuelle.toInteger()]){
                 cible.setNbrGraines(0);
                 lanceur.addGraines(cible.getNbrGraines());
             }
             else{
-                int val = this.effet[2][saisonActuelle.toInteger()]-cible.getProtecChien();
+                int val = effet[2][saisonActuelle.toInteger()]-cible.getProtecChien();
                 if (val<0)
                     val = 0;
                 cible.addGraines(-val);
@@ -118,6 +116,6 @@ public class CarteIngredient extends Carte{
                 cible.setProtecChien(0);
             }    
         }
-        this.setPose(true);
+        setPose(true);
     }
 }

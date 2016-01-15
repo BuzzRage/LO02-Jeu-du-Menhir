@@ -94,7 +94,7 @@ public class Console extends Affichage{
         super.displayFinManche();
         message  ="Fin de la manche!\n";
         message += "Le meneur est le joueur "+meuneur.getNbr();
-        message +=" avec "+meuneur+" points!\n";
+        message +=" avec "+meuneur.getNbrPoints()+" points!\n";
         message +="\n";
         message +="Liste des joueurs: \n";
         
@@ -167,7 +167,6 @@ public class Console extends Affichage{
                     case 2:
                         bool = true;
                         break;
-                        
                 }        
             }
         }
@@ -184,15 +183,13 @@ public class Console extends Affichage{
      * 		Le classement des joueurs.
      */
     public void displayGagnant(ArrayList<Joueur> palmares){
-        System.out.println("Fin de partie!");
-        System.out.println("");
-        System.out.println("Palmarès: ");
+        message = "Fin de partie!\n\n";
+        message +="Palmarès:\n";
+        
         for(Joueur player : palmares){
-            System.out.println("Joueur "+player.getNbr()+": "+player.getNbrPoints()+" menhirs");
-            System.out.println();
+            message +="Joueur "+player.getNbr()+": "+player.getNbrPoints()+" menhirs\n";
         }
-        
-        
+        System.out.println(message);
     }
     
     /**
@@ -209,15 +206,16 @@ public class Console extends Affichage{
      * 		true si le joueur décide de réagir. false sinon.
      */
     public boolean displayReaction(){
-        System.out.print("Le joueur "+joueurActif.getNbr()+
-                " attaque le joueur "+joueurActif.getChoixJoueur().getCible().getNbr()+" !");
-        System.out.println(" Il veut voler "+joueurActif.getCarteAl().getEffet()+" graines.");
-        System.out.println("Joueur "+joueurActif.getChoixJoueur().getCible().getNbr()+
-                ", veux-tu utiliser ta carte Chien?");
-        System.out.println(joueurActif.getChoixJoueur().getCible().getCarteAl().toString());
-        System.out.println("La saison actuelle est: "+saisonActuelle.toString());
-        System.out.println("1. Oui");
-        System.out.println("2. Non");
+        message = "Le joueur "+joueurActif.getNbr()+
+                " attaque le joueur "+joueurActif.getChoixJoueur().getCible().getNbr()+" !\n";
+        message+= " Il veut voler "+joueurActif.getCarteAl().getEffet()+" graines.\n";
+        message+= "Joueur "+joueurActif.getChoixJoueur().getCible().getNbr()+
+                ", veux-tu utiliser ta carte Chien?\n";
+        message+= joueurActif.getChoixJoueur().getCible().getCarteAl().toString()+"\n";
+        message+= "La saison actuelle est: "+saisonActuelle.toString()+"\n";
+        message+= "1. Oui\n";
+        message+= "2. Non\n";
+        System.out.print(message);
         while(true){
             try{
                 boolean reaction = getReaction();
@@ -231,7 +229,6 @@ public class Console extends Affichage{
                 System.out.println(e.getMessage());
             }
         }
-        
     }
     
     /**
@@ -315,31 +312,24 @@ public class Console extends Affichage{
         System.out.println("1. Géant");
         System.out.println("2. Engrais");
         System.out.println("3. Farfadet");
-        System.out.println("0. Annuler");
         while(!continuer){
             try{
-                this.getchoixAction();
+                getchoixAction();
                 continuer = true;
             }
             catch(WrongNumberException | InputMismatchException e){
                     System.out.println(e.getMessage());
             }
-            catch(AnnulerException e){
-
-            }
-
         }
         continuer = false;
     }
-    private void getchoixAction() throws WrongNumberException, InputMismatchException,AnnulerException{
+    private void getchoixAction() throws WrongNumberException, InputMismatchException{
         int choix;
         TypeAction action = TypeAction.ENGRAIS;
         try{
             choix = sc.nextInt();
-            if(choix<0||choix >3)
-                throw new WrongNumberException("le nombre doit être comprit entre 0 et 3!");
-            else if(choix ==0)
-                throw new AnnulerException("");
+            if(choix<1||choix >3)
+                throw new WrongNumberException("le nombre doit être comprit entre 1 et 3!");
             else{
                 switch(choix){
                     case 1:
@@ -357,7 +347,7 @@ public class Console extends Affichage{
         }
         catch(InputMismatchException e){
             sc.nextLine();
-            throw new InputMismatchException("Entre un nombre comprit entre 0 et 3");
+            throw new InputMismatchException("Entre un nombre comprit entre 1 et 3");
         }
     }
        
@@ -382,7 +372,7 @@ public class Console extends Affichage{
         displayJoueursAdverses();
         while(!continuer){
             try{
-                this.getJoueurCible();
+                getJoueurCible();
                 continuer = true;
             }
             catch(WrongNumberException | InputMismatchException e){
@@ -474,7 +464,6 @@ public class Console extends Affichage{
                     System.out.println(e.getMessage());
                 }    
             }
-        
     }
     private ChoixFinPartie getChoixFinPartie()throws WrongNumberException, InputMismatchException{
         int choix;
@@ -500,11 +489,9 @@ public class Console extends Affichage{
         catch (InputMismatchException e){
             sc.nextLine();
             throw new InputMismatchException("Entre en chiffre comprit entre 1 et 3");
-            
         }
        return choixFinPartie;
     }
-    
     
     /**
      * Demande à l'utilisateur de rentrer le nombre de joueurs.

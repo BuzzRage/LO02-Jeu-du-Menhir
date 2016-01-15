@@ -7,17 +7,15 @@ package core;
  * La méthode decider paramètre le ChoixJoueur du JoueurIA, en définissant une cible, une carte et une action.<br>
  *
  */
-public class AggressiveStrat extends Strat{
+public class AggressiveStrat extends Strategy{
     /**
      * @see core.Strategy#decider(core.Joueur)
      */
     public void decider(Joueur jIA){
         if(saisonActuelle==TypeSaison.PRINTEMPS)
         {
-            
             jIA.getChoixJoueur().setCarte(jIA.getCarteMax(TypeAction.GEANT));
             jIA.getChoixJoueur().setAction(TypeAction.GEANT);
-            
         }
         else if(jIA.getNbrGraines()==0)
         {		
@@ -30,14 +28,10 @@ public class AggressiveStrat extends Strat{
             jIA.getChoixJoueur().setAction(TypeAction.ENGRAIS);
             jIA.getChoixJoueur().setCarte(jIA.getCarteMax(TypeAction.ENGRAIS,jIA.getNbrGraines()));            
         }
-        else if(saisonActuelle==TypeSaison.HIVER){
-            
+        else{
         	jIA.getChoixJoueur().setAction(TypeAction.ENGRAIS);
         	jIA.getChoixJoueur().setCarte(jIA.getCarte(0));
         }
-            
-        
-        
     }
     
     /**

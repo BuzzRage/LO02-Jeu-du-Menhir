@@ -1,5 +1,7 @@
 package core;
 
+
+
 /**
  * Cette classe débute le programme. Elle contient la méthode main().
  *
