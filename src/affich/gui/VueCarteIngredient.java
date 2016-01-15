@@ -1,16 +1,35 @@
 package affich.gui;
-import java.awt.*; 
-import javax.swing.*;
-import java.awt.event.*;
-import java.util.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Insets;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
+
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
+
 import core.CarteIngredient;
 import core.TypeAction;
 import core.TypeCarte;
 import core.TypeSaison;
 
 /**
- *
- * 
+ * Cette classe représente graphiquement une CarteIngredient. Elle hérite de JPanel et implémente ActionListener et Observer.<br>
+ *  <code>private ImageIcon img;</code> est l'image de la carte représenté.<br>
+ *  <code>private Image background;</code> est le fond de la carte représenté.<br>
+ *  <code>private final int transparence = 40;</code> est la transparence du curseur sur la saison en cours.<br>
+ *  <code>private final MBouton engrais,geant,farfadet;</code> sont les boutons associés aux actions de la carte.<br>
+ *  <code>private final int ratio = 2;</code> est le rapport de la taille de l'image dans l'interface graphique par rapport à la taille de l'image réel.<br>
+ *  <code>private final JPanel boutons;</code> est le container des MBouton engrais,geant,farfadet.<br>
+ *  <code>private TypeSaison saisonActuelle;</code> représente la saison en cours.<br>
  */
 public class VueCarteIngredient extends JPanel implements ActionListener,Observer{    
     private ImageIcon img;
@@ -69,6 +88,7 @@ public class VueCarteIngredient extends JPanel implements ActionListener,Observe
        add(boutons, gbc);
         
     }
+    
     public MBouton getBoutonEngrais(){
         return engrais;
     }
@@ -78,11 +98,22 @@ public class VueCarteIngredient extends JPanel implements ActionListener,Observe
     public MBouton getBoutonFarfadet(){
         return farfadet;
     }
+    
+    /**	Rend les MBouton geant, engrais et farfadet actif ou inactif.
+     * @param en
+     * 		Si en vaut true, les boutons seront actifs. Sinon ils seront inactifs.
+     */
     public void setBoutonsEnabled(boolean en){
         geant.setEnabled(en);
         engrais.setEnabled(en);
         farfadet.setEnabled(en);
     }
+    
+    /**
+     * Modifie la CarteIngredient représenté graphiquement par la vue.
+     * @param carteIng
+     * 		La nouvelle carte à représenter.
+     */
     public void setCarteIng(CarteIngredient carteIng){
         
         img = new ImageIcon(carteIng.getTypeCarte().getImageUrl());
@@ -104,6 +135,12 @@ public class VueCarteIngredient extends JPanel implements ActionListener,Observe
         boutons.setVisible(true);
         repaint();
     }
+    
+    
+    /** 
+     * Retourne graphiquement la carte après que le joueur ait choisi son action et désactive la visibilité des boutons associés.
+     * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+     */
     public void actionPerformed(ActionEvent event){
         
         String imageUrl = TypeCarte.DOS_INGREDIENT.getImageUrl();
@@ -113,6 +150,11 @@ public class VueCarteIngredient extends JPanel implements ActionListener,Observe
         repaint();
         
     }
+    
+    /**
+     * Redéfinition de paintComponent. La méthode applique une image à l'objet et déplace le curseur rouge en surbrillance sur la saison en cours.
+     * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
+     */
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         int x=this.getWidth()/2-img.getIconWidth()/(2*ratio)+1;
@@ -129,9 +171,9 @@ public class VueCarteIngredient extends JPanel implements ActionListener,Observe
             int largeur=30/ratio;
             int hauteur=176/ratio;
             g.fillRect(a, b, largeur, hauteur);
-        }
-        
+        }   
     }
+    
     public void update(Observable obs, Object o){
 
         if(obs instanceof CarteIngredient){

@@ -1,8 +1,4 @@
 package core;
-import java.util.Scanner;
-import affich.*;
-import affich.gui.*;
-import javax.swing.JFrame;
 
 /**
  * Cette classe débute le programme. Elle contient la méthode main().

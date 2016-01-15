@@ -1,8 +1,5 @@
 package core;
 
-import java.util.Observable;
-import java.lang.Math;
-
 /**
  * La classe JoueurIA possède un attribut de type Strategy permettant de définir le JoueurIA comme aggressif ou défensif.<br>
  * Son comportement est ainsi impacté par le type de Strategy qu'il possède. Ce type est défini dans le constructeur de manière aléatoire mais équiprobable.

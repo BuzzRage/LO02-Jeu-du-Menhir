@@ -1,8 +1,20 @@
 package affich.console;
-import MenhirExceptions.*;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Scanner;
+
+import MenhirExceptions.AnnulerException;
+import MenhirExceptions.WrongNumberException;
 import affich.Affichage;
-import core.*;
-import java.util.*;
+import core.CarteChien;
+import core.CarteIngredient;
+import core.CarteTaupe;
+import core.ChoixFinPartie;
+import core.ChoixJoueur;
+import core.Joueur;
+import core.TypeAction;
 
 
 /**

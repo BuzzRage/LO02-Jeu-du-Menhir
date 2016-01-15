@@ -1,11 +1,10 @@
 package core;
-import affich.console.Console;
-import affich.Affichage;
-import affich.gui.*;
-import java.util.Observable;
-import MenhirExceptions.WrongNumberException;
-import java.util.InputMismatchException;
 import java.util.LinkedList;
+import java.util.Observable;
+
+import affich.Affichage;
+import affich.console.Console;
+import affich.gui.Gui;
 
 public class Jeu extends Observable{
     

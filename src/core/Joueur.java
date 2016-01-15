@@ -1,6 +1,9 @@
 package core;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Observable;
+import java.util.Observer;
 /**
  * La classe Joueur modélise les aspects invariants du JoueurHumain et du JoueurIA.<br>
  * A l'instanciation, on définit l'attribut <code>humain</code> par un booléen à <code>true</code> si le Joueur est humain, et <code>false</code> sinon.<br>
@@ -50,7 +53,7 @@ public abstract class Joueur extends Observable implements Observer{
         this.nbr = Joueur.nbrJoueurs;
         
     }
-    /* Getter et setters */
+    
     public int getNbrPoints(){
     	return nbrPoints;
     }

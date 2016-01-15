@@ -37,7 +37,7 @@ public enum TypeCarte {
     DOS_INGREDIENT("DosCarteIngredient.png"),
     DOS_ALLIE("DosCarteAllie.png");
 
-    private static String location="src/images/";
+    private static String location="images/";
     private String imageUrl;
     TypeCarte(String url){
         imageUrl = url;

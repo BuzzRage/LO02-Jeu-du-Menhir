@@ -1,12 +1,27 @@
 package affich.gui;
-import java.awt.*; 
-import javax.swing.*;
-import java.awt.event.*;
-import java.util.*;
-import core.*;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import core.CarteIngredient;
+import core.Joueur;
+import core.TypeSaison;
 
 /**
  *
+ *  La classe Fenetre est une classe qui hérite de Jframe.<br>
+ *  Elle est munie des fonctions de bases nécessaires à l'affichage graphique des cartes ingrédients et des vues joueurs.<br>
+ *  Elle possède les attributs suivants:<br>
+ *  <code>private JPanel content,est,ouest,nord, sud;</code> sont les containers de la fenètre.<br>
+ *  <code>private ArrayList&lsaquo;VueCarteIngredient&rsaquo; vueMain = new ArrayList&lsaquo;&rsaquo;();</code> est une collection de <code>VueCarteIngredient</code> qui représente la main d'un joueur.<br>
+ *  <code>private ArrayList&lsaquo;VueJoueur&rsaquo; vueJoueurs = new ArrayList&lsaquo;&rsaquo;();</code> est une collection de <code>VueJoueurs</code> qui représente les  joueurs de la Partie.<br>
+ *  <code>private JLabel saison;</code> est un label permettant d'afficher la saison en cours.
  *
  */
 public class Fenetre extends JFrame{
@@ -52,8 +67,13 @@ public class Fenetre extends JFrame{
         this.setVisible(true);
     }
 
+    
+    /**
+     * Paramètre vueMain en lui reparamètrant les cartes qu'elle représente.<br>   
+     * @param deck
+     * 		Le deck remplaçant les cartes représentées par la vue.
+     */
     public void setMain(LinkedList<CarteIngredient> deck){
-        
         Iterator<CarteIngredient> it = deck.iterator();
         for(Iterator<VueCarteIngredient> iter = vueMain.iterator();iter.hasNext();){
             VueCarteIngredient vueCarte = iter.next();
@@ -61,11 +81,22 @@ public class Fenetre extends JFrame{
         }
         revalidate();
     }
+    /**
+     * Paramètre la saison en cours.
+     * @param typeSaison
+     * 		La saison voulue.
+     */
     public void setSaison(TypeSaison typeSaison){
         saison.setText("Saison actuelle : "+typeSaison.toString());
         revalidate();
         repaint();
     }
+    
+    /**
+     * Paramètre et affiche la liste des VueJoueur en lui reparamètrant les joueurs qu'elle représente.<br> 
+     * @param listeJoueurs
+     * 		La liste de joueurs que l'on veut représenter.
+     */
     public void setJoueurs(ArrayList<Joueur> listeJoueurs){
         getContentPane().remove(nord);
         getContentPane().remove(sud);
@@ -76,7 +107,7 @@ public class Fenetre extends JFrame{
         nord = new JPanel();
         sud = new JPanel();
         
-        vueJoueurs= new ArrayList<>();
+        vueJoueurs = new ArrayList<>();
         
         for(Iterator<Joueur> it = listeJoueurs.iterator();it.hasNext();){
             Joueur j = it.next();
@@ -141,6 +172,10 @@ public class Fenetre extends JFrame{
         revalidate();
     }
     
+    /**
+     * 	Renvoie la vueMain de la fenêtre.
+     * @return La liste des VueCartesIngredients.
+     */
     public ArrayList<VueCarteIngredient> getVuesCarteIng(){
         return vueMain;
     }

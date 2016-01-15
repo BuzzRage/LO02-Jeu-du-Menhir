@@ -1,7 +1,8 @@
 package core;
 
-import affich.Affichage;
 import java.util.Observable;
+
+import affich.Affichage;
 
 /**
  * La classe JoueurHumain interagit avec l'affichage (qui peut être une affich ou une interface graphique).

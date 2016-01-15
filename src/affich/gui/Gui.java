@@ -1,10 +1,21 @@
 package affich.gui;
-import affich.*;
-import core.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import javax.swing.*;
-import java.util.*;
-import java.awt.event.*;
+import java.util.Iterator;
+import java.util.Observable;
+
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+
+import affich.Affichage;
+import core.CarteChien;
+import core.ChoixFinPartie;
+import core.Joueur;
+import core.JoueurHumain;
+import core.Partie;
+import core.TypeAction;
 
 /**
  * La classe GUI permet d'afficher du texte à l'écran dans une boite de dialogue, les Cartes du jeu, les Joueurs etc..<br>
@@ -53,6 +64,9 @@ public class Gui extends Affichage implements ActionListener{
         return instance;
     }
     
+    /**
+     * @see affich.Affichage#init()
+     */
     public void init(){
         fen.setJoueurs(listeJoueurs);
     }

@@ -1,6 +1,5 @@
 package core;
 
-import java.util.*;
 import affich.Affichage;
 
 public class PartieAvancee extends Partie {

@@ -1,14 +1,17 @@
 package affich.gui;
-import javax.swing.*;
-
-import core.Joueur;
-
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.JPanel;
+import javax.swing.JTable;
+
+import core.Joueur;
+
 /**
- *
- *
+ * Cette classe représente graphiquement une VueJoueur. Elle hérite de JPanel et implémente Observer.<br>
+ *  <code>private Object[][] data;</code> contient les données du joueurs (numéro, points, graines et menhirs).<br>
+ *  <code>private JTable table;</code> sert à créer un tableau remplit par <code>data</code>.<br>
+ *  <code>Joueur joueur;</code> est le joueur à représenter.<br>
  */
 public class VueJoueur extends JPanel implements Observer{
     
@@ -44,7 +47,7 @@ public class VueJoueur extends JPanel implements Observer{
             joueur.deleteObserver(this);
         }
         catch(NullPointerException e){
-            e.printStackTrace();
+            
         }
         joueur =j;
         joueur.addObserver(this);

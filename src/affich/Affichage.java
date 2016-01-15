@@ -1,8 +1,15 @@
 package affich;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.Observable;
+import java.util.Observer;
 
-import core.*;
+import core.ChoixFinPartie;
+import core.Joueur;
+import core.Partie;
+import core.TypeAction;
+import core.TypeSaison;
 
 /**
  *  La classe Affichage est une classe abstraite qui Observe la Partie.<br>
@@ -25,6 +32,9 @@ public abstract class Affichage implements Observer {
     protected final int NB_J_MAX = 6;
     protected String message;
     
+    /**
+     * Initialise l'affichage.
+     */
     public abstract void init();
     
     /**
