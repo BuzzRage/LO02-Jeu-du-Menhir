@@ -99,7 +99,6 @@ public class VueCarteIngredient extends JPanel implements ActionListener,Observe
             farfadet.getCarte().deleteObserver(this);
         }
         catch(NullPointerException e){
-            System.out.println(e.getMessage());
         }
         
         geant.setCarte(carteIng);

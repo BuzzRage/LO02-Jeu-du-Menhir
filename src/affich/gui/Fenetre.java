@@ -31,7 +31,8 @@ public class Fenetre extends JFrame{
         content = new JPanel();
         saison=new JLabel("Saison actuelle : "+TypeSaison.PRINTEMPS.toString());
         this.setTitle("Jeu du Menhir");
-        this.setSize(1200, 600);
+        this.setSize(1000, 600);
+        this.setMinimumSize(new Dimension(1000,600));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setLayout(new BorderLayout());
