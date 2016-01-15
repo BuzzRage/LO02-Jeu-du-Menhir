@@ -1,22 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package affich.gui;
 import javax.swing.*;
-import java.awt.*;
-import java.net.URL;
 import java.io.*;
-import java.net.MalformedURLException;
 import java.awt.event.*;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import core.*;
+
 /**
  *
- * @author Apache
  */
 public class MBouton extends JButton implements MouseListener{
     private static String location="src/sons/";

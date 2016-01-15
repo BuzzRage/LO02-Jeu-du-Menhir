@@ -1,14 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package affich.gui;
 import affich.*;
 import core.*;
 import java.util.ArrayList;
 import javax.swing.*;
-import java.awt.*;
 import java.util.*;
 import java.awt.event.*;
 
@@ -85,7 +79,6 @@ public class Gui extends Affichage implements ActionListener{
         
     }
     private int getNumber(Object message,String title,Object[] options,Object initialSelected){
-        //boolean continuer=false;
         while(true){
             Object result = JOptionPane.showInputDialog(fen, 
                      message, title,

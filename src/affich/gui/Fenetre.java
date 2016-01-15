@@ -1,17 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package affich.gui;
 import java.awt.*; 
 import javax.swing.*;
 import java.awt.event.*;
 import java.util.*;
 import core.*;
+
 /**
  *
- * @author Apache
+ *
  */
 public class Fenetre extends JFrame{
     private JPanel content,est,ouest,nord, sud;

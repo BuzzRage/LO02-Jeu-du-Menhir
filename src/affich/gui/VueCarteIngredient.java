@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package affich.gui;
 import java.awt.*; 
 import javax.swing.*;
@@ -12,9 +7,10 @@ import core.CarteIngredient;
 import core.TypeAction;
 import core.TypeCarte;
 import core.TypeSaison;
+
 /**
  *
- * @author Apache
+ * 
  */
 public class VueCarteIngredient extends JPanel implements ActionListener,Observer{    
     private ImageIcon img;
@@ -26,8 +22,6 @@ public class VueCarteIngredient extends JPanel implements ActionListener,Observe
     private TypeSaison saisonActuelle;
     
     public VueCarteIngredient(){
-	//this.carte=carte;
-	//this.carte.addObserver(this);
         saisonActuelle = TypeSaison.PRINTEMPS;
         img = new ImageIcon(TypeCarte.DOS_INGREDIENT.getImageUrl());
         background = Toolkit.getDefaultToolkit().getImage(TypeCarte.DOS_INGREDIENT.getImageUrl());
@@ -99,7 +93,6 @@ public class VueCarteIngredient extends JPanel implements ActionListener,Observe
             farfadet.getCarte().deleteObserver(this);
         }
         catch(NullPointerException e){
-            System.out.println(e.getMessage());
         }
         
         geant.setCarte(carteIng);
