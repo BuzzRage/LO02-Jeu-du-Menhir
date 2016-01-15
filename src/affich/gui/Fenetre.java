@@ -84,7 +84,7 @@ public class Fenetre extends JFrame{
             Joueur j = it.next();
             VueJoueur vueJoueur = new VueJoueur(j);
             
-            this.vueJoueurs.add(vueJoueur);
+            vueJoueurs.add(vueJoueur);
             vueJoueur.setJoueur(j);
         }
         
@@ -133,10 +133,10 @@ public class Fenetre extends JFrame{
             ouest.setVisible(true);
         }
         
-        this.getContentPane().add(est,BorderLayout.EAST);
-        this.getContentPane().add(ouest,BorderLayout.WEST);
-        this.getContentPane().add(nord,BorderLayout.NORTH);
-        this.getContentPane().add(sud,BorderLayout.SOUTH);
+        getContentPane().add(est,BorderLayout.EAST);
+        getContentPane().add(ouest,BorderLayout.WEST);
+        getContentPane().add(nord,BorderLayout.NORTH);
+        getContentPane().add(sud,BorderLayout.SOUTH);
         
         revalidate();
     }

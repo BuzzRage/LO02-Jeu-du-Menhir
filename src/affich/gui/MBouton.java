@@ -20,14 +20,14 @@ public class MBouton extends JButton implements MouseListener{
         this("",action);
     }
     
-    public MBouton(String str, TypeAction action){
+    public MBouton(String str, TypeAction act){
         super(str);
-        this.setBorderPainted(false);
-        this.action=action;
+        setBorderPainted(false);
+        action=act;
         file = new File(location+action.getUrl());
-        this.addMouseListener(this);
-        this.setOpaque(false);
-        this.setContentAreaFilled(false);
+        addMouseListener(this);
+        setOpaque(false);
+        setContentAreaFilled(false);
         
     }
     
@@ -52,18 +52,18 @@ public class MBouton extends JButton implements MouseListener{
     public TypeAction getTypeAction(){
         return action;
     }
-    public void setCarte(CarteIngredient carte){
-        this.carte = carte;
+    public void setCarte(CarteIngredient c){
+        carte = c;
     }
     
    
     @Override
     public void mouseExited(MouseEvent event){
-        this.setBorderPainted(false);
+        setBorderPainted(false);
     }
     @Override
     public void mouseEntered(MouseEvent event){
-        this.setBorderPainted(true);
+        setBorderPainted(true);
     }
     @Override
     public void mouseReleased(MouseEvent event){}

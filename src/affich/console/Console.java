@@ -302,7 +302,7 @@ public class Console extends Affichage{
         System.out.println("3. Farfadet");
         while(!continuer){
             try{
-                this.getchoixAction();
+                getchoixAction();
                 continuer = true;
             }
             catch(WrongNumberException | InputMismatchException e){
@@ -360,7 +360,7 @@ public class Console extends Affichage{
         displayJoueursAdverses();
         while(!continuer){
             try{
-                this.getJoueurCible();
+                getJoueurCible();
                 continuer = true;
             }
             catch(WrongNumberException | InputMismatchException e){

@@ -14,20 +14,19 @@ public abstract class CarteAllie extends Carte{
         this.effet[0] = effet;
     }
     
-    
     /**
      * Renvoie la valeur de l'effet de la carte en fonction de la saison en cours.
      * @return L'effet de la carte.
      */
     public int getEffet(){
-        return this.effet[0][saisonActuelle.toInteger()];
+        return effet[0][saisonActuelle.toInteger()];
     }
     
     /**
      * @see core.Carte#getEffet(core.TypeAction, core.TypeSaison)
      */
     public int getEffet(TypeAction a,TypeSaison s){
-        return this.effet[0][s.toInteger()];
+        return effet[0][s.toInteger()];
     }
 
     /**
@@ -38,14 +37,12 @@ public abstract class CarteAllie extends Carte{
     public String toString(){
         String str;
         str="p   e   a   h\n";
-        for(int j=0;j<this.effet[0].length;j++)
+        for(int j=0;j<effet[0].length;j++)
             {
                 str+= effet[0][j] +"   ";
             }
         return str;
     }
-    
-    
     
     /**
      * Joue la CarteAlliée. <br>

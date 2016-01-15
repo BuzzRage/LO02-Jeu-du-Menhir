@@ -170,7 +170,7 @@ public class Gui extends Affichage implements ActionListener{
         fen.revalidate();
         fen.repaint();
         title = "Action effectuée";
-        this.messageBox(message, title);
+        messageBox(message, title);
         
     }
     
@@ -184,7 +184,7 @@ public class Gui extends Affichage implements ActionListener{
         message = "Veux tu obtenir 2 graines ou une carte Allié?";
         options[0]="Carte Allié";
         options[1]="2 Graines";
-        return this.getYesOrNo(message, title, options, options[0]);
+        return getYesOrNo(message, title, options, options[0]);
                 
     }
     
@@ -227,8 +227,8 @@ public class Gui extends Affichage implements ActionListener{
     @Override
     public void displayNbManche(){
         title = "Numéro de la manche";
-        message = "Début de la manche "+ this.nbMancheActuelle;
-        this.messageBox(message, title);
+        message = "Début de la manche "+ nbMancheActuelle;
+        messageBox(message, title);
         fen.setMain(utilisateur.getCartes());
         fen.revalidate();
         fen.repaint();
@@ -306,7 +306,7 @@ public class Gui extends Affichage implements ActionListener{
         for(int i = 0;i<NB_J_MAX-1;i++){
             options[i]= (i+2)+" Joueurs";
         }
-        return this.getNumber(message, title, options, options[0]);
+        return getNumber(message, title, options, options[0]);
     }
     
     /**
@@ -319,7 +319,7 @@ public class Gui extends Affichage implements ActionListener{
         message = "Quel type de partie souhaites-tu?";
         options[0]="Avancee";
         options[1]="Rapide";
-        return this.getYesOrNo(message, title, options, options[1]);
+        return getYesOrNo(message, title, options, options[1]);
     }
     
     /**
@@ -331,7 +331,7 @@ public class Gui extends Affichage implements ActionListener{
         title = "Choix de la cible";
         message = "Qui souhaites-tu attaquer?";
         int i = 0;
-        for(Iterator<Joueur> it = this.listeJoueurs.iterator();it.hasNext();){
+        for(Iterator<Joueur> it = listeJoueurs.iterator();it.hasNext();){
             Joueur j = it.next();
             if(!joueurActif.equals(j)){
                 items[i]=j;

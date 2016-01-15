@@ -34,9 +34,9 @@ public class VueJoueur extends JPanel implements Observer{
         table = new JTable(data,title);
         table.setEnabled(false);
         
-        this.add(table);
-        this.setSize(100, 20);
-        this.setVisible(true);
+        add(table);
+        setSize(100, 20);
+        setVisible(true);
         repaint();
     }
     public void setJoueur(Joueur j){
@@ -44,7 +44,6 @@ public class VueJoueur extends JPanel implements Observer{
             joueur.deleteObserver(this);
         }
         catch(NullPointerException e){
-            e.printStackTrace();
         }
         joueur =j;
         joueur.addObserver(this);

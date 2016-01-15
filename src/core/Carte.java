@@ -17,9 +17,9 @@ public abstract class Carte extends Observable implements Jouable,Observer{
     private final TypeCarte type;
     protected static TypeSaison saisonActuelle;
 
-    public Carte(TypeCarte type) {
-        this.pose = false;
-        this.type=type;
+    public Carte(TypeCarte t) {
+        pose = false;
+        type=t;
         Carte.saisonActuelle=TypeSaison.PRINTEMPS;
     }
     
@@ -29,7 +29,7 @@ public abstract class Carte extends Observable implements Jouable,Observer{
      * @return true si la carte a déjà été jouée. false sinon.
      */
     public boolean isPose(){
-        return this.pose;
+        return pose;
     }
     
     /**
@@ -52,7 +52,7 @@ public abstract class Carte extends Observable implements Jouable,Observer{
      * @return L'effet de la carte.
      */
     public int getEffet(TypeAction a){
-        return this.effet[a.toInteger()][saisonActuelle.toInteger()];
+        return effet[a.toInteger()][saisonActuelle.toInteger()];
     }
     
     /**
@@ -64,7 +64,7 @@ public abstract class Carte extends Observable implements Jouable,Observer{
      * @return L'effet de la carte.
      */
     public int getEffet(TypeAction a,TypeSaison s){
-        return this.effet[a.toInteger()][s.toInteger()];
+        return effet[a.toInteger()][s.toInteger()];
     }
     
     /**
@@ -74,7 +74,7 @@ public abstract class Carte extends Observable implements Jouable,Observer{
      */
     public void setPose(boolean b)
     {
-        this.pose=b;
+        pose=b;
     }
     
     public void update(Observable o,Object arg){

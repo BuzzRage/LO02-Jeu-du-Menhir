@@ -32,7 +32,6 @@ public class AggressiveStrat extends Strat{
         	jIA.getChoixJoueur().setAction(TypeAction.ENGRAIS);
         	jIA.getChoixJoueur().setCarte(jIA.getCarte(0));
         }
-            
     }
     
     /**

@@ -60,12 +60,12 @@ public class VueCarteIngredient extends JPanel implements ActionListener,Observe
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         
-       gbc.gridx=0;
-       gbc.gridy=0;
+        gbc.gridx=0;
+        gbc.gridy=0;
        
-       gbc.gridheight=1;
-       gbc.gridwidth=1;
-       gbc.insets = new Insets(((img.getIconHeight()+20)/(2*ratio)),0,0,0);
+        gbc.gridheight=1;
+        gbc.gridwidth=1;
+        gbc.insets = new Insets(((img.getIconHeight()+20)/(2*ratio)),0,0,0);
        add(boutons, gbc);
         
     }
@@ -115,8 +115,8 @@ public class VueCarteIngredient extends JPanel implements ActionListener,Observe
     }
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-        int x=this.getWidth()/2-img.getIconWidth()/(2*ratio)+1;
-        int y=this.getHeight()/2-img.getIconHeight()/(2*ratio);
+        int x=getWidth()/2-img.getIconWidth()/(2*ratio)+1;
+        int y=getHeight()/2-img.getIconHeight()/(2*ratio);
         int width=img.getIconWidth()/ratio;
         int height=img.getIconHeight()/ratio;
         
@@ -145,5 +145,4 @@ public class VueCarteIngredient extends JPanel implements ActionListener,Observe
             }
         }
     }
-    
 }
