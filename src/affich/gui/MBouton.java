@@ -11,7 +11,7 @@ import core.*;
  *
  */
 public class MBouton extends JButton implements MouseListener{
-    private static String location="src/sons/";
+    private static String location="sons/";
     private File file;
     private final TypeAction action;
     private CarteIngredient carte; 
